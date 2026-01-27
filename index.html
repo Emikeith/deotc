@@ -3,136 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EOTC Church Portal</title>
+    <title>EOTC Church</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
     <div class="logo-container"><img src="logo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/80?text=LOGO'"></div>
-    <h1 style="margin:0; font-size: 1.4rem;">የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያን</h1>
-    <div style="color: var(--gold); font-weight: bold; font-size: 0.9rem; text-transform: uppercase;">Ethiopian Orthodox Tewahedo Church</div>
+    <h1 style="margin:0; font-size: 1.5rem;">የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያን</h1>
+    <div style="color: var(--gold); font-weight: bold; font-size: 0.9rem;">ETHIOPIAN ORTHODOX TEWAHEDO CHURCH</div>
 </header>
+
+<div class="scroll-wrapper">
+    <div class="scroll-container" id="scroller"></div>
+</div>
 
 <nav>
     <button class="menu-toggle" onclick="toggleMenu()">☰ MENU / ማውጫ</button>
     <ul class="menu-container" id="menu">
         <li class="nav-item">
-            <a class="nav-link" onclick="toggleSub(this)">Home / ዋና ገጽ ▾</a>
+            <a class="nav-link" onclick="toggleSub(this)">Home / ዋና ገጽ</a>
             <div class="dropdown">
                 <a onclick="goTo('home-main')">Main Home</a>
                 <a onclick="goTo('about-us')">About Us</a>
-                <a onclick="goTo('clergy')">Clergy</a>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" onclick="toggleSub(this)">Ministries / ክፍሎች ▾</a>
+            <a class="nav-link" onclick="toggleSub(this)">Sunday School / ሰንበት ትምህርት ቤት</a>
             <div class="dropdown">
-                <a onclick="goTo('min-hub')">Ministry Hub</a>
-                <a onclick="goTo('sunday-school')">Sunday School</a>
+                <a onclick="goTo('sunday-school')">Classes & Registration</a>
+                <a onclick="goTo('volunteers')">Our Volunteers</a>
             </div>
         </li>
-        <li class="nav-item"><a class="nav-link" onclick="goTo('calendar')">Calendar / መርሃ ግብር</a></li>
-        <li class="nav-item"><a class="nav-link" onclick="goTo('gallery')">Gallery / ፎቶዎች</a></li>
-        <li class="nav-item"><a class="nav-link" onclick="goTo('payment')">Payment / መዋጮ</a></li>
-        <li class="nav-item"><a class="nav-link" onclick="goTo('contact')">Contact / መገናኛ</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="goTo('gallery')">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="goTo('payment')">Donations</a></li>
     </ul>
 </nav>
 
 <section id="home-main" class="page active">
-    <div id="date-header" class="card" style="text-align:center; font-weight:bold; border: 2px solid var(--gold); border-left:none;">Loading...</div>
-    <div class="card" style="padding:0; overflow:hidden; border-left:none;">
-        <iframe id="google-cal" src="" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
-    </div>
-</section>
-
-<section id="calendar" class="page">
-    <div class="card"><h2>Upcoming Schedules / መጪ መርሃ ግብሮች</h2><div id="events-list"></div></div>
-</section>
-
-<section id="gallery" class="page">
-    <div class="card"><h2>Photo Gallery / ፎቶዎች</h2><div id="gallery-grid" class="gallery-grid"></div></div>
+    <div id="date-header" class="card" style="text-align:center; font-weight:bold; border-top: 4px solid var(--gold);"></div>
+    <div class="grid" id="notice-cards"></div>
+    <div class="card" style="padding:0; overflow:hidden;"><iframe id="google-cal" width="100%" height="500" frameborder="0"></iframe></div>
 </section>
 
 <section id="sunday-school" class="page">
-    <div class="card">
-        <h2>Sunday School / ሰንበት ትምህርት ቤት</h2>
-        <p id="ss-intro"></p>
-        <div id="ss-groups" class="grid" style="margin-bottom:25px;"></div>
-        <div class="card" style="border:1px solid #eee;">
-            <h3>Register Student / ተማሪ መዝግብ</h3>
-            <form id="ssForm" method="POST">
-                <div class="form-group"><label>Name</label><input type="text" name="student_name" required></div>
-                <button type="submit" class="submit-btn">Register</button>
-            </form>
-        </div>
+    <h2 style="text-align:center; color:var(--red);">Sunday School Program</h2>
+    <p id="ss-intro" style="text-align:center;"></p>
+    <div id="ss-groups-container"></div>
+    <div style="text-align:center; margin-top:30px;">
+        <a id="child-link" href="#" target="_blank" class="ss-btn btn-child">Student Registration</a>
+        <a id="vol-link" href="#" target="_blank" class="ss-btn btn-volunteer">Volunteer Sign-up</a>
     </div>
 </section>
 
-<section id="payment" class="page">
-    <div class="card" style="text-align:center;">
-        <h2 id="donate-title"></h2>
-        <p id="donate-desc"></p>
-        <a id="paypal-link" href="#" class="paypal-button">Donate with PayPal</a>
-        <div id="other-pay" style="margin-top:20px; font-size:0.9rem;"></div>
-    </div>
+<section id="volunteers" class="page">
+    <h2 style="text-align:center; color:var(--red);">Our Servants</h2>
+    <div id="volunteer-list" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));"></div>
 </section>
 
-<section id="contact" class="page">
-    <div class="card">
-        <h2>Contact Us / ያግኙን</h2>
-        <p><strong>Phone:</strong> <span id="c-phone"></span></p>
-        <p><strong>Address:</strong> <span id="c-addr"></span></p>
-        <iframe id="c-map" src="" width="100%" height="300" style="border:0; border-radius:8px;"></iframe>
-    </div>
-</section>
+<section id="gallery" class="page"><div class="card"><h2>Gallery</h2><div id="gallery-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:10px;"></div></div></section>
+<section id="payment" class="page"><div class="card" style="text-align:center;"><h2>Donations</h2><a id="pp-link" href="#" class="ss-btn btn-child">Donate via PayPal</a><p id="zelle-info"></p></div></section>
+<section id="about-us" class="page"><div class="card"><h2>About Our Church</h2><p>Serving the community with faith and love.</p></div></section>
 
-<section id="about-us" class="page"><div class="card"><h2>About Us / ስለ እኛ</h2><p>Content coming soon...</p></div></section>
-<section id="clergy" class="page"><div class="card"><h2>Clergy / አገልጋዮች</h2><div id="clergy-list"></div></div></section>
-<section id="min-hub" class="page"><div class="card"><h2>Ministries / አገልግሎቶች</h2><div id="ministry-grid" class="grid"></div></div></section>
+
 
 <script src="content.js"></script>
 <script>
     function toggleMenu() { document.getElementById('menu').classList.toggle('show'); }
-    function toggleSub(el) { if(window.innerWidth <= 800) el.nextElementSibling.classList.toggle('open'); }
-    function goTo(id) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        document.getElementById('menu').classList.remove('show');
-        window.scrollTo(0,0);
-    }
-
-    function updateDates() {
-        const now = new Date();
-        const amMonths = ["መስከረም", "ጥቅምት", "ኅዳር", "ታኅሣሥ", "ጥር", "የካቲት", "መጋቢት", "ሚያዝያ", "ግንቦት", "ሰኔ", "ሐምሌ", "ነሐሴ", "ጳጉሜ"];
-        const refDate = new Date(2025, 8, 11);
-        const diff = Math.floor((now - refDate) / 86400000);
-        let year = 2018; let dCount = diff;
-        if (dCount < 0) { year = 2017; dCount = 365 + dCount; }
-        let mIdx = Math.floor(dCount / 30); let day = (dCount % 30) + 1;
-        if (mIdx >= 12) { mIdx = 12; day = (dCount - 360) + 1; }
-        document.getElementById('date-header').innerHTML = `${now.toDateString()} | ዛሬ፡ ${amMonths[mIdx]} ${day}, ${year} ዓ.ም`;
-    }
+    function toggleSub(el) { el.parentElement.classList.toggle('open-menu'); let d = el.nextElementSibling; d.style.display = d.style.display === "block" ? "none" : "block"; }
+    function goTo(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById('menu').classList.remove('show'); window.scrollTo(0,0); }
 
     function render() {
-        document.getElementById('google-cal').src = ChurchData.googleCalendarURL;
-        document.getElementById('events-list').innerHTML = ChurchData.upcomingEvents.map(e => `<div class="event-item"><div class="event-date">${e.month}<br>${e.day}</div><div><b>${e.title}</b><p>${e.details}</p></div></div>`).join('');
-        document.getElementById('gallery-grid').innerHTML = ChurchData.galleryPhotos.map(p => `<div class="gallery-item"><img src="${p.url}"></div>`).join('');
-        document.getElementById('ss-intro').innerText = ChurchData.sundaySchool.intro;
-        document.getElementById('ss-groups').innerHTML = ChurchData.sundaySchool.ageGroups.map(g => `<div class="card" style="border:1px dashed var(--gold); text-align:center;"><h4>${g.group}</h4><p>${g.focus}</p></div>`).join('');
-        document.getElementById('ssForm').action = `https://formspree.io/f/${ChurchData.sundaySchool.registrationID}`;
-        document.getElementById('donate-title').innerText = ChurchData.donations.title;
-        document.getElementById('donate-desc').innerText = ChurchData.donations.description;
-        document.getElementById('paypal-link').href = ChurchData.donations.paypalLink;
-        document.getElementById('other-pay').innerHTML = `<p>Zelle: ${ChurchData.donations.zelleInfo}</p><p>Mail: ${ChurchData.donations.mailingAddress}</p>`;
-        document.getElementById('c-phone').innerText = ChurchData.contactInfo.phone;
-        document.getElementById('c-addr').innerText = ChurchData.contactInfo.address;
-        document.getElementById('c-map').src = ChurchData.contactInfo.mapEmbedURL;
-        document.getElementById('ministry-grid').innerHTML = ChurchData.ministries.map(m => `<div class="card" style="text-align:center;"><h2>${m.icon}</h2><h3>${m.name}</h3><p>${m.desc}</p></div>`).join('');
-        document.getElementById('clergy-list').innerHTML = ChurchData.clergy.map(c => `<div style="margin-bottom:15px;"><h3>${c.name}</h3><b>${c.title}</b><p>${c.bio}</p></div>`).join('');
-    }
+        const d = ChurchData;
+        // Announcements
+        document.getElementById('scroller').innerHTML = `<div class="scroll-text">${d.announcements.scrollingText}</div>`.repeat(3);
+        document.getElementById('notice-cards').innerHTML = d.announcements.cards.map(c => `<div class="card" style="border-top:4px solid ${c.tagColor}"><h3>${c.title}</h3><p>${c.description}</p></div>`).join('');
+        
+        // Sunday School
+        document.getElementById('ss-intro').innerText = d.sundaySchool.intro;
+        document.getElementById('ss-groups-container').innerHTML = d.sundaySchool.ageGroups.map(g => `
+            <div class="ss-group-item"><div class="ss-group-text"><h3>${g.group}</h3><p>${g.focus}</p></div>
+            <div class="ss-group-image"><img src="${g.image}"></div></div>`).join('');
+        document.getElementById('child-link').href = d.sundaySchool.childRegistrationURL;
+        document.getElementById('vol-link').href = d.sundaySchool.volunteerRegistrationURL;
 
-    window.onload = () => { updateDates(); render(); };
+        // Volunteers
+        document.getElementById('volunteer-list').innerHTML = d.volunteers.list.map(v => `
+            <div class="servant-card"><img src="${v.image}" class="servant-image"><h4>${v.name}</h4><p>${v.role}</p></div>`).join('');
+
+        // Calendar & Payment
+        document.getElementById('google-cal').src = d.googleCalendarURL;
+        document.getElementById('pp-link').href = d.donations.paypalLink;
+        document.getElementById('zelle-info').innerText = `Zelle: ${d.donations.zelleInfo}`;
+        
+        // Date
+        const now = new Date(); document.getElementById('date-header').innerText = now.toDateString() + " | Ethiopian Calendar Support Active";
+    }
+    window.onload = render;
 </script>
 </body>
 </html>
