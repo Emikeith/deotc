@@ -4,74 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EOTC Church Portal</title>
-    <style>
-        :root { --red: #8B0000; --gold: #D4AF37; --bg: #fdfdfd; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: #333; }
-
-        header { background: var(--red); color: white; text-align: center; padding: 20px 15px; border-bottom: 5px solid var(--gold); }
-        .logo-container img { height: 70px; width: auto; margin-bottom: 8px; }
-
-        nav { background: white; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-
-        .menu-toggle {
-            display: none; background: white; border: none; font-size: 1.2rem;
-            color: var(--red); padding: 15px; width: 100%; text-align: left;
-            font-weight: bold; cursor: pointer; border-bottom: 1px solid #eee;
-        }
-
-        .menu-container { display: flex; list-style: none; margin: 0; padding: 0; justify-content: center; }
-        .nav-item { position: relative; }
-        .nav-link { 
-            display: block; padding: 18px 20px; text-decoration: none; 
-            color: var(--red); font-weight: bold; text-transform: uppercase; 
-            font-size: 0.85rem; cursor: pointer;
-        }
-
-        /* Desktop Dropdowns */
-        .dropdown {
-            display: none; position: absolute; top: 100%; left: 0;
-            background: white; min-width: 200px; box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            border-top: 3px solid var(--gold); z-index: 1001;
-        }
-        .dropdown a { color: #444; padding: 12px 16px; text-decoration: none; display: block; font-size: 0.8rem; border-bottom: 1px solid #eee; cursor: pointer; }
-
-        @media (min-width: 801px) {
-            .nav-item:hover .dropdown { display: block; }
-        }
-
-        /* Mobile Accordion Logic */
-        @media (max-width: 800px) {
-            .menu-toggle { display: block; }
-            .menu-container { display: none; flex-direction: column; width: 100%; }
-            .menu-container.show { display: flex; }
-            .dropdown { position: static; box-shadow: none; display: none; background: #f4f4f4; border-left: 5px solid var(--gold); }
-            .dropdown.open { display: block; }
-        }
-
-        /* CONTENT */
-        .page { display: none; max-width: 1000px; margin: 20px auto; padding: 20px; }
-        .page.active { display: block; }
-        .card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 5px solid var(--red); margin-bottom: 20px; }
-
-        /* CALENDAR STYLES */
-        .cal-header {
-            padding: 10px 12px; border-radius: 12px; background: #fff; 
-            border: 2px solid var(--gold); margin-bottom: 15px; display: flex; 
-            align-items: center; justify-content: center; gap: 15px;
-        }
-        .cal-frame { width: 100%; height: 600px; border: 1px solid #ddd; border-radius: 12px; overflow: hidden; }
-
-        /* UPCOMING LIST STYLES */
-        .event-item { display: flex; gap: 15px; padding: 15px 0; border-bottom: 1px solid #eee; align-items: center; }
-        .event-date { background: var(--red); color: white; width: 60px; height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; }
-        .event-date .month { font-size: 0.7rem; font-weight: bold; }
-        .event-date .day { font-size: 1.2rem; font-weight: bold; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-    <div class="logo-container"><img src="logo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/70?text=LOGO'"></div>
+    <div class="logo-container"><img src="logo.png" alt="Church Logo" onerror="this.src='https://via.placeholder.com/70?text=LOGO'"></div>
     <h1 style="margin:0; font-size: 1.3rem;">የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያን</h1>
 </header>
 
@@ -84,7 +22,6 @@
                 <a onclick="goTo('home-main')">Main Home</a>
                 <a onclick="goTo('about-us')">About Us</a>
                 <a onclick="goTo('clergy')">Clergy</a>
-                <a onclick="goTo('services')">Services</a>
             </div>
         </li>
         <li class="nav-item">
@@ -94,90 +31,73 @@
                 <a onclick="goTo('sunday-school')">Sunday School</a>
             </div>
         </li>
-        <li class="nav-item"><a class="nav-link" onclick="goTo('payment')">Payment</a></li>
         <li class="nav-item"><a class="nav-link" onclick="goTo('calendar')">Calendar</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="goTo('payment')">Payment</a></li>
         <li class="nav-item"><a class="nav-link" onclick="goTo('contact')">Contact</a></li>
     </ul>
 </nav>
 
 <section id="home-main" class="page active">
-    <div class="cal-header">
-        <div style="display: flex; gap: 5px;"><span id="g-day" style="color:#1a73e8; font-weight:bold;">-</span> <span id="g-date">-</span></div>
-        <div style="width: 2px; background: var(--gold); height: 20px;"></div>
-        <div>ዛሬ፡ <span id="e-am" style="color:var(--red); font-weight:bold;">-</span> <span id="e-yr" style="color:#777;">-</span></div>
-    </div>
-    
-    <div class="cal-frame">
-        <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FWinnipeg&showTitle=0&showPrint=0&showTabs=1&showCalendars=0&src=N2U5NjhkZjM3YmZjZWZkODhmNjUwNzlkZjA1Y2Y2NzQxNjI1YTM2ZDJjMzlkMTg0NDJjZTEzNTZlMWY0NmEzYkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%238e24aa" 
-        style="border:0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+    <div id="date-header" class="card" style="text-align:center; font-weight:bold; border-left:none; border: 2px solid var(--gold);">Loading Dates...</div>
+    <div class="card" style="padding:0; overflow:hidden;">
+        <iframe id="google-cal" src="" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
     </div>
 </section>
 
 <section id="calendar" class="page">
     <div class="card">
-        <h2>መጪ መርሃ ግብሮች (Upcoming Schedules)</h2>
-        
-        <div class="event-item">
-            <div class="event-date"><span class="month">JAN</span><span class="day">30</span></div>
-            <div>
-                <h3 style="margin:0; color:var(--red);">Evening Prayer</h3>
-                <p style="margin:5px 0; font-size:0.9rem; color:#666;">Time: 6:00 PM | Location: Main Chapel</p>
-            </div>
-        </div>
-
-        <div class="event-item">
-            <div class="event-date"><span class="month">FEB</span><span class="day">02</span></div>
-            <div>
-                <h3 style="margin:0; color:var(--red);">Divine Liturgy (Kidase)</h3>
-                <p style="margin:5px 0; font-size:0.9rem; color:#666;">Time: 7:00 AM | Sunday Service</p>
-            </div>
-        </div>
+        <h2>Upcoming Schedules</h2>
+        <div id="events-list"></div>
     </div>
 </section>
 
-<section id="about-us" class="page"><div class="card"><h2>About Us</h2></div></section>
-<section id="clergy" class="page"><div class="card"><h2>Clergy</h2></div></section>
-<section id="min-hub" class="page"><div class="card"><h2>Ministries</h2></div></section>
-<section id="sunday-school" class="page"><div class="card"><h2>Sunday School</h2></div></section>
-<section id="payment" class="page"><div class="card"><h2>Donations</h2></div></section>
-<section id="contact" class="page"><div class="card"><h2>Contact Us</h2></div></section>
+<section id="min-hub" class="page">
+    <div class="card">
+        <h2>Our Ministries</h2>
+        <div id="ministry-grid" class="grid"></div>
+    </div>
+</section>
 
+<section id="clergy" class="page">
+    <div id="clergy-list"></div>
+</section>
+
+<script src="content.js"></script>
 <script>
     function toggleMenu() { document.getElementById('menu').classList.toggle('show'); }
-
-    function toggleSub(el) {
-        if (window.innerWidth <= 800) {
-            const dropdown = el.nextElementSibling;
-            dropdown.classList.toggle('open');
-        }
-    }
-
+    function toggleSub(el) { if(window.innerWidth <= 800) el.nextElementSibling.classList.toggle('open'); }
+    
     function goTo(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         document.getElementById('menu').classList.remove('show');
-        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
         window.scrollTo(0,0);
     }
 
-    function updateDualCalendar() {
-        const now = new Date();
-        const daysEn = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-        document.getElementById('g-day').innerText = daysEn[now.getDay()];
-        document.getElementById('g-date').innerText = now.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+    function renderContent() {
+        // Render Calendar List
+        document.getElementById('events-list').innerHTML = ChurchData.upcomingEvents.map(e => `
+            <div class="event-item">
+                <div class="event-date"><b>${e.month}</b><br>${e.day}</div>
+                <div><h3 style="margin:0; color:var(--red);">${e.title}</h3><p style="margin:0;">${e.details}</p></div>
+            </div>
+        `).join('');
 
-        const amMonths = ["መስከረም", "ጥቅምት", "ኅዳር", "ታኅሣሥ", "ጥር", "የካቲት", "መጋቢት", "ሚያዝያ", "ግንቦት", "ሰኔ", "ሐምሌ", "ነሐሴ", "ጳጉሜ"];
-        const refDate = new Date(2025, 8, 11);
-        const diff = Math.floor((now - refDate) / 86400000);
-        let year = 2018; let dCount = diff;
-        if (dCount < 0) { year = 2017; dCount = 365 + dCount; }
-        let mIdx = Math.floor(dCount / 30); let day = (dCount % 30) + 1;
-        if (mIdx >= 12) { mIdx = 12; day = (dCount - 360) + 1; }
-        document.getElementById('e-am').innerText = amMonths[mIdx] + " " + day;
-        document.getElementById('e-yr').innerText = year;
+        // Render Ministries
+        document.getElementById('ministry-grid').innerHTML = ChurchData.ministries.map(m => `
+            <div class="min-card">
+                <div style="font-size:2rem;">${m.icon}</div>
+                <h3>${m.name}</h3>
+                <p>${m.desc}</p>
+            </div>
+        `).join('');
+
+        // Set Google Calendar Link
+        document.getElementById('google-cal').src = ChurchData.googleCalendarURL;
     }
-    updateDualCalendar();
-</script>
 
+    // Include your Ethiopian Date Script here to populate #date-header
+    window.onload = renderContent;
+</script>
 </body>
 </html>
