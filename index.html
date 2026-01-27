@@ -6,7 +6,7 @@
     <title>EOTC Church Portal</title>
     <style>
         :root { --red: #8B0000; --gold: #D4AF37; --bg: #fdfdfd; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: #333; overflow-x: hidden; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: #333; }
 
         header { background: var(--red); color: white; text-align: center; padding: 25px 15px; border-bottom: 5px solid var(--gold); }
         
@@ -20,27 +20,24 @@
         .nav-item:hover .dropdown { display: block; }
 
         /* CONTENT SECTIONS */
-        .page { display: none; max-width: 950px; margin: 30px auto; padding: 20px; animation: fadeIn 0.4s; }
+        .page { display: none; max-width: 1000px; margin: 30px auto; padding: 20px; animation: fadeIn 0.4s; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .card { background: white; border-left: 6px solid var(--red); padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-bottom: 1px solid var(--gold); }
 
-        /* CALENDAR OPTION 2: GOOGLE EMBED */
-        .calendar-container { position: relative; padding-bottom: 75%; height: 0; overflow: hidden; max-width: 100%; border: 1px solid #ddd; }
-        .calendar-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-
-        /* CALENDAR OPTION 1: EVENT LIST */
-        .event-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid #eee; align-items: center; }
-        .event-date { background: var(--red); color: white; width: 65px; height: 65px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; border: 2px solid var(--gold); flex-shrink: 0; }
-        .month { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
-        .day { font-size: 1.4rem; font-weight: bold; }
-        .event-details h3 { margin: 0; color: var(--red); font-size: 1.1rem; }
+        /* CALENDAR STYLING */
+        .cal-header {
+            padding: 10px 12px; border-radius: 12px; background-color: #ffffff; 
+            border: 2px solid var(--gold); margin-bottom: 15px; display: flex; 
+            align-items: center; justify-content: center; gap: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .cal-frame { width: 100%; height: 620px; overflow: hidden; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 
         @media (max-width: 800px) {
             .menu-container { flex-direction: column; width: 100%; }
             .dropdown { position: static; border-left: 4px solid var(--gold); }
-            .event-item { flex-direction: row; text-align: left; }
+            .cal-header { flex-direction: column; gap: 5px; }
         }
     </style>
 </head>
@@ -76,61 +73,67 @@
 </nav>
 
 <section id="home-main" class="page active">
-    <div class="card">
-        <h2>Welcome / እንኳን ደህና መጡ</h2>
-        <p>Stay updated with our weekly spiritual schedule.</p>
+    <div class="card" style="border-left: none;">
         
-        <div class="calendar-container">
-            <iframe src="https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID&ctz=America%2FWinnipeg" style="border: 0" frameborder="0" scrolling="no"></iframe>
+        <div class="cal-header">
+            <div style="display: flex; align-items: center; gap: 6px; white-space: nowrap;">
+                <span id="g-day" style="font-size: 0.9rem; color: #1a73e8; font-weight: bold;">-</span>
+                <span id="g-date" style="font-size: 0.9rem; color: #444; font-weight: 500;">-</span>
+            </div>
+            <div style="width: 2px; background-color: var(--gold); height: 22px;" class="h-divider"></div>
+            <div style="display: flex; align-items: center; gap: 6px; white-space: nowrap;">
+                <span style="font-size: 0.9rem; color: #333; font-weight: bold;">ዛሬ ቀኑ፡</span>
+                <span id="e-am" style="font-size: 1.1rem; color: var(--red); font-weight: bold;">-</span>
+                <span id="e-en" style="font-size: 0.9rem; color: var(--red); font-weight: 500;">-</span>
+                <span id="e-yr" style="font-size: 0.85rem; color: #777;">-</span>
+            </div>
+        </div>
+
+        <div class="cal-frame">
+            <iframe 
+                src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FWinnipeg&showTitle=0&showPrint=0&showTabs=1&showCalendars=0&src=N2U5NjhkZjM3YmZjZWZkODhmNjUwNzlkZjA1Y2Y2NzQxNjI1YTM2ZDJjMzlkMTg0NDJjZTEzNTZlMWY0NmEzYkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=OTc1ZTc4Y2M3NzgzMTE4MWEzNzhhMzM0ZWMzOGMzNWM3YjBhNDQ4Y2YyNjRjZmQwYTJmZGEzMjE2NzZhN2Q0M0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZWY3MDZlMmFiMTNlOTA3MGU2MDE0YjUxZjI0NjNjNDkxYjI3MzNmYmExZTJmNjdjZjU3MDYzOTYwNWM2NGY5M0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=NDcwMmE0YmM3MGQ4MjQyNzEzNzZkZWJmZDE4MDc5NTZkZjFhZGE1MjE4Y2ExNWZjOWQzMmJjYzg4Y2JkMmJkM0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=MTA5ZmU1NWE5OTM0MzRhNWU1ZTY5YjZiZjFiZmEyYzQyOWNiY2JmYmRiYjA5MzY4ZDEyNWZkOWE5NmUzM2Q4MkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%238e24aa&color=%23ffcd00&color=%23039be5&color=%23ad1457&color=%2333b679" 
+                style="border: 0; margin-top: -1px; margin-bottom: -50px;" 
+                width="100%" height="670" frameborder="0" scrolling="no">
+            </iframe>
         </div>
     </div>
 </section>
 
 <section id="calendar" class="page">
-    <div class="card">
-        <h2>Upcoming Events / መጪ መርሃ ግብሮች</h2>
-        
-        <div class="event-item">
-            <div class="event-date">
-                <span class="month">Jan</span>
-                <span class="day">30</span>
-            </div>
-            <div class="event-details">
-                <h3>Annual Feast Celebration</h3>
-                <p>Location: Main Church Hall | Time: 9:00 AM</p>
-            </div>
-        </div>
-
-        <div class="event-item">
-            <div class="event-date">
-                <span class="month">Feb</span>
-                <span class="day">15</span>
-            </div>
-            <div class="event-details">
-                <h3>Youth Spiritual Seminar</h3>
-                <p>Location: Sunday School Building | Time: 2:00 PM</p>
-            </div>
-        </div>
-    </div>
+    <div class="card"><h2>Event List</h2><p>Option 1 (Detailed List) goes here...</p></div>
 </section>
-
-<section id="about-us" class="page"><div class="card"><h2>About Us</h2></div></section>
-<section id="clergy" class="page"><div class="card"><h2>Clergy</h2></div></section>
-<section id="services" class="page"><div class="card"><h2>Services</h2></div></section>
-<section id="min-hub" class="page"><div class="card"><h2>Ministries</h2></div></section>
-<section id="sunday-school" class="page"><div class="card"><h2>Sunday School</h2></div></section>
-<section id="payment" class="page"><div class="card"><h2>Payment</h2></div></section>
-<section id="contact" class="page"><div class="card"><h2>Contact Us</h2></div></section>
+<section id="payment" class="page"><div class="card"><h2>Donations</h2></div></section>
+<section id="min-hub" class="page"><div class="card"><h2>Ministry Hub</h2></div></section>
 
 <script>
+    // YOUR ORIGINAL CALENDAR SCRIPT
+    function updateDualCalendar() {
+        const now = new Date();
+        const daysEn = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const gMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        document.getElementById('g-day').innerText = daysEn[now.getDay()];
+        document.getElementById('g-date').innerText = gMonths[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
+
+        const amMonths = ["መስከረም", "ጥቅምት", "ኅዳር", "ታኅሣሥ", "ጥር", "የካቲት", "መጋቢት", "ሚያዝያ", "ግንቦት", "ሰኔ", "ሐምሌ", "ነሐሴ", "ጳጉሜ"];
+        const enMonths = ["Mesk", "Tik", "Hid", "Tah", "Tir", "Yek", "Meg", "Mia", "Gen", "Sene", "Ham", "Neh", "Pag"];
+        const refDate = new Date(2025, 8, 11);
+        const diff = Math.floor((now - refDate) / 86400000);
+        let year = 2018; let dCount = diff;
+        if (dCount < 0) { year = 2017; dCount = 365 + dCount; }
+        let mIdx = Math.floor(dCount / 30); let day = (dCount % 30) + 1;
+        if (mIdx >= 12) { mIdx = 12; day = (dCount - 360) + 1; }
+        document.getElementById('e-am').innerText = amMonths[mIdx] + " " + day;
+        document.getElementById('e-en').innerText = enMonths[mIdx] + " " + day;
+        document.getElementById('e-yr').innerText = year;
+    }
+
     function showPage(pageId) {
-        var pages = document.getElementsByClassName("page");
-        for (var i = 0; i < pages.length; i++) {
-            pages[i].classList.remove("active");
-        }
+        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
         document.getElementById(pageId).classList.add("active");
         window.scrollTo(0,0);
     }
+
+    updateDualCalendar();
 </script>
 
 </body>
