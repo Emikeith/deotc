@@ -1,54 +1,48 @@
 const ChurchData = {
-    // 1. HOME: GOOGLE CALENDAR
-    googleCalendarURL: "https://calendar.google.com/calendar/embed?src=N2U5NjhkZjM3YmZjZWZkODhmNjUwNzlkZjA1Y2Y2NzQxNjI1YTM2ZDJjMzlkMTg0NDJjZTEzNTZlMWY0NmEzYkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&ctz=America%2FWinnipeg",
-
-    // 2. CALENDAR PAGE: UPCOMING EVENTS
-    upcomingEvents: [
-        { month: "JAN", day: "30", title: "Evening Prayer / የሰርክ ጸሎት", details: "Time: 6:00 PM | Church Chapel" },
-        { month: "FEB", day: "02", title: "Divine Liturgy / ቅዳሴ", details: "Sunday Morning Service | 7:00 AM" }
-    ],
-
-    // 3. MINISTRIES: THE HUB
-    ministries: [
-        { icon: "⛪", name: "Choir (መዘምራን)", desc: "Serving through sacred hymns and liturgical chants." },
-        { icon: "📖", name: "Sunday School", desc: "Nurturing the next generation in the faith." }
-    ],
-
-    // 4. CLERGY: PROFILES
-    clergy: [
-        { name: "His Holiness Name", title: "Archbishop / ብፁዕ አቡነ", bio: "Spiritual leadership for the diocese." },
-        { name: "Father Name", title: "Parish Priest / መልአከ ሰላም", bio: "Leading our local congregation." }
-    ],
-
-    // 5. GALLERY PHOTOS
-    galleryPhotos: [
-        { url: "https://via.placeholder.com/600x400?text=Church+Exterior", caption: "Our Church Building" },
-        { url: "https://via.placeholder.com/600x400?text=Liturgy", caption: "Sunday Divine Liturgy" }
-    ],
-
-    // 6. DONATIONS (PayPal & Zelle)
-    donations: {
-        title: "Support Our Church / ቤተክርስቲያኑን ይደግፉ",
-        description: "Your contributions help us grow our mission. May God bless your generosity.",
-        paypalLink: "https://www.paypal.com/donate?hosted_button_id=YOUR_PAYPAL_ID",
-        zelleInfo: "church_email@example.com",
-        mailingAddress: "P.O. Box 123, Winnipeg, MB, R3C 2H1"
+    // 1. ANNOUNCEMENTS
+    announcements: {
+        scrollingText: "🔔 ማሳሰቢያ፡ ነገ የጾም ቀን መሆኑን እናሳስባለን :: ⛪️ የሰንበት ትምህርት ቤት ምዝገባ ተጀምሯል :: 🙏 ጸሎተ ማኅሌት በ 5፡00 AM ይጀምራል ::",
+        cards: [
+            { tag: "NEW", tagColor: "#8B0000", title: "የጥምቀት በዓል ዝግጅት", description: "ለጥምቀት በዓል በፈቃደኝነት ማገልገል የምትፈልጉ ምዕመናን በጽሕፈት ቤት በኩል እንድትመዘገቡ እናሳስባለን ::", link: "#" },
+            { tag: "UPDATE", tagColor: "#333", title: "የመጽሐፍ ቅዱስ ጥናት", description: "የዘወትር ሐሙስ የመጽሐፍ ቅዱስ ጥናት ከምሽቱ 6:30 PM ጀምሮ በዙም (Zoom) ይካሄዳል ::", link: "#" }
+        ]
     },
 
-    // 7. SUNDAY SCHOOL REGISTRATION
+    // 2. SUNDAY SCHOOL GROUPS
     sundaySchool: {
-        intro: "Nurturing children in the teachings of the Orthodox Tewahedo Church.",
+        intro: "Nurturing children in the teachings of the Orthodox Tewahedo Church through scripture, hymns (Zema), and spiritual growth.",
         ageGroups: [
-            { group: "Ages 5-10", focus: "Bible Stories" },
-            { group: "Ages 11-15", focus: "Sacraments" }
+            { group: "Beginners (Ages 5-10)", focus: "Introduction to Bible stories, basic prayers, and lives of Saints through storytelling and art.", image: "https://via.placeholder.com/400x250?text=Beginner+Class" },
+            { group: "Intermediate (Ages 11-15)", focus: "Deeper study of the Sacraments, Church History, and the meaning of the Divine Liturgy.", image: "https://via.placeholder.com/400x250?text=Intermediate+Class" }
         ],
-        registrationID: "YOUR_FORMSPREE_ID" // For Registration and Contact forms
+        childRegistrationURL: "https://form.jotform.com/YOUR_CHILD_ID",
+        volunteerRegistrationURL: "https://form.jotform.com/YOUR_VOLUNTEER_ID"
     },
 
-    // 8. CONTACT INFO
+    // 3. VOLUNTEERS
+    volunteers: {
+        title: "Meet Our Servants / አገልጋዮቻችን",
+        description: "A dedicated team committed to teaching and nurturing our youth.",
+        list: [
+            { name: "Name 1", role: "Coordinator", image: "https://via.placeholder.com/150?text=Servant+1" },
+            { name: "Name 2", role: "Teacher", image: "https://via.placeholder.com/150?text=Servant+2" }
+        ]
+    },
+
+    // 4. CORE SETTINGS
+    googleCalendarURL: "https://calendar.google.com/calendar/embed?src=YOUR_CAL_ID",
+    galleryPhotos: [
+        { url: "https://via.placeholder.com/600x400", caption: "Church Exterior" },
+        { url: "https://via.placeholder.com/600x400", caption: "Sunday Service" }
+    ],
+    donations: {
+        paypalLink: "https://www.paypal.com/donate?hosted_button_id=YOUR_ID",
+        zelleInfo: "church_email@example.com",
+        mailingAddress: "123 Church St, Winnipeg, MB"
+    },
     contactInfo: {
         phone: "+1 (204) 000-0000",
         address: "123 Church St, Winnipeg, MB",
-        mapEmbedURL: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12345!2d-97.13!3d49.89"
+        mapEmbedURL: "https://www.google.com/maps/embed?pb=..."
     }
 };
