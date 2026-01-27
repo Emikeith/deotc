@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EOTC Church</title>
+    <title>EOTC Church Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
 </header>
 
 <div class="scroll-wrapper">
-    <div class="scroll-container" id="scroller"></div>
+    <div class="scroll-container" id="ticker"></div>
 </div>
 
 <nav>
@@ -24,80 +24,108 @@
         <li class="nav-item">
             <a class="nav-link" onclick="toggleSub(this)">Home / ዋና ገጽ</a>
             <div class="dropdown">
-                <a onclick="goTo('home-main')">Main Home</a>
+                <a onclick="goTo('home-main')">Main Home & Calendar</a>
                 <a onclick="goTo('about-us')">About Us</a>
+                <a onclick="goTo('gallery')">Photo Gallery</a>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" onclick="toggleSub(this)">Sunday School / ሰንበት ትምህርት ቤት</a>
+            <a class="nav-link" onclick="toggleSub(this)">Ministries / ክፍሎች</a>
             <div class="dropdown">
-                <a onclick="goTo('sunday-school')">Classes & Registration</a>
-                <a onclick="goTo('volunteers')">Our Volunteers</a>
+                <a onclick="goTo('min-hub')">Ministry Hub</a>
+                <a onclick="goTo('clergy')">Our Clergy</a>
             </div>
         </li>
-        <li class="nav-item"><a class="nav-link" onclick="goTo('gallery')">Gallery</a></li>
-        <li class="nav-item"><a class="nav-link" onclick="goTo('payment')">Donations</a></li>
+        <li class="nav-item">
+            <a class="nav-link" onclick="toggleSub(this)">Sunday School</a>
+            <div class="dropdown">
+                <a onclick="goTo('sunday-school')">Classes & Registration</a>
+                <a onclick="goTo('volunteers-page')">Our Volunteers</a>
+            </div>
+        </li>
+        <li class="nav-item"><a class="nav-link" onclick="goTo('payment-page')">Donations</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="goTo('contact-page')">Contact</a></li>
     </ul>
 </nav>
 
 <section id="home-main" class="page active">
     <div id="date-header" class="card" style="text-align:center; font-weight:bold; border-top: 4px solid var(--gold);"></div>
-    <div class="grid" id="notice-cards"></div>
-    <div class="card" style="padding:0; overflow:hidden;"><iframe id="google-cal" width="100%" height="500" frameborder="0"></iframe></div>
+    <div id="notice-cards" class="grid" style="margin-bottom:20px;"></div>
+    
+    <div class="card calendar-card">
+        <h3 style="text-align:center; padding: 15px; margin:0; background: #f9f9f9; color: var(--red);">Church Calendar / መርሃ ግብር</h3>
+        <iframe id="g-cal" width="100%" height="600" frameborder="0" scrolling="no" style="border:none;"></iframe>
+    </div>
 </section>
 
 <section id="sunday-school" class="page">
     <h2 style="text-align:center; color:var(--red);">Sunday School Program</h2>
-    <p id="ss-intro" style="text-align:center;"></p>
-    <div id="ss-groups-container"></div>
+    <p id="ss-intro" style="text-align:center; margin-bottom:40px;"></p>
+    <div id="ss-containers"></div>
     <div style="text-align:center; margin-top:30px;">
         <a id="child-link" href="#" target="_blank" class="ss-btn btn-child">Student Registration</a>
         <a id="vol-link" href="#" target="_blank" class="ss-btn btn-volunteer">Volunteer Sign-up</a>
     </div>
 </section>
 
-<section id="volunteers" class="page">
-    <h2 style="text-align:center; color:var(--red);">Our Servants</h2>
-    <div id="volunteer-list" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));"></div>
-</section>
-
-<section id="gallery" class="page"><div class="card"><h2>Gallery</h2><div id="gallery-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:10px;"></div></div></section>
-<section id="payment" class="page"><div class="card" style="text-align:center;"><h2>Donations</h2><a id="pp-link" href="#" class="ss-btn btn-child">Donate via PayPal</a><p id="zelle-info"></p></div></section>
-<section id="about-us" class="page"><div class="card"><h2>About Our Church</h2><p>Serving the community with faith and love.</p></div></section>
-
-
+<section id="volunteers-page" class="page"><h2 style="text-align:center; color:var(--red);">Our Dedicated Volunteers</h2><div id="v-list" class="grid"></div></section>
+<section id="min-hub" class="page"><div class="card"><h2>Ministries</h2><div id="min-grid" class="grid"></div></div></section>
+<section id="clergy" class="page"><div class="card"><h2>Clergy</h2><div id="c-list"></div></div></section>
+<section id="gallery" class="page"><div class="card"><h2>Gallery</h2><div id="gal-grid" class="grid"></div></div></section>
+<section id="payment-page" class="page"><div class="card" style="text-align:center;"><h2>Support Us</h2><a id="pp-btn" class="ss-btn btn-child" target="_blank">Donate via PayPal</a><p id="z-info"></p></div></section>
+<section id="contact-page" class="page"><div class="card"><h2>Contact Us</h2><p id="c-phone"></p><p id="c-addr"></p><iframe id="c-map" width="100%" height="300" frameborder="0"></iframe></div></section>
+<section id="about-us" class="page"><div class="card"><h2>About Us</h2><p>Faith. Community. Heritage.</p></div></section>
 
 <script src="content.js"></script>
 <script>
     function toggleMenu() { document.getElementById('menu').classList.toggle('show'); }
-    function toggleSub(el) { el.parentElement.classList.toggle('open-menu'); let d = el.nextElementSibling; d.style.display = d.style.display === "block" ? "none" : "block"; }
-    function goTo(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(id).classList.add('active'); document.getElementById('menu').classList.remove('show'); window.scrollTo(0,0); }
+    function toggleSub(el) { 
+        if(window.innerWidth <= 800) {
+            el.parentElement.classList.toggle('open-menu');
+            let d = el.nextElementSibling;
+            d.style.display = (d.style.display === "block") ? "none" : "block";
+        }
+    }
+    function goTo(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.getElementById('menu').classList.remove('show');
+        window.scrollTo(0,0);
+    }
 
     function render() {
         const d = ChurchData;
         // Announcements
-        document.getElementById('scroller').innerHTML = `<div class="scroll-text">${d.announcements.scrollingText}</div>`.repeat(3);
+        document.getElementById('ticker').innerHTML = `<div class="scroll-text">${d.announcements.scrollingText}</div>`.repeat(3);
         document.getElementById('notice-cards').innerHTML = d.announcements.cards.map(c => `<div class="card" style="border-top:4px solid ${c.tagColor}"><h3>${c.title}</h3><p>${c.description}</p></div>`).join('');
         
         // Sunday School
         document.getElementById('ss-intro').innerText = d.sundaySchool.intro;
-        document.getElementById('ss-groups-container').innerHTML = d.sundaySchool.ageGroups.map(g => `
+        document.getElementById('ss-containers').innerHTML = d.sundaySchool.ageGroups.map(g => `
             <div class="ss-group-item"><div class="ss-group-text"><h3>${g.group}</h3><p>${g.focus}</p></div>
             <div class="ss-group-image"><img src="${g.image}"></div></div>`).join('');
         document.getElementById('child-link').href = d.sundaySchool.childRegistrationURL;
         document.getElementById('vol-link').href = d.sundaySchool.volunteerRegistrationURL;
 
-        // Volunteers
-        document.getElementById('volunteer-list').innerHTML = d.volunteers.list.map(v => `
-            <div class="servant-card"><img src="${v.image}" class="servant-image"><h4>${v.name}</h4><p>${v.role}</p></div>`).join('');
-
-        // Calendar & Payment
-        document.getElementById('google-cal').src = d.googleCalendarURL;
-        document.getElementById('pp-link').href = d.donations.paypalLink;
-        document.getElementById('zelle-info').innerText = `Zelle: ${d.donations.zelleInfo}`;
+        // Volunteers & Ministries
+        document.getElementById('v-list').innerHTML = d.volunteers.list.map(v => `<div class="card servant-card" style="border:none;"><img src="${v.image}" class="servant-image"><h4>${v.name}</h4><p>${v.role}</p></div>`).join('');
+        document.getElementById('min-grid').innerHTML = d.ministries.map(m => `<div class="card" style="text-align:center;"><h3>${m.icon} ${m.name}</h3><p>${m.desc}</p></div>`).join('');
+        document.getElementById('c-list').innerHTML = d.clergy.map(c => `<div><h3>${c.name}</h3><b>${c.title}</b><p>${c.bio}</p></div>`).join('');
         
-        // Date
-        const now = new Date(); document.getElementById('date-header').innerText = now.toDateString() + " | Ethiopian Calendar Support Active";
+        // Calendar & Footer Data
+        document.getElementById('g-cal').src = d.googleCalendarURL;
+        document.getElementById('pp-btn').href = d.donations.paypalLink;
+        document.getElementById('z-info').innerText = `Zelle: ${d.donations.zelleInfo} | Mail: ${d.donations.mailingAddress}`;
+        document.getElementById('c-phone').innerText = `Phone: ${d.contactInfo.phone}`;
+        document.getElementById('c-addr').innerText = `Address: ${d.contactInfo.address}`;
+        document.getElementById('c-map').src = d.contactInfo.mapEmbedURL;
+        
+        // Gallery
+        document.getElementById('gal-grid').innerHTML = d.galleryPhotos.map(p => `<div class="card" style="padding:5px;"><img src="${p.url}" style="width:100%; border-radius:5px;"><p style="text-align:center; font-size:0.8rem;">${p.caption}</p></div>`).join('');
+
+        // Current Date
+        const now = new Date();
+        document.getElementById('date-header').innerText = now.toDateString() + " | Today is an Orthodox Day of Grace";
     }
     window.onload = render;
 </script>
