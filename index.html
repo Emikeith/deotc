@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EOTC Church Portal</title>
+    <style>
+        :root { --red: #8B0000; --gold: #D4AF37; --bg: #fdfdfd; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: #333; overflow-x: hidden; }
+
+        header { background: var(--red); color: white; text-align: center; padding: 25px 15px; border-bottom: 5px solid var(--gold); }
+        
+        /* NAVIGATION CONTAINER */
+        nav { 
+            background: white; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+        }
+
+        .menu-container { display: flex; list-style: none; margin: 0; padding: 0; }
+
+        /* MAIN MENU ITEMS */
+        .nav-item { position: relative; }
+        .nav-link { 
+            display: block;
+            padding: 15px 20px; 
+            text-decoration: none; 
+            color: var(--red); 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .nav-link:hover { background: #f9f9f9; }
+
+        /* DROPDOWN SUB-MENUS (Hidden by default) */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-top: 3px solid var(--gold);
+            z-index: 1001;
+        }
+        .dropdown a {
+            color: #444;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+        .dropdown a:hover { background-color: #f1f1f1; color: var(--red); }
+
+        /* SHOW DROPDOWN ON HOVER */
+        .nav-item:hover .dropdown { display: block; }
+
+        /* CONTENT SECTIONS */
+        .page { display: none; max-width: 900px; margin: 40px auto; padding: 20px; animation: fadeIn 0.4s; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .card { background: white; border-left: 6px solid var(--red); padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-bottom: 1px solid var(--gold); }
+
+        /* MOBILE OPTIMIZATION */
+        @media (max-width: 800px) {
+            .menu-container { flex-direction: column; width: 100%; }
+            .dropdown { position: static; box-shadow: none; border-left: 4px solid var(--gold); background: #fafafa; }
+            .nav-item:hover .dropdown { display: block; } /* On mobile, hover works as a tap */
+            .nav-link { border-bottom: 1px solid #eee; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 style="margin:0;">የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያን</h1>
+    <div style="color: var(--gold); font-weight: bold;">ETHIOPIAN ORTHODOX TEWAHEDO CHURCH</div>
+</header>
+
+<nav>
+    <ul class="menu-container">
+        <li class="nav-item">
+            <a class="nav-link" onclick="showPage('home-main')">Home ▾</a>
+            <div class="dropdown">
+                <a onclick="showPage('home-main')">Main Home</a>
+                <a onclick="showPage('about-us')">About Us</a>
+                <a onclick="showPage('clergy')">Clergy</a>
+                <a onclick="showPage('services')">Services</a>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" onclick="showPage('min-hub')">Ministries ▾</a>
+            <div class="dropdown">
+                <a onclick="showPage('min-hub')">Ministry Hub</a>
+                <a onclick="showPage('sunday-school')">Sunday School</a>
+            </div>
+        </li>
+
+        <li class="nav-item"><a class="nav-link" onclick="showPage('payment')">Payment</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="showPage('calendar')">Calendar</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="showPage('contact')">Contact</a></li>
+    </ul>
+</nav>
+
+
+
+<section id="home-main" class="page active">
+    <div class="card"><h2>Welcome</h2><p>General church updates and home content.</p></div>
+</section>
+
+<section id="about-us" class="page">
+    <div class="card"><h2>About Us</h2><p>Our history and mission.</p></div>
+</section>
+
+<section id="clergy" class="page">
+    <div class="card"><h2>Clergy</h2><p>Meet our Archbishop and Priests.</p></div>
+</section>
+
+<section id="services" class="page">
+    <div class="card"><h2>Services</h2><p>Service times and liturgical schedule.</p></div>
+</section>
+
+<section id="min-hub" class="page">
+    <div class="card"><h2>Ministry Hub</h2><p>Discover our service groups.</p></div>
+</section>
+
+<section id="sunday-school" class="page">
+    <div class="card"><h2>Sunday School</h2><p>Children and Youth programs.</p></div>
+</section>
+
+<section id="payment" class="page">
+    <div class="card"><h2>Payment & Donations</h2><p>Support our church mission.</p></div>
+</section>
+
+<section id="calendar" class="page">
+    <div class="card"><h2>Calendar & Events</h2><p>Upcoming feast days.</p></div>
+</section>
+
+<section id="contact" class="page">
+    <div class="card"><h2>Contact Us</h2><p>Location and contact details.</p></div>
+</section>
+
+<script>
+    function showPage(pageId) {
+        // Hide all pages
+        var pages = document.getElementsByClassName("page");
+        for (var i = 0; i < pages.length; i++) {
+            pages[i].classList.remove("active");
+        }
+        // Show the selected page
+        document.getElementById(pageId).classList.add("active");
+        
+        // On mobile, scroll to top of content after selection
+        window.scrollTo(0,0);
+    }
+</script>
+
+</body>
+</html>
