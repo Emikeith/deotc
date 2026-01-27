@@ -6,44 +6,55 @@ header { background: var(--red); color: white; text-align: center; padding: 25px
 .logo-container img { height: 85px; margin-bottom: 10px; }
 .scroll-wrapper { background: white; color: var(--red); padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 1px solid #eee; }
 .scroll-container { display: flex; width: fit-content; }
-.scroll-text { animation: scroll-left 30s linear infinite; font-weight: bold; padding-right: 100px; }
+.scroll-text { animation: scroll-left 30s linear infinite; font-weight: bold; padding-right: 120px; }
 @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-/* Responsive Nav */
+/* Centered Navigation */
 nav { background: white; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
 .menu-toggle { display: none; background: white; border: none; font-size: 1.1rem; color: var(--red); padding: 15px; width: 100%; text-align: left; font-weight: bold; cursor: pointer; }
 .menu-container { display: flex; list-style: none; margin: 0; padding: 0; justify-content: center; }
-.nav-link { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; text-decoration: none; color: var(--red); font-weight: bold; font-size: 0.85rem; cursor: pointer; }
+.nav-item { position: relative; }
+.nav-link { display: flex; align-items: center; padding: 18px 20px; text-decoration: none; color: var(--red); font-weight: bold; font-size: 0.85rem; cursor: pointer; transition: 0.3s; }
 .nav-link::after { content: '›'; font-size: 1.2rem; margin-left: 8px; transition: 0.3s; }
-.dropdown { display: none; position: absolute; top: 100%; left: 0; background: white; min-width: 200px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-top: 3px solid var(--gold); }
-.dropdown a { color: #444; padding: 12px 16px; text-decoration: none; display: block; font-size: 0.8rem; border-bottom: 1px solid #eee; }
+
+/* Dropdown Alignment */
+.dropdown { 
+    display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); 
+    background: white; min-width: 220px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+    border-top: 3px solid var(--gold); z-index: 2000;
+}
+.dropdown a { color: #444; padding: 12px 16px; text-decoration: none; display: block; font-size: 0.8rem; border-bottom: 1px solid #eee; cursor: pointer; }
+.dropdown a:hover { background: var(--gold); color: white; }
+
+@media (min-width: 801px) { .nav-item:hover .dropdown { display: block; } }
 
 @media (max-width: 800px) {
     .menu-toggle { display: block; }
-    .menu-container { display: none; flex-direction: column; }
+    .menu-container { display: none; flex-direction: column; width: 100%; }
     .menu-container.show { display: flex; }
-    .dropdown { position: static; background: #f9f9f9; }
+    .dropdown { position: static; transform: none; width: 100%; box-shadow: none; border-left: 4px solid var(--gold); }
     .nav-item.open-menu .nav-link::after { transform: rotate(90deg); }
 }
 
-/* Containers */
-.page { display: none; max-width: 1000px; margin: 20px auto; padding: 20px; }
+/* Sections & Calendar Card */
+.page { display: none; max-width: 1000px; margin: 20px auto; padding: 20px; animation: fadeIn 0.4s; }
 .page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .card { background: white; border-radius: 8px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
+.calendar-card { padding: 0; overflow: hidden; border-top: 5px solid var(--red); }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 
-/* Sunday School Splits */
+/* Sunday School Containers */
 .ss-group-item { display: flex; align-items: center; gap: 30px; margin-bottom: 30px; background: white; padding: 20px; border-radius: 12px; border-left: 6px solid var(--gold); }
 .ss-group-text { flex: 1; }
-.ss-group-image { flex: 1; }
 .ss-group-image img { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; }
 
-/* Volunteers Circle */
-.servant-card { text-align: center; padding: 20px; }
+/* Volunteer Profiles */
 .servant-image { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold); margin-bottom: 10px; }
 
-/* Buttons */
+/* Registration Buttons */
 .ss-btn { display: inline-block; padding: 15px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; margin: 10px; min-width: 200px; text-align: center; }
 .btn-child { background: var(--red); color: white; }
-.btn-volunteer { border: 2px solid var(--gold); color: var(--gold); }
+.btn-volunteer { border: 2px solid var(--gold); color: var(--gold); background: white; }
 
-@media (max-width: 768px) { .ss-group-item { flex-direction: column; } }
+@media (max-width: 768px) { .ss-group-item { flex-direction: column; text-align: center; } }
