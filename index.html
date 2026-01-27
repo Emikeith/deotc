@@ -8,114 +8,161 @@
         :root { --red: #8B0000; --gold: #D4AF37; --bg: #fdfdfd; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: #333; }
 
-        header { background: var(--red); color: white; text-align: center; padding: 25px 15px; border-bottom: 5px solid var(--gold); }
-        
-        /* NAVIGATION */
-        nav { background: white; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; justify-content: center; }
-        .menu-container { display: flex; list-style: none; margin: 0; padding: 0; }
-        .nav-item { position: relative; }
-        .nav-link { display: block; padding: 15px 20px; text-decoration: none; color: var(--red); font-weight: bold; text-transform: uppercase; font-size: 0.85rem; cursor: pointer; }
-        .dropdown { display: none; position: absolute; top: 100%; left: 0; background: white; min-width: 180px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-top: 3px solid var(--gold); z-index: 1001; }
-        .dropdown a { color: #444; padding: 12px 16px; text-decoration: none; display: block; font-size: 0.8rem; border-bottom: 1px solid #eee; cursor: pointer; }
-        .nav-item:hover .dropdown { display: block; }
+        /* HEADER & LOGO */
+        header { 
+            background: var(--red); color: white; text-align: center; 
+            padding: 20px 15px; border-bottom: 5px solid var(--gold); 
+        }
+        .logo-container { margin-bottom: 10px; }
+        .logo-container img { height: 80px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
 
-        /* CONTENT SECTIONS */
-        .page { display: none; max-width: 1000px; margin: 30px auto; padding: 20px; animation: fadeIn 0.4s; }
+        /* NAVIGATION BAR */
+        nav { 
+            background: white; position: sticky; top: 0; z-index: 1000; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+
+        /* MOBILE MENU TOGGLE */
+        .menu-toggle {
+            display: none; background: white; border: none; font-size: 1.5rem;
+            color: var(--red); padding: 15px; width: 100%; text-align: left;
+            font-weight: bold; cursor: pointer; border-bottom: 1px solid #eee;
+        }
+
+        .menu-container { display: flex; list-style: none; margin: 0; padding: 0; justify-content: center; }
+
+        /* NAV ITEMS */
+        .nav-item { position: relative; }
+        .nav-link { 
+            display: block; padding: 18px 20px; text-decoration: none; 
+            color: var(--red); font-weight: bold; text-transform: uppercase; 
+            font-size: 0.85rem; cursor: pointer;
+        }
+
+        /* DROPDOWNS */
+        .dropdown {
+            display: none; position: absolute; top: 100%; left: 0;
+            background: white; min-width: 180px; box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-top: 3px solid var(--gold); z-index: 1001;
+        }
+        .dropdown a { 
+            color: #444; padding: 12px 16px; text-decoration: none; 
+            display: block; font-size: 0.8rem; border-bottom: 1px solid #eee; cursor: pointer;
+        }
+
+        /* HOVER FOR DESKTOP */
+        @media (min-width: 801px) {
+            .nav-item:hover .dropdown { display: block; }
+            .nav-link:hover { background: #f9f9f9; }
+        }
+
+        /* MOBILE STYLES */
+        @media (max-width: 800px) {
+            .menu-toggle { display: block; }
+            .menu-container { 
+                display: none; flex-direction: column; width: 100%; 
+                background: white; max-height: 80vh; overflow-y: auto;
+            }
+            .menu-container.show { display: flex; }
+            .nav-item { width: 100%; }
+            .dropdown { 
+                position: static; box-shadow: none; border-left: 4px solid var(--gold); 
+                background: #f9f9f9; display: block; /* Visible when parent is open */
+            }
+            .nav-link { border-bottom: 1px solid #eee; padding: 15px; }
+        }
+
+        /* PAGE CONTENT */
+        .page { display: none; max-width: 1000px; margin: 20px auto; padding: 20px; animation: fadeIn 0.4s; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .card { background: white; border-left: 6px solid var(--red); padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-bottom: 1px solid var(--gold); }
+        .card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-        /* CALENDAR STYLING */
+        /* YOUR CALENDAR STYLING */
         .cal-header {
-            padding: 10px 12px; border-radius: 12px; background-color: #ffffff; 
+            padding: 10px 12px; border-radius: 12px; background-color: #fff; 
             border: 2px solid var(--gold); margin-bottom: 15px; display: flex; 
-            align-items: center; justify-content: center; gap: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            align-items: center; justify-content: center; gap: 15px;
         }
-        .cal-frame { width: 100%; height: 620px; overflow: hidden; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-
-        @media (max-width: 800px) {
-            .menu-container { flex-direction: column; width: 100%; }
-            .dropdown { position: static; border-left: 4px solid var(--gold); }
-            .cal-header { flex-direction: column; gap: 5px; }
-        }
+        .cal-frame { width: 100%; border: 1px solid #ddd; border-radius: 12px; overflow: hidden; height: 600px; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="margin:0;">የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያን</h1>
-    <div style="color: var(--gold); font-weight: bold;">ETHIOPIAN ORTHODOX TEWAHEDO CHURCH</div>
+    <div class="logo-container">
+        <img src="logo.png" alt="EOTC Logo" onerror="this.src='https://via.placeholder.com/80?text=LOGO'">
+    </div>
+    <h1 style="margin:0; font-size: 1.4rem;">የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያን</h1>
+    <div style="color: var(--gold); font-size: 0.9rem; font-weight: bold;">ETHIOPIAN ORTHODOX TEWAHEDO CHURCH</div>
 </header>
 
 <nav>
-    <ul class="menu-container">
+    <button class="menu-toggle" onclick="toggleMenu()">☰ MENU</button>
+    <ul class="menu-container" id="menu">
         <li class="nav-item">
-            <a class="nav-link" onclick="showPage('home-main')">Home ▾</a>
+            <a class="nav-link">Home ▾</a>
             <div class="dropdown">
-                <a onclick="showPage('home-main')">Main Home</a>
-                <a onclick="showPage('about-us')">About Us</a>
-                <a onclick="showPage('clergy')">Clergy</a>
-                <a onclick="showPage('services')">Services</a>
+                <a onclick="goTo('home-main')">Main Home</a>
+                <a onclick="goTo('about-us')">About Us</a>
+                <a onclick="goTo('clergy')">Clergy</a>
+                <a onclick="goTo('services')">Services</a>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" onclick="showPage('min-hub')">Ministries ▾</a>
+            <a class="nav-link">Ministries ▾</a>
             <div class="dropdown">
-                <a onclick="showPage('min-hub')">Ministry Hub</a>
-                <a onclick="showPage('sunday-school')">Sunday School</a>
+                <a onclick="goTo('min-hub')">Ministry Hub</a>
+                <a onclick="goTo('sunday-school')">Sunday School</a>
             </div>
         </li>
-        <li class="nav-item"><a class="nav-link" onclick="showPage('payment')">Payment</a></li>
-        <li class="nav-item"><a class="nav-link" onclick="showPage('calendar')">Calendar</a></li>
-        <li class="nav-item"><a class="nav-link" onclick="showPage('contact')">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="goTo('payment')">Payment</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="goTo('calendar')">Calendar</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="goTo('contact')">Contact</a></li>
     </ul>
 </nav>
 
 <section id="home-main" class="page active">
-    <div class="card" style="border-left: none;">
-        
-        <div class="cal-header">
-            <div style="display: flex; align-items: center; gap: 6px; white-space: nowrap;">
-                <span id="g-day" style="font-size: 0.9rem; color: #1a73e8; font-weight: bold;">-</span>
-                <span id="g-date" style="font-size: 0.9rem; color: #444; font-weight: 500;">-</span>
-            </div>
-            <div style="width: 2px; background-color: var(--gold); height: 22px;" class="h-divider"></div>
-            <div style="display: flex; align-items: center; gap: 6px; white-space: nowrap;">
-                <span style="font-size: 0.9rem; color: #333; font-weight: bold;">ዛሬ ቀኑ፡</span>
-                <span id="e-am" style="font-size: 1.1rem; color: var(--red); font-weight: bold;">-</span>
-                <span id="e-en" style="font-size: 0.9rem; color: var(--red); font-weight: 500;">-</span>
-                <span id="e-yr" style="font-size: 0.85rem; color: #777;">-</span>
-            </div>
+    <div class="cal-header">
+        <div style="display: flex; gap: 6px;"><span id="g-day" style="color:#1a73e8; font-weight:bold;">-</span><span id="g-date">-</span></div>
+        <div style="width: 2px; background: var(--gold); height: 20px;"></div>
+        <div style="display: flex; gap: 6px;">
+            <span style="font-weight: bold;">ዛሬ፡</span>
+            <span id="e-am" style="color:var(--red); font-weight:bold;">-</span>
+            <span id="e-yr" style="color:#777;">-</span>
         </div>
-
-        <div class="cal-frame">
-            <iframe 
-                src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FWinnipeg&showTitle=0&showPrint=0&showTabs=1&showCalendars=0&src=N2U5NjhkZjM3YmZjZWZkODhmNjUwNzlkZjA1Y2Y2NzQxNjI1YTM2ZDJjMzlkMTg0NDJjZTEzNTZlMWY0NmEzYkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=OTc1ZTc4Y2M3NzgzMTE4MWEzNzhhMzM0ZWMzOGMzNWM3YjBhNDQ4Y2YyNjRjZmQwYTJmZGEzMjE2NzZhN2Q0M0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZWY3MDZlMmFiMTNlOTA3MGU2MDE0YjUxZjI0NjNjNDkxYjI3MzNmYmExZTJmNjdjZjU3MDYzOTYwNWM2NGY5M0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=NDcwMmE0YmM3MGQ4MjQyNzEzNzZkZWJmZDE4MDc5NTZkZjFhZGE1MjE4Y2ExNWZjOWQzMmJjYzg4Y2JkMmJkM0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=MTA5ZmU1NWE5OTM0MzRhNWU1ZTY5YjZiZjFiZmEyYzQyOWNiY2JmYmRiYjA5MzY4ZDEyNWZkOWE5NmUzM2Q4MkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%238e24aa&color=%23ffcd00&color=%23039be5&color=%23ad1457&color=%2333b679" 
-                style="border: 0; margin-top: -1px; margin-bottom: -50px;" 
-                width="100%" height="670" frameborder="0" scrolling="no">
-            </iframe>
-        </div>
+    </div>
+    <div class="cal-frame">
+        <iframe src="https://calendar.google.com/calendar/embed?src=N2U5NjhkZjM3YmZjZWZkODhmNjUwNzlkZjA1Y2Y2NzQxNjI1YTM2ZDJjMzlkMTg0NDJjZTEzNTZlMWY0NmEzYkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&ctz=America%2FWinnipeg" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
     </div>
 </section>
 
-<section id="calendar" class="page">
-    <div class="card"><h2>Event List</h2><p>Option 1 (Detailed List) goes here...</p></div>
-</section>
+<section id="about-us" class="page"><div class="card"><h2>About Us</h2></div></section>
+<section id="clergy" class="page"><div class="card"><h2>Clergy</h2></div></section>
 <section id="payment" class="page"><div class="card"><h2>Donations</h2></div></section>
-<section id="min-hub" class="page"><div class="card"><h2>Ministry Hub</h2></div></section>
 
 <script>
-    // YOUR ORIGINAL CALENDAR SCRIPT
+    // NAVIGATION LOGIC
+    function toggleMenu() {
+        document.getElementById('menu').classList.toggle('show');
+    }
+
+    function goTo(pageId) {
+        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+        document.getElementById(pageId).classList.add("active");
+        document.getElementById('menu').classList.remove('show'); // Close menu on click
+        window.scrollTo(0,0);
+    }
+
+    // YOUR CALENDAR LOGIC
     function updateDualCalendar() {
         const now = new Date();
         const daysEn = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-        const gMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         document.getElementById('g-day').innerText = daysEn[now.getDay()];
-        document.getElementById('g-date').innerText = gMonths[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
+        document.getElementById('g-date').innerText = now.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
 
         const amMonths = ["መስከረም", "ጥቅምት", "ኅዳር", "ታኅሣሥ", "ጥር", "የካቲት", "መጋቢት", "ሚያዝያ", "ግንቦት", "ሰኔ", "ሐምሌ", "ነሐሴ", "ጳጉሜ"];
-        const enMonths = ["Mesk", "Tik", "Hid", "Tah", "Tir", "Yek", "Meg", "Mia", "Gen", "Sene", "Ham", "Neh", "Pag"];
         const refDate = new Date(2025, 8, 11);
         const diff = Math.floor((now - refDate) / 86400000);
         let year = 2018; let dCount = diff;
@@ -123,14 +170,7 @@
         let mIdx = Math.floor(dCount / 30); let day = (dCount % 30) + 1;
         if (mIdx >= 12) { mIdx = 12; day = (dCount - 360) + 1; }
         document.getElementById('e-am').innerText = amMonths[mIdx] + " " + day;
-        document.getElementById('e-en').innerText = enMonths[mIdx] + " " + day;
         document.getElementById('e-yr').innerText = year;
-    }
-
-    function showPage(pageId) {
-        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-        document.getElementById(pageId).classList.add("active");
-        window.scrollTo(0,0);
     }
 
     updateDualCalendar();
