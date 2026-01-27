@@ -1,0 +1,41 @@
+:root { --red: #8B0000; --gold: #D4AF37; --bg: #fdfdfd; }
+body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); color: #333; line-height: 1.6; }
+
+/* Header & Logo */
+header { background: var(--red); color: white; text-align: center; padding: 25px 15px; border-bottom: 5px solid var(--gold); }
+.logo-container img { height: 70px; width: auto; margin-bottom: 8px; }
+
+/* Navigation */
+nav { background: white; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.menu-toggle { display: none; background: white; border: none; font-size: 1.2rem; color: var(--red); padding: 15px; width: 100%; text-align: left; font-weight: bold; cursor: pointer; }
+.menu-container { display: flex; list-style: none; margin: 0; padding: 0; justify-content: center; }
+.nav-item { position: relative; }
+.nav-link { display: block; padding: 18px 20px; text-decoration: none; color: var(--red); font-weight: bold; text-transform: uppercase; font-size: 0.85rem; cursor: pointer; }
+
+/* Dropdowns & Accordion */
+.dropdown { display: none; position: absolute; top: 100%; left: 0; background: white; min-width: 200px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-top: 3px solid var(--gold); }
+.dropdown a { color: #444; padding: 12px 16px; text-decoration: none; display: block; font-size: 0.85rem; border-bottom: 1px solid #eee; cursor: pointer; }
+
+@media (min-width: 801px) { .nav-item:hover .dropdown { display: block; } }
+
+@media (max-width: 800px) {
+    .menu-toggle { display: block; }
+    .menu-container { display: none; flex-direction: column; width: 100%; }
+    .menu-container.show { display: flex; }
+    .dropdown { position: static; display: none; background: #f4f4f4; border-left: 5px solid var(--gold); }
+    .dropdown.open { display: block; }
+}
+
+/* Page Components */
+.page { display: none; max-width: 1000px; margin: 20px auto; padding: 20px; animation: fadeIn 0.4s; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.card { background: white; border-radius: 8px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 5px solid var(--red); margin-bottom: 20px; }
+
+/* Grid for Ministries */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.min-card { border: 1px solid #eee; padding: 20px; text-align: center; border-top: 4px solid var(--gold); }
+
+/* Event Items */
+.event-item { display: flex; gap: 15px; padding: 15px 0; border-bottom: 1px solid #eee; align-items: center; }
+.event-date { background: var(--red); color: white; width: 60px; height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; line-height: 1.2; text-align: center; }
