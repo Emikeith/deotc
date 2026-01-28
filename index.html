@@ -130,7 +130,8 @@
     function render() {
         const d = ChurchData;
         const now = new Date();
-        const galleryContainer = document.getElementById('building-gallery');
+        // ... (Keep existing render code) ...
+    const galleryContainer = document.getElementById('building-gallery');
     galleryContainer.innerHTML = d.buildingGallery.map(img => `
         <div class="gallery-item" onclick="openLightbox('${img.url}')">
             <img src="${img.url}" alt="Gallery Image">
@@ -138,7 +139,8 @@
         </div>
     `).join('');
 }
-    // openlightbox
+
+// Add this new function outside render()
 function openLightbox(url) {
     document.getElementById('modal-img').src = url;
     document.getElementById('gallery-modal').style.display = 'flex';
