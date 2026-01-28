@@ -47,4 +47,9 @@ const ChurchData = {
         { url: "https://via.placeholder.com/600x400?text=Foundation+Work", caption: "Foundation Pouring" },
         { url: "https://via.placeholder.com/600x400?text=Architectural+Model", caption: "Final Vision Model" }
     ]
+    // Inside ChurchData...
+sundaySchool: "Our Sunday School program nurtures children in the teachings of the Church, Orthodox prayers, and the Ge'ez language. We offer classes for all age groups every Sunday after the Divine Liturgy.",
+sundaySchoolImg: "https://via.placeholder.com/500x350?text=Sunday+School+Activity", 
+// Replace the URL above with your actual photo path
 };
+
