@@ -1,11 +1,17 @@
 const ChurchData = {
     // HEADER NEWS TICKER
-    newsTicker: "🔔 ማሳሰቢያ፡ ነገ የጾም ቀን መሆኑን እናሳስባለን :: &nbsp;&nbsp;&nbsp;&nbsp; ⛪️ የሰንበት ትምህርት ቤት ምዝገባ ተጀምሯል :: &nbsp;&nbsp;&nbsp;&nbsp; 🙏 አዲስ የግንባታ መርሐ ግብር ወጥቷል ::",
+    newsTicker: "🔔 ማሳሰቢያ፡ ነገ የጾም ቀን መሆኑን እናሳስባለን :: &nbsp;&nbsp;&nbsp;&nbsp; ⛪️ የሕንፃ ግንባታ ገቢ ማሰባሰቢያ በቅርቡ ይጀምራል :: &nbsp;&nbsp;&nbsp;&nbsp; 🙏 አዲስ የሰንበት ትምህርት ቤት ምዝገባ ተጀምሯል ::",
 
-    // HOME & ABOUT
-    aboutUs: "Dedicated to preserving the Ethiopian Orthodox Tewahedo faith, our parish serves as a spiritual sanctuary for worship, education, and community support in Winnipeg.",
-    
-    // BUILDING PROJECT
+    // HOME SECTION CONTENT
+    aboutUs: "Dedicated to preserving the Ethiopian Orthodox Tewahedo faith, our parish serves as a spiritual sanctuary for worship, education, and community support in Winnipeg. We strive to pass our ancient traditions to the next generation.",
+    clergy: [
+        { name: "Abba [Name]", title: "Lead Priest", bio: "Providing spiritual guidance and leadership to our congregation for over [X] years." }
+    ],
+    services: [
+        { name: "Sunday Divine Liturgy (ቅዳሴ)", time: "7:00 AM - 10:30 AM" },
+        { name: "Saturday Evening Prayer (ሰርክ ጸሎት)", time: "5:00 PM - 6:30 PM" },
+        { name: "Daily Morning Prayer", time: "6:00 AM" }
+    ],
     buildingProject: {
         title: "Building Our Future / የሕንፃ ግንባታ ፕሮጀክት",
         description: "Be part of history. We are building a new sanctuary to serve our community and future generations. Your contributions make this vision a reality.",
@@ -13,26 +19,18 @@ const ChurchData = {
         progress: "45%",
     },
 
-    // SUNDAY SCHOOL POSTS (Automated Layout)
-    sundaySchoolPosts: [
-        {
-            title: "Sunday School Program / የሰንበት ትምህርት ቤት",
-            text: "Our Sunday School program nurtures children in the teachings of the Church, Orthodox prayers, and the Ge'ez language. Classes are held every Sunday after Liturgy.",
-            image: "https://via.placeholder.com/600x400?text=Classroom+Activity"
-        },
-        {
-            title: "Youth Mezmur & Culture",
-            text: "The youth department focuses on spiritual growth through traditional hymns and understanding our rich Ethiopian heritage.",
-            image: "https://via.placeholder.com/600x400?text=Youth+Mezmur"
-        }
-    ],
+    // MINISTRIES CONTENT
+    ministryHub: "Our Ministry Hub connects the various service committees of the church, including Charity, Development, and Maintenance groups.",
+    sundaySchool: "Our Sunday School program nurtures children in the teachings of the Church, Orthodox prayers, and the Ge'ez language.",
+    sponsorship: "Support specific church projects or students in need through our monthly sponsorship programs.",
 
-    // REGISTRATION (JOTFORMS)
+    // REGISTRATION LINKS (JOTFORMS)
     registrationLinks: {
-        membership: "https://form.jotform.com/YOUR_ID",
-        sundaySchool: "https://form.jotform.com/YOUR_ID",
-        abinetSchool: "https://form.jotform.com/YOUR_ID",
-        serveWithUs: "https://form.jotform.com/YOUR_ID"
+        membership: "https://form.jotform.com/YOUR_MEMBERSHIP_ID",
+        sundaySchool: "https://form.jotform.com/YOUR_SS_ID",
+        abinetSchool: "https://form.jotform.com/YOUR_ABINET_ID",
+        serveWithUs: "https://form.jotform.com/YOUR_SERVE_ID",
+        sponsorship: "https://form.jotform.com/YOUR_SPONSOR_ID"
     },
 
     // DONATIONS
@@ -42,9 +40,9 @@ const ChurchData = {
         mailing: "123 Church St, Winnipeg, MB"
     },
 
-    // GALLERY
+    // HOME GALLERY
     buildingGallery: [
-        { url: "https://via.placeholder.com/600x400?text=Foundation", caption: "Foundation Work" },
-        { url: "https://via.placeholder.com/600x400?text=Architectural+Model", caption: "Final Model" }
+        { url: "https://via.placeholder.com/600x400?text=Site+Preparation", caption: "Foundation Work" },
+        { url: "https://via.placeholder.com/600x400?text=Architectural+Model", caption: "The Vision" }
     ]
 };
