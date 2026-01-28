@@ -130,6 +130,20 @@
     function render() {
         const d = ChurchData;
         const now = new Date();
+        const galleryContainer = document.getElementById('building-gallery');
+    galleryContainer.innerHTML = d.buildingGallery.map(img => `
+        <div class="gallery-item" onclick="openLightbox('${img.url}')">
+            <img src="${img.url}" alt="Gallery Image">
+            <div class="gallery-caption">${img.caption}</div>
+        </div>
+    `).join('');
+}
+    // openlightbox
+function openLightbox(url) {
+    document.getElementById('modal-img').src = url;
+    document.getElementById('gallery-modal').style.display = 'flex';
+}
+
         document.getElementById('g-date').innerText = now.toDateString();
         document.getElementById('e-date').innerText = "ጥር 19, 2018"; // Simplified Ethiopian date
         
