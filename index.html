@@ -74,14 +74,17 @@
         <p id="proj-desc"></p>
         <div class="video-wrapper"><iframe id="proj-video" src="" frameborder="0" allowfullscreen></iframe></div>
         <div class="progress-bg"><div id="proj-progress" class="progress-fill"></div></div>
-        <div style="text-align:center;"><a id="btn-build" href="#" target="_blank" class="btn" style="background:#0070ba; color:white;">Donate to Building Fund</a></div>
+        
+        <h3 style="margin-top:30px; color:var(--red);">Project Gallery</h3>
+        <div id="building-gallery" class="gallery-grid"></div>
+
+        <div style="text-align:center; margin-top: 20px;"><a id="btn-build" href="#" target="_blank" class="btn" style="background:#0070ba; color:white;">Donate to Building Fund</a></div>
     </div>
 </section>
 
 <section id="about-us" class="page"><div class="card"><h2>About Us</h2><p id="txt-about"></p></div></section>
 <section id="clergy-page" class="page"><div class="card"><h2>Clergy</h2><div id="lst-clergy"></div></div></section>
 <section id="services-page" class="page"><div class="card"><h2>Our Services</h2><div id="lst-services"></div></div></section>
-
 <section id="min-hub" class="page"><div class="card"><h2>Ministry Hub</h2><p id="txt-hub"></p></div></section>
 <section id="min-ss" class="page"><div class="card"><h2>Sunday School</h2><p id="txt-ss"></p></div></section>
 <section id="min-spon" class="page"><div class="card"><h2>Sponsorship Program</h2><p id="txt-spon"></p></div></section>
@@ -108,9 +111,15 @@
 
 <section id="pay-page" class="page"><div class="card" style="text-align:center;"><h2>Donations</h2><a id="btn-pay" href="#" target="_blank" class="btn" style="background:var(--red); color:white;">General Donation</a><p id="txt-zelle" style="margin-top:15px;"></p></div></section>
 
+<div id="gallery-modal" onclick="this.style.display='none'">
+    <span class="close-modal">&times;</span>
+    <img id="modal-img" src="">
+</div>
+
 <script src="content.js"></script>
 <script>
     function mainMenuToggle() { document.getElementById('main-nav-ul').classList.toggle('active-menu'); }
+    
     function subMenuToggle(el) {
         if (window.innerWidth <= 800) {
             const item = el.parentElement;
@@ -118,6 +127,7 @@
             item.classList.toggle('open-submenu');
         }
     }
+
     function goTo(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         const target = document.getElementById(id);
@@ -127,52 +137,58 @@
         window.scrollTo(0,0);
     }
 
+    function openLightbox(url) {
+        document.getElementById('modal-img').src = url;
+        document.getElementById('gallery-modal').style.display = 'flex';
+    }
+
     function render() {
         const d = ChurchData;
         const now = new Date();
-        // ... (Keep existing render code) ...
-    const galleryContainer = document.getElementById('building-gallery');
-    galleryContainer.innerHTML = d.buildingGallery.map(img => `
-        <div class="gallery-item" onclick="openLightbox('${img.url}')">
-            <img src="${img.url}" alt="Gallery Image">
-            <div class="gallery-caption">${img.caption}</div>
-        </div>
-    `).join('');
-}
 
-// Add this new function outside render()
-function openLightbox(url) {
-    document.getElementById('modal-img').src = url;
-    document.getElementById('gallery-modal').style.display = 'flex';
-}
+        // 1. Render Gallery First
+        const galleryContainer = document.getElementById('building-gallery');
+        if(d.buildingGallery) {
+            galleryContainer.innerHTML = d.buildingGallery.map(img => `
+                <div class="gallery-item" onclick="openLightbox('${img.url}')">
+                    <img src="${img.url}" alt="Gallery Image">
+                    <div class="gallery-caption">${img.caption}</div>
+                </div>
+            `).join('');
+        }
 
+        // 2. Render Dates
         document.getElementById('g-date').innerText = now.toDateString();
-        document.getElementById('e-date').innerText = "ጥር 19, 2018"; // Simplified Ethiopian date
-        
+        document.getElementById('e-date').innerText = "ጥር 19, 2018"; 
+
+        // 3. Render Building Project
         document.getElementById('proj-title').innerText = d.buildingProject.title;
         document.getElementById('proj-desc').innerText = d.buildingProject.description;
         document.getElementById('proj-video').src = d.buildingProject.videoURL;
         document.getElementById('proj-progress').style.width = d.buildingProject.progress;
         document.getElementById('proj-progress').innerText = d.buildingProject.progress + " Reached";
         document.getElementById('btn-build').href = d.donations.paypalBuilding;
-        
+
+        // 4. Render Text Contents
         document.getElementById('txt-about').innerText = d.aboutUs;
         document.getElementById('lst-clergy').innerHTML = d.clergy.map(c => `<h3>${c.name}</h3><p><b>${c.title}</b></p><p>${c.bio}</p>`).join('');
         document.getElementById('lst-services').innerHTML = d.services.map(s => `<b>${s.name}</b>: ${s.time}`).join('<br><br>');
-        
         document.getElementById('txt-hub').innerText = d.ministryHub;
         document.getElementById('txt-ss').innerText = d.sundaySchool;
         document.getElementById('txt-spon').innerText = d.sponsorship;
 
+        // 5. Render Registration Links
         document.getElementById('l-mem').href = d.registrationLinks.membership;
         document.getElementById('l-ss').href = d.registrationLinks.sundaySchool;
         document.getElementById('l-ab').href = d.registrationLinks.abinetSchool;
         document.getElementById('l-serve').href = d.registrationLinks.serveWithUs;
         document.getElementById('l-spon').href = d.registrationLinks.sponsorship;
 
+        // 6. Render Payment
         document.getElementById('btn-pay').href = d.donations.paypalGeneral;
         document.getElementById('txt-zelle').innerText = `Zelle: ${d.donations.zelle} | Mailing: ${d.donations.mailing}`;
     }
+
     window.onload = render;
 </script>
 </body>
