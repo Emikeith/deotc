@@ -1,14 +1,21 @@
 const ChurchData = {
     // HOME SECTION
     aboutUs: "Dedicated to preserving the Ethiopian Orthodox Tewahedo faith, our parish serves as a spiritual sanctuary for worship, education, and community support in Winnipeg.",
+    
     clergy: [
-        { name: "Abba [Name]", title: "Lead Priest", bio: "Providing spiritual guidance and leadership to our congregation." }
+        { 
+            name: "Abba [Name]", 
+            title: "Lead Priest", 
+            bio: "Providing spiritual guidance and leadership to our congregation." 
+        }
     ],
+
     services: [
         { name: "Sunday Divine Liturgy (ቅዳሴ)", time: "7:00 AM - 10:30 AM" },
         { name: "Saturday Evening Prayer (ሰርክ ጸሎት)", time: "5:00 PM - 6:30 PM" },
         { name: "Daily Morning Prayer", time: "6:00 AM" }
     ],
+
     buildingProject: {
         title: "Building Our Future / የሕንፃ ግንባታ ፕሮጀክት",
         description: "Be part of history. We are building a new sanctuary to serve our community and future generations. Your contributions make this vision a reality.",
@@ -37,12 +44,12 @@ const ChurchData = {
         paypalBuilding: "https://www.paypal.com/donate?id=BUILDING",
         zelle: "church@example.com",
         mailing: "123 Church St, Winnipeg, MB"
-    }
-    // Building Gallery
-    buildingGallery: [
-    { url: "https://via.placeholder.com/600x400?text=Site+Preparation", caption: "Phase 1: Ground Breaking" },
-    { url: "https://via.placeholder.com/600x400?text=Foundation+Work", caption: "Foundation Pouring" },
-    { url: "https://via.placeholder.com/600x400?text=Architectural+Model", caption: "Final Vision Model" }
-],
-};
+    }, // Added missing comma here
 
+    // BUILDING GALLERY
+    buildingGallery: [
+        { url: "https://via.placeholder.com/600x400?text=Site+Preparation", caption: "Phase 1: Ground Breaking" },
+        { url: "https://via.placeholder.com/600x400?text=Foundation+Work", caption: "Foundation Pouring" },
+        { url: "https://via.placeholder.com/600x400?text=Architectural+Model", caption: "Final Vision Model" }
+    ]
+};
