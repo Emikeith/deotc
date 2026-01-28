@@ -200,6 +200,7 @@
         document.getElementById('lst-services').innerHTML = d.services.map(s => `<b>${s.name}</b>: ${s.time}`).join('<br><br>');
         document.getElementById('txt-hub').innerText = d.ministryHub;
         document.getElementById('txt-ss').innerText = d.sundaySchool;
+        document.getElementById('img-ss').src = d.sundaySchoolImg;
         document.getElementById('txt-spon').innerText = d.sponsorship;
 
         // Links
