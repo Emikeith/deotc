@@ -3,47 +3,67 @@ body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); co
 
 /* HEADER */
 header { background: var(--red); color: white; text-align: center; padding: 25px 15px; border-bottom: 5px solid var(--gold); }
-.logo-container img { height: 85px; margin-bottom: 10px; }
+.logo-container img { height: 80px; margin-bottom: 10px; }
 
-/* TICKER STYLING */
-.ticker-wrap { width: 100%; max-width: 1000px; margin: 10px auto; overflow: hidden; border-radius: 8px; border: 1.5px solid var(--gold); background: #d93025; display: flex; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-.ticker-label { background: var(--gold); color: white; padding: 8px 15px; font-weight: bold; font-size: 0.85rem; white-space: nowrap; z-index: 2; position: relative; box-shadow: 2px 0 5px rgba(0,0,0,0.2); }
-.ticker-content { flex: 1; overflow: hidden; white-space: nowrap; position: relative; }
-.ticker-text { display: inline-block; animation: scroll-left 25s linear infinite; color: white; font-size: 0.95rem; padding-top: 2px; }
-@keyframes scroll-left { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+/* SMOOTH LIQUID TICKER */
+.ticker-wrap { 
+    width: 95%; max-width: 1000px; margin: 15px auto; overflow: hidden; 
+    border-radius: 50px; border: 2px solid var(--gold); 
+    background: linear-gradient(90deg, #d93025, #8B0000); 
+    display: flex; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+}
+.ticker-label { 
+    background: var(--gold); color: white; padding: 10px 20px; 
+    font-weight: bold; font-size: 0.85rem; white-space: nowrap; z-index: 5; 
+}
+.ticker-content { flex: 1; overflow: hidden; display: flex; }
+.ticker-text { 
+    display: inline-block; white-space: nowrap; padding-left: 100%;
+    animation: ticker-move 30s linear infinite; color: white; 
+}
+@keyframes ticker-move { 0% { transform: translateX(0); } 100% { transform: translateX(-200%); } }
 .ticker-wrap:hover .ticker-text { animation-play-state: paused; cursor: pointer; }
 
-/* NAVIGATION & CENTERED DROPDOWN */
+/* NAVIGATION & MOBILE HAMBURGER */
 nav { background: white; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.menu-toggle { 
+    display: none; background: white; color: var(--red); border: none; 
+    padding: 15px; font-size: 1.2rem; font-weight: bold; width: 100%; text-align: left; 
+}
 .menu-container { display: flex; list-style: none; margin: 0; padding: 0; justify-content: center; }
 .nav-item { position: relative; }
-.nav-link { display: flex; align-items: center; padding: 18px 20px; text-decoration: none; color: var(--red); font-weight: bold; font-size: 0.85rem; cursor: pointer; }
-.nav-link::after { content: '›'; font-size: 1.2rem; margin-left: 8px; transition: 0.3s; }
-
-.dropdown { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: white; min-width: 220px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-top: 3px solid var(--gold); z-index: 2000; }
-.dropdown a { color: #444; padding: 12px 16px; text-decoration: none; display: block; font-size: 0.8rem; border-bottom: 1px solid #eee; cursor: pointer; }
+.nav-link { 
+    display: block; padding: 18px 20px; text-decoration: none; 
+    color: var(--red); font-weight: bold; font-size: 0.85rem; cursor: pointer; 
+}
+.dropdown { 
+    display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); 
+    background: white; min-width: 230px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+    border-top: 3px solid var(--gold); 
+}
+.dropdown a { 
+    color: #444; padding: 12px 16px; text-decoration: none; 
+    display: block; font-size: 0.8rem; border-bottom: 1px solid #eee; 
+}
 .dropdown a:hover { background: var(--gold); color: white; }
-@media (min-width: 801px) { .nav-item:hover .dropdown { display: block; } }
 
-/* BUILDING PROJECT */
+/* BUILDING PROJECT UI */
 .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; margin: 20px 0; background: #000; }
 .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-.progress-bg { background: #eee; border-radius: 20px; height: 25px; width: 100%; margin: 15px 0; overflow: hidden; }
+.progress-bg { background: #eee; border-radius: 20px; height: 25px; margin: 15px 0; overflow: hidden; }
 .progress-fill { background: linear-gradient(to right, var(--gold), var(--red)); height: 100%; color: white; text-align: center; line-height: 25px; font-weight: bold; transition: width 1s; }
 
-/* PAGE LAYOUT */
-.page { display: none; max-width: 1000px; margin: 20px auto; padding: 0 20px; }
+/* LAYOUT */
+.page { display: none; max-width: 1000px; margin: 20px auto; padding: 0 15px; }
 .page.active { display: block; }
 .card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #eee; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-
-/* BUTTONS */
-.btn { display: inline-block; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; text-align: center; transition: 0.3s; margin: 10px; }
-.btn-red { background: var(--red); color: white; }
-.btn-gold { border: 2px solid var(--gold); color: var(--gold); background: white; }
+.btn { display: inline-block; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; margin: 5px; text-align: center; }
+.btn-red { background: var(--red); color: white; border: none; }
 
 @media (max-width: 800px) {
-    .menu-container { display: none; flex-direction: column; }
+    .menu-toggle { display: block; }
+    .menu-container { display: none; flex-direction: column; width: 100%; }
     .menu-container.show { display: flex; }
-    .dropdown { position: static; transform: none; width: 100%; box-shadow: none; border-left: 4px solid var(--gold); }
+    .dropdown { position: static; transform: none; width: 100%; box-shadow: none; display: none; background: #f9f9f9; }
+    .nav-item.open-menu .dropdown { display: block; }
 }
