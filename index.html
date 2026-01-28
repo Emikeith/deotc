@@ -9,18 +9,14 @@
 <body>
 
 <header>
-    <div class="logo-container"><img src="logo.png" alt="Church Logo" onerror="this.src='https://via.placeholder.com/80'"></div>
-    <h1 style="margin:0;">የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያን</h1>
+    <div class="logo-container"><img src="logo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/80'"></div>
+    <h1 style="margin:0; font-size: 1.2rem;">የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያን</h1>
     <p style="color:var(--gold); font-weight:bold; margin:5px 0;">ETHIOPIAN ORTHODOX TEWAHEDO CHURCH</p>
 </header>
 
-<div class="ticker-wrap">
-    <div class="ticker-label">📢 ዜና / NEWS</div>
-    <div class="ticker-content">
-        <div class="ticker-text">
-            🔔 ማሳሰቢያ፡ ነገ የጾም ቀን መሆኑን እናሳስባለን :: &nbsp;&nbsp;&nbsp;&nbsp; ⛪️ የሰንበት ትምህርት ቤት ምዝገባ ተጀምሯል :: &nbsp;&nbsp;&nbsp;&nbsp; 🙏 ጸሎተ ማኅሌት በ 5፡00 AM ይጀምራል ::
-        </div>
-    </div>
+<div class="ticker-bar">
+    <div class="ticker-label">NEWS</div>
+    <div class="ticker-wrap"><div id="ticker-content" class="ticker-text"></div></div>
 </div>
 
 <nav>
@@ -31,33 +27,13 @@
             <div class="dropdown">
                 <a onclick="goTo('home-main')">Main Home</a>
                 <a onclick="goTo('about-us')">About Us</a>
-                <a onclick="goTo('clergy-page')">Clergy</a>
-                <a onclick="goTo('services-page')">Services</a>
             </div>
         </li>
         <li class="nav-item">
             <a class="nav-link" onclick="subMenuToggle(this)">Ministries</a>
             <div class="dropdown">
-                <a onclick="goTo('min-hub')">Ministry Hub</a>
                 <a onclick="goTo('min-ss')">Sunday School</a>
-                <a onclick="goTo('min-spon')">Sponsorship</a>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" onclick="subMenuToggle(this)">Calendar & Events</a>
-            <div class="dropdown">
-                <a onclick="goTo('calendar-main')">Calendar and Feasts</a>
-                <a onclick="goTo('upcoming-events')">Upcoming Events</a>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" onclick="subMenuToggle(this)">Contact & Register</a>
-            <div class="dropdown">
-                <a onclick="goTo('reg-mem')">Become a Member</a>
-                <a onclick="goTo('reg-ss')">Sunday School Registration</a>
-                <a onclick="goTo('reg-abinet')">Abinet School</a>
-                <a onclick="goTo('reg-serve')">Serve With Us</a>
-                <a onclick="goTo('reg-spon')">Sponsorship Registration</a>
+                <a onclick="goTo('reg-page')">Registrations</a>
             </div>
         </li>
         <li class="nav-item"><a class="nav-link" onclick="goTo('pay-page')">Donations</a></li>
@@ -66,154 +42,101 @@
 
 <section id="home-main" class="page active">
     <div class="card" style="text-align:center; border:2px solid var(--gold);">
-        <div id="g-date" style="font-size: 1rem; color: #666;"></div>
-        <div id="e-date" style="font-size: 1.4rem; color: var(--red); font-weight: bold; margin-top:5px;"></div>
+        <div id="g-date" style="font-size: 0.9rem; color: #777;"></div>
+        <div id="e-date" style="font-size: 1.5rem; color: var(--red); font-weight: bold; margin-top:5px;"></div>
     </div>
     <div class="card">
         <h2 id="proj-title" style="color:var(--red);"></h2>
         <p id="proj-desc"></p>
-        <div class="video-wrapper"><iframe id="proj-video" src="" frameborder="0" allowfullscreen></iframe></div>
         <div class="progress-bg"><div id="proj-progress" class="progress-fill"></div></div>
-        
-        <h3 style="margin-top:30px; color:var(--red);">Project Gallery / የግንባታ ፎቶዎች</h3>
         <div id="building-gallery" class="gallery-grid"></div>
-        
-        <div style="text-align:center; margin-top:20px;">
-            <a id="btn-build" href="#" target="_blank" class="btn btn-paypal">Donate to Building Fund</a>
-        </div>
+    </div>
+</section>
+
+<section id="min-ss" class="page">
+    <div class="card">
+        <div id="ss-posts-container"></div>
     </div>
 </section>
 
 <section id="about-us" class="page"><div class="card"><h2>About Us</h2><p id="txt-about"></p></div></section>
-<section id="clergy-page" class="page"><div class="card"><h2>Clergy</h2><div id="lst-clergy"></div></div></section>
-<section id="services-page" class="page"><div class="card"><h2>Our Services</h2><div id="lst-services"></div></div></section>
-<section id="min-hub" class="page"><div class="card"><h2>Ministry Hub</h2><p id="txt-hub"></p></div></section>
-<section id="min-ss" class="page">
+
+<section id="reg-page" class="page">
     <div class="card">
-        <h2>Sunday School / የሰንበት ትምህርት ቤት</h2>
-        <div class="split-content">
-            <div class="split-text">
-                <p id="txt-ss"></p>
-                <ul style="line-height: 1.8;">
-                    <li>Ge'ez Language Lessons</li>
-                    <li>Orthodox Hymns (Mezmur)</li>
-                    <li>Bible Study & Ethics</li>
-                </ul>
-            </div>
-            <div class="split-image">
-                <img id="img-ss" src="" alt="Sunday School">
-            </div>
+        <h2>Registrations / ምዝገባ</h2>
+        <div style="display:grid; gap:10px;">
+            <a id="l-mem" href="#" target="_blank" class="nav-link" style="border:1px solid #ddd; border-radius:8px;">Church Membership</a>
+            <a id="l-ss" href="#" target="_blank" class="nav-link" style="border:1px solid #ddd; border-radius:8px;">Sunday School</a>
         </div>
     </div>
 </section>
-<section id="min-spon" class="page"><div class="card"><h2>Sponsorship</h2><p id="txt-spon"></p></div></section>
 
-<section id="calendar-main" class="page">
-    <div class="card">
-        <h2>Calendar & Feasts</h2>
-        <iframe src="https://calendar.google.com/calendar/embed?src=N2U5NjhkZjM3YmZjZWZkODhmNjUwNzlkZjA1Y2Y2NzQxNjI1YTM2ZDJjMzlkMTg0NDJjZTEzNTZlMWY0NmEzYkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" width="100%" height="600" frameborder="0"></iframe>
-    </div>
-</section>
+<section id="pay-page" class="page"><div class="card" style="text-align:center;"><h2>Donations</h2><p id="txt-zelle" style="font-weight:bold;"></p></div></section>
 
-<section id="upcoming-events" class="page">
-    <div class="card">
-        <h2>Upcoming Events</h2>
-        <iframe src="https://calendar.google.com/calendar/embed?mode=AGENDA&src=N2U5NjhkZjM3YmZjZWZkODhmNjUwNzlkZjA1Y2Y2NzQxNjI1YTM2ZDJjMzlkMTg0NDJjZTEzNTZlMWY0NmEzYkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" width="100%" height="400" frameborder="0"></iframe>
-    </div>
-</section>
-
-<section id="reg-mem" class="page"><div class="card"><h2>Membership</h2><a id="l-mem" href="#" target="_blank" class="btn btn-primary">Open Form</a></div></section>
-<section id="reg-ss" class="page"><div class="card"><h2>Sunday School</h2><a id="l-ss" href="#" target="_blank" class="btn btn-primary">Open Form</a></div></section>
-<section id="reg-abinet" class="page"><div class="card"><h2>Abinet School</h2><a id="l-ab" href="#" target="_blank" class="btn btn-primary">Open Form</a></div></section>
-<section id="reg-serve" class="page"><div class="card"><h2>Serve With Us</h2><a id="l-serve" href="#" target="_blank" class="btn btn-primary">Open Form</a></div></section>
-<section id="reg-spon" class="page"><div class="card"><h2>Sponsorship</h2><a id="l-spon" href="#" target="_blank" class="btn btn-primary">Open Form</a></div></section>
-
-<section id="pay-page" class="page">
-    <div class="card" style="text-align:center;">
-        <h2>Donations</h2>
-        <a id="btn-pay" href="#" target="_blank" class="btn btn-paypal">General Donation (PayPal)</a>
-        <p id="txt-zelle" style="margin-top:20px; font-weight:bold;"></p>
-        <p id="txt-mail" style="color:#666;"></p>
-    </div>
-</section>
-
-<div id="gallery-modal" onclick="this.style.display='none'"><img id="modal-img" src=""></div>
+<div id="gallery-modal" onclick="this.style.display='none'"><img id="modal-img"></div>
 
 <script src="content.js"></script>
 <script>
-    // NAVIGATION
     function mainMenuToggle() { document.getElementById('main-nav-ul').classList.toggle('active-menu'); }
-    function subMenuToggle(el) { if (window.innerWidth <= 800) el.parentElement.classList.toggle('open-submenu'); }
+    function subMenuToggle(el) { if(window.innerWidth <= 800) el.parentElement.classList.toggle('open-submenu'); }
     function goTo(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         document.getElementById('main-nav-ul').classList.remove('active-menu');
-        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open-submenu'));
         window.scrollTo(0,0);
     }
 
-    // ETHIOPIAN CALENDAR LOGIC
-    function updateBilingualDate() {
+    function getEthiopianDate() {
         const now = new Date();
-        document.getElementById('g-date').innerText = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        
-        // Dynamic Ethiopian Calculation (Approximate)
         const ethiopianMonths = ["መስከረም", "ጥቅምት", "ኅዳር", "ታኅሣሥ", "ጥር", "የካቲት", "መጋቢት", "ሚያዝያ", "ግንቦት", "ሰኔ", "ሐምሌ", "ነሐሴ", "ጳጉሜ"];
-        let eDay = now.getDate() + 11; 
-        let eMonthIdx = 4; // Currently January = Tir
-        let eYear = now.getFullYear() - 8;
-        
-        if (eDay > 30) { eDay -= 30; eMonthIdx++; }
-        document.getElementById('e-date').innerText = `${ethiopianMonths[eMonthIdx]} ${eDay}, ${eYear} ዓ.ም`;
+        let eDay = now.getDate() - 8; 
+        if (eDay <= 0) eDay += 30;
+        return `${ethiopianMonths[4]} ${eDay}, ${now.getFullYear() - 8} ዓ.ም`;
     }
 
-    // GALLERY MODAL
     function openLightbox(url) {
         document.getElementById('modal-img').src = url;
         document.getElementById('gallery-modal').style.display = 'flex';
     }
 
-    // MASTER RENDER
     function render() {
         const d = ChurchData;
-        updateBilingualDate();
+        
+        // News Ticker
+        document.getElementById('ticker-content').innerHTML = d.newsTicker;
+
+        // Date
+        document.getElementById('g-date').innerText = new Date().toDateString();
+        document.getElementById('e-date').innerText = getEthiopianDate();
         
         // Home
         document.getElementById('proj-title').innerText = d.buildingProject.title;
         document.getElementById('proj-desc').innerText = d.buildingProject.description;
-        document.getElementById('proj-video').src = d.buildingProject.videoURL;
         document.getElementById('proj-progress').style.width = d.buildingProject.progress;
         document.getElementById('proj-progress').innerText = d.buildingProject.progress;
-        document.getElementById('btn-build').href = d.donations.paypalBuilding;
 
-        // Gallery
         document.getElementById('building-gallery').innerHTML = d.buildingGallery.map(img => `
-            <div class="gallery-item" onclick="openLightbox('${img.url}')">
-                <img src="${img.url}">
-                <div class="gallery-caption">${img.caption}</div>
+            <div class="gallery-item" onclick="openLightbox('${img.url}')"><img src="${img.url}"></div>
+        `).join('');
+
+        // Sunday School Side-by-Side Posts
+        document.getElementById('ss-posts-container').innerHTML = d.sundaySchoolPosts.map(post => `
+            <div class="post-section">
+                <div class="post-content">
+                    <h2>${post.title}</h2>
+                    <p style="line-height:1.6;">${post.text}</p>
+                </div>
+                <div class="post-media">
+                    <img src="${post.image}" alt="Sunday School Post">
+                </div>
             </div>
         `).join('');
 
-        // Text Content
+        // About & Links
         document.getElementById('txt-about').innerText = d.aboutUs;
-        document.getElementById('lst-clergy').innerHTML = d.clergy.map(c => `<h3>${c.name}</h3><p><b>${c.title}</b></p><p>${c.bio}</p>`).join('');
-        document.getElementById('lst-services').innerHTML = d.services.map(s => `<b>${s.name}</b>: ${s.time}`).join('<br><br>');
-        document.getElementById('txt-hub').innerText = d.ministryHub;
-        document.getElementById('txt-ss').innerText = d.sundaySchool;
-        document.getElementById('img-ss').src = d.sundaySchoolImg;
-        document.getElementById('txt-spon').innerText = d.sponsorship;
-
-        // Links
         document.getElementById('l-mem').href = d.registrationLinks.membership;
         document.getElementById('l-ss').href = d.registrationLinks.sundaySchool;
-        document.getElementById('l-ab').href = d.registrationLinks.abinetSchool;
-        document.getElementById('l-serve').href = d.registrationLinks.serveWithUs;
-        document.getElementById('l-spon').href = d.registrationLinks.sponsorship;
-
-        // Donation
-        document.getElementById('btn-pay').href = d.donations.paypalGeneral;
-        document.getElementById('txt-zelle').innerText = `Zelle: ${d.donations.zelle}`;
-        document.getElementById('txt-mail').innerText = `Mailing Address: ${d.donations.mailing}`;
+        document.getElementById('txt-zelle').innerText = "Zelle: " + d.donations.zelle;
     }
 
     window.onload = render;
