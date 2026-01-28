@@ -38,4 +38,11 @@ const ChurchData = {
         zelle: "church@example.com",
         mailing: "123 Church St, Winnipeg, MB"
     }
+    // Building Gallery
+    buildingGallery: [
+    { url: "https://via.placeholder.com/600x400?text=Site+Preparation", caption: "Phase 1: Ground Breaking" },
+    { url: "https://via.placeholder.com/600x400?text=Foundation+Work", caption: "Foundation Pouring" },
+    { url: "https://via.placeholder.com/600x400?text=Architectural+Model", caption: "Final Vision Model" }
+],
 };
+
