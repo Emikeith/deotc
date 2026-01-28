@@ -3,43 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EOTC Church Portal</title>
+    <title>Church Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
     <div class="logo-container"><img src="logo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/80?text=LOGO'"></div>
-    <h1>የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያን</h1>
-    <div style="color: var(--gold); font-weight: bold;">ETHIOPIAN ORTHODOX TEWAHEDO CHURCH</div>
+    <h1 style="margin:0; font-size: 1.5rem;">የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያን</h1>
+    <div style="color: var(--gold); font-weight: bold; font-size: 0.9rem;">ETHIOPIAN ORTHODOX TEWAHEDO CHURCH</div>
 </header>
 
-<div class="scroll-wrapper">
-    <div class="scroll-container" id="ticker"></div>
+<div class="ticker-wrap">
+  <div class="ticker-label">📢 ማስታወቂያ (Latest)</div>
+  <div class="ticker-content">
+    <div class="ticker-text">
+      &nbsp;&nbsp;&nbsp;&nbsp; 🔔 **ማሳሰቢያ፡** ነገ የጾም ቀን መሆኑን እናሳስባለን :: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      ⛪️ **የሰንበት ትምህርት ቤት ምዝገባ** ተጀምሯል :: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      🙏 **ጸሎተ ማኅሌት** በ 5፡00 AM ይጀምራል :: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      🌟 **ልዩ ጉባኤ፡** እሁድ ከሰዓት በታላቁ አዳራሽ ይካሄዳል ::
+    </div>
+  </div>
 </div>
 
 <nav>
-    <button class="menu-toggle" onclick="document.getElementById('menu').classList.toggle('show')" style="display:none;">☰ MENU</button>
     <ul class="menu-container" id="menu">
         <li class="nav-item">
             <a class="nav-link" onclick="toggleSub(this)">Home / ዋና ገጽ</a>
             <div class="dropdown">
                 <a onclick="goTo('home-main')">Main Home</a>
-                <a onclick="goTo('gallery')">Photo Gallery</a>
+                <a onclick="goTo('sunday-school')">Sunday School</a>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" onclick="toggleSub(this)">Ministries</a>
+            <a class="nav-link" onclick="toggleSub(this)">Building Project</a>
             <div class="dropdown">
-                <a onclick="goTo('min-hub')">Ministry Hub</a>
-                <a onclick="goTo('clergy')">Our Clergy</a>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" onclick="toggleSub(this)">Sunday School</a>
-            <div class="dropdown">
-                <a onclick="goTo('sunday-school')">Classes & Registration</a>
-                <a onclick="goTo('volunteers-page')">Our Volunteers</a>
+                <a onclick="goTo('building-page')">Design & Progress</a>
             </div>
         </li>
         <li class="nav-item"><a class="nav-link" onclick="goTo('payment-page')">Donations</a></li>
@@ -47,74 +46,105 @@
 </nav>
 
 <section id="home-main" class="page active">
-    <div class="card" style="border-top: 6px solid var(--gold);">
-        <h2 id="proj-title" style="color: var(--red); margin: 0 0 10px 0;"></h2>
-        <p id="proj-desc" style="line-height: 1.6;"></p>
-        
-        <div class="video-wrapper">
-            <iframe id="proj-video" src="" frameborder="0" allowfullscreen></iframe>
+    <div class="card" style="padding: 10px 12px; display: flex; align-items: center; justify-content: center; gap: 15px; border: 2px solid var(--gold);">
+        <div style="display: flex; align-items: center; gap: 6px;">
+            <span id="g-day" style="font-size: 0.9rem; color: #1a73e8; font-weight: bold;">-</span>
+            <span id="g-date" style="font-size: 0.9rem; color: #444;">-</span>
         </div>
-
-        <div class="progress-container"><div id="proj-progress" class="progress-bar"></div></div>
-        <p style="text-align:center; font-weight:bold; margin-bottom:20px;">Current Status: <span id="proj-status"></span></p>
-
-        <div style="background: #fdfaf0; border: 2px dashed var(--gold); padding: 25px; text-align: center; border-radius: 12px;">
-            <h3 style="margin-top:0; color: var(--red);">Support the Building Project</h3>
-            <p>Help us build our spiritual home. Please donate to the building fund specifically.</p>
-            <a id="pp-build-btn" href="#" target="_blank" class="ss-btn btn-red" style="background: #0070ba; border:none;">Donate to Building Fund</a>
-            <a id="pp-gen-btn" href="#" target="_blank" class="ss-btn btn-gold">General Donation</a>
+        <div style="width: 2px; background: var(--gold); height: 20px;"></div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 0.9rem; font-weight: bold;">ዛሬ ቀኑ፡</span>
+            <span id="e-am" style="font-size: 1.1rem; color: var(--red); font-weight: bold;">-</span>
+            <span id="e-en" style="font-size: 0.9rem; color: var(--red);">-</span>
+            <span id="e-yr" style="font-size: 0.85rem; color: #777;">-</span>
         </div>
     </div>
 
-    <div id="notice-cards" class="grid" style="margin: 20px 0;"></div>
-    
+    <div id="notice-cards" class="grid"></div>
+
     <div class="card" style="padding:0; overflow:hidden;">
-        <h3 style="text-align:center; padding:15px; margin:0; background:#f9f9f9; color:var(--red);">Church Calendar</h3>
-        <iframe id="g-cal" width="100%" height="500" frameborder="0"></iframe>
+        <iframe src="https://calendar.google.com/calendar/embed?src=YOUR_ID_HERE&color=%238b0000" style="border:0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+    </div>
+</section>
+
+<section id="building-page" class="page">
+    <div class="card">
+        <h2 id="proj-title" style="color:var(--red);"></h2>
+        <p id="proj-desc"></p>
+        <div class="video-wrapper"><iframe id="proj-video" src="" frameborder="0" allowfullscreen></iframe></div>
+        <div class="progress-bar-bg"><div id="proj-progress" class="progress-fill"></div></div>
+        <div style="text-align:center; background:#fdfaf0; border:2px dashed var(--gold); padding:20px; border-radius:12px;">
+            <h3>Support the Project</h3>
+            <a id="pp-build-btn" href="#" class="btn btn-red">Donate to Building Fund</a>
+        </div>
     </div>
 </section>
 
 <section id="sunday-school" class="page">
-    <h2 style="text-align:center; color:var(--red);">Sunday School</h2>
-    <div id="ss-containers"></div>
-    <div style="text-align:center;">
-        <a id="child-link" href="#" target="_blank" class="ss-btn btn-red">Child Registration</a>
-        <a id="vol-link" href="#" target="_blank" class="ss-btn btn-gold">Volunteer Sign-up</a>
+    <div class="card">
+        <h2 style="text-align:center; color:var(--red);">Sunday School</h2>
+        <div id="ss-list"></div>
+        <div style="text-align:center; margin-top:20px;">
+            <a id="child-reg" href="#" class="btn btn-red">Register Child</a>
+        </div>
     </div>
 </section>
 
-<section id="volunteers-page" class="page"><div id="v-list" class="grid"></div></section>
-<section id="min-hub" class="page"><div id="min-grid" class="grid"></div></section>
-<section id="clergy" class="page"><div id="c-list"></div></section>
-<section id="gallery" class="page"><div id="gal-grid" class="grid"></div></section>
-<section id="payment-page" class="page"><div class="card" style="text-align:center;"><h2>Support Us</h2><a id="pp-btn" class="ss-btn btn-red">General Donation</a><p id="z-info"></p></div></section>
+<section id="payment-page" class="page">
+    <div class="card" style="text-align:center;">
+        <h2>Donations</h2>
+        <a id="pp-gen-btn" href="#" class="btn btn-red">General Donation</a>
+        <p id="z-info"></p>
+    </div>
+</section>
 
 <script src="content.js"></script>
 <script>
     function toggleSub(el) { if(window.innerWidth <= 800) { el.parentElement.classList.toggle('open-menu'); let d = el.nextElementSibling; d.style.display = (d.style.display === "block") ? "none" : "block"; } }
     function goTo(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
 
+    // THE ETHIOPIAN CALENDAR LOGIC YOU PROVIDED
+    function updateDualCalendar() {
+        const now = new Date();
+        const daysEn = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const gMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        document.getElementById('g-day').innerText = daysEn[now.getDay()];
+        document.getElementById('g-date').innerText = gMonths[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear();
+
+        const amMonths = ["መስከረም", "ጥቅምት", "ኅዳር", "ታኅሣሥ", "ጥር", "የካቲት", "መጋቢት", "ሚያዝያ", "ግንቦት", "ሰኔ", "ሐምሌ", "ነሐሴ", "ጳጉሜ"];
+        const enMonths = ["Mesk", "Tik", "Hid", "Tah", "Tir", "Yek", "Meg", "Mia", "Gen", "Sene", "Ham", "Neh", "Pag"];
+        const refDate = new Date(2025, 8, 11);
+        const diff = Math.floor((now - refDate) / 86400000);
+        let year = 2018; let dCount = diff;
+        if (dCount < 0) { year = 2017; dCount = 365 + dCount; }
+        let mIdx = Math.floor(dCount / 30); let day = (dCount % 30) + 1;
+        if (mIdx >= 12) { mIdx = 12; day = (dCount - 360) + 1; }
+        document.getElementById('e-am').innerText = amMonths[mIdx] + " " + day;
+        document.getElementById('e-en').innerText = enMonths[mIdx] + " " + day;
+        document.getElementById('e-yr').innerText = year;
+    }
+
     function render() {
         const d = ChurchData;
-        document.getElementById('ticker').innerHTML = `<div class="scroll-text">${d.announcements.scrollingText}</div>`.repeat(3);
+        updateDualCalendar();
         
-        // Project Render
+        // Render Home
+        document.getElementById('notice-cards').innerHTML = d.announcements.cards.map(c => `<div class="card" style="border-left:5px solid ${c.tagColor}"><h4>${c.title}</h4><p>${c.description}</p></div>`).join('');
+        
+        // Render Building
         document.getElementById('proj-title').innerText = d.buildingProject.title;
         document.getElementById('proj-desc').innerText = d.buildingProject.description;
         document.getElementById('proj-video').src = d.buildingProject.videoURL;
-        document.getElementById('proj-status').innerText = d.buildingProject.status;
         document.getElementById('proj-progress').style.width = d.buildingProject.progress;
         document.getElementById('proj-progress').innerText = d.buildingProject.progress + " Complete";
         document.getElementById('pp-build-btn').href = d.donations.paypalBuilding;
-        document.getElementById('pp-gen-btn').href = d.donations.paypalGeneral;
 
-        // General Content
-        document.getElementById('notice-cards').innerHTML = d.announcements.cards.map(c => `<div class="card" style="border-top:4px solid ${c.tagColor}"><h3>${c.title}</h3><p>${c.description}</p></div>`).join('');
-        document.getElementById('ss-containers').innerHTML = d.sundaySchool.ageGroups.map(g => `<div class="ss-group-item"><div class="ss-group-text"><h3>${g.group}</h3><p>${g.focus}</p></div><div class="ss-group-image"><img src="${g.image}"></div></div>`).join('');
-        document.getElementById('child-link').href = d.sundaySchool.childRegistrationURL;
-        document.getElementById('vol-link').href = d.sundaySchool.volunteerRegistrationURL;
-        document.getElementById('v-list').innerHTML = d.volunteers.list.map(v => `<div class="card servant-card"><img src="${v.image}" class="servant-image"><h4>${v.name}</h4><p>${v.role}</p></div>`).join('');
-        document.getElementById('g-cal').src = d.googleCalendarURL;
+        // Render Sunday School
+        document.getElementById('ss-list').innerHTML = d.sundaySchool.ageGroups.map(g => `<div class="ss-group-item"><div><h3>${g.group}</h3><p>${g.focus}</p></div><div class="ss-group-image"><img src="${g.image}"></div></div>`).join('');
+        document.getElementById('child-reg').href = d.sundaySchool.childRegistrationURL;
+
+        // Donations
+        document.getElementById('pp-gen-btn').href = d.donations.paypalGeneral;
         document.getElementById('z-info').innerText = `Zelle: ${d.donations.zelle} | Mail: ${d.donations.mailing}`;
     }
     window.onload = render;
