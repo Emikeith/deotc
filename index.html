@@ -1,124 +1,303 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="am">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EOTC Winnipeg Portal</title><link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debre Genet EOTC Winnipeg</title>
+<style>
+  :root {
+    --text-primary: #630F16;      /* Burgundy */
+    --accent-gold: #D4A017;       /* Main Gold Accent */
+    --bg-card: rgba(255, 248, 225, 0.96); 
+    --subtle-silver: #C0C0C0;
+    --overlay: rgba(0, 0, 0, 0.95);
+  }
+
+  /* 1. SACRED GOLD SVG BACKGROUND */
+  html, body { 
+    margin: 0 !important; 
+    padding: 0 !important; 
+    min-height: 100vh !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3CradialGradient id='sacredGold' cx='50%25' cy='0%25' r='100%25'%3E%3Cstop offset='0%25' stop-color='%23FDF5E6'/%3E%3Cstop offset='35%25' stop-color='%23F3E197'/%3E%3Cstop offset='100%25' stop-color='%23D4AF37'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23sacredGold)'/%3E%3C/svg%3E") !important;
+    background-attachment: fixed !important;
+    background-size: cover !important;
+    font-family: 'Nyala', 'Abyssinica SIL', serif; 
+    color: var(--text-primary); 
+    overflow-x: hidden;
+  }
+  
+  body::after {
+    content: "♰";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60vh;
+    color: var(--accent-gold);
+    opacity: 0.04; 
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .container { width: 100%; display: flex; flex-direction: column; align-items: center; padding-bottom: 100px; }
+
+  /* 2. MAJESTIC HEADER */
+  .church-header { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; 
+    padding: 80px 20px; 
+    background: rgba(255, 248, 225, 0.3); 
+    width: 100%; 
+    border-bottom: 8px double var(--accent-gold); 
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .church-header::before {
+    content: "◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈";
+    display: block;
+    color: var(--accent-gold);
+    letter-spacing: 5px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    opacity: 0.6;
+  }
+
+  .church-parish-name { 
+    color: var(--accent-gold); 
+    font-size: clamp(45px, 10vw, 75px); 
+    font-weight: 900; 
+    margin: 0; 
+    text-shadow: 2px 2px 0px rgba(99, 15, 22, 0.1);
+  }
+
+  .triple-cross { 
+    font-size: 28px; 
+    color: var(--text-primary); 
+    margin: 15px 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .triple-cross::before, .triple-cross::after {
+    content: "";
+    height: 1px;
+    width: clamp(30px, 10vw, 100px);
+    background: var(--subtle-silver);
+  }
+
+  .title-am { 
+    color: var(--text-primary); 
+    font-size: clamp(22px, 5vw, 34px); 
+    font-weight: 700; 
+    margin: 15px 0; 
+    line-height: 1.5;
+    text-align: center; 
+  }
+
+  .patrons-en { 
+    color: var(--text-primary); 
+    font-size: 13px; 
+    text-transform: uppercase; 
+    letter-spacing: 3px; 
+    font-weight: 600; 
+    margin: 10px 0;
+    opacity: 0.8;
+  }
+
+  .location-tag {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 6px 20px;
+    border: 1px solid var(--subtle-silver);
+    color: var(--accent-gold);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+  }
+
+  /* 3. NEWS TICKER */
+  .notice-ticker { width: 90%; max-width: 850px; background: var(--bg-card); border: 2px solid var(--subtle-silver); padding: 18px; margin: 30px 0; position: relative; text-align: center; }
+  .ticker-label { position: absolute; top: -10px; left: 20px; background: var(--text-primary); color: white; font-size: 10px; padding: 2px 10px; font-weight: bold; }
+  #dynamic-notice { font-weight: bold; transition: opacity 0.5s; font-size: 19px; min-height: 24px; }
+
+  /* 4. ACTION HUB */
+  .action-hub { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 92%; max-width: 850px; margin-bottom: 40px; }
+  .hub-btn { text-decoration: none; padding: 25px 10px; text-align: center; border-radius: 4px; font-weight: bold; border: 2px solid var(--subtle-silver); transition: 0.3s; }
+  .btn-member { background: var(--text-primary); color: white; }
+  .btn-donate { background: var(--accent-gold); color: white; }
+  .hub-btn small { display: block; font-size: 10px; text-transform: uppercase; margin-top: 5px; opacity: 0.8; }
+
+  /* 5. SECTIONS */
+  .section-tag { width: 90%; max-width: 900px; color: var(--text-primary); font-weight: bold; font-size: 14px; border-bottom: 3px solid var(--accent-gold); margin: 40px 0 20px 0; padding-bottom: 8px; text-transform: uppercase; letter-spacing: 2px; text-align: center; }
+
+  /* 6. SERVICES */
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; width: 90%; max-width: 900px; }
+  .service-card { background: var(--bg-card); padding: 25px; text-align: center; border: 1px solid var(--subtle-silver); border-top: 4px solid var(--accent-gold); }
+
+  /* 7. VIDEO */
+  .video-container { width: 90%; max-width: 900px; border: 3px solid var(--accent-gold); border-radius: 4px; overflow: hidden; }
+  .video-aspect { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .video-aspect iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+  /* 8. BUILDING PROJECT (BURGUNDY STYLE) */
+  .project-box { width: 90%; max-width: 900px; background: var(--bg-card); padding: 30px; border-radius: 8px; border-left: 10px solid var(--text-primary); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+  .track { width: 100%; height: 25px; background: #ddd; border-radius: 15px; margin: 15px 0; border: 1px solid var(--accent-gold); overflow: hidden; }
+  .fill { width: 65%; height: 100%; background: linear-gradient(to right, #4a0a10, var(--text-primary)); }
+
+  /* 9. ROTATING SLIDER GALLERY */
+  .slider-frame {
+    width: 90%; max-width: 900px; height: 450px;
+    border: 5px solid var(--accent-gold); border-radius: 10px;
+    overflow: hidden; position: relative; margin: 20px 0;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+  .slider-images { display: flex; width: 300%; height: 100%; animation: slide 12s infinite linear; }
+  .slider-images img { width: 33.33%; height: 100%; object-fit: cover; }
+
+  @keyframes slide {
+    0%, 30% { margin-left: 0; }
+    33%, 63% { margin-left: -100%; }
+    66%, 96% { margin-left: -200%; }
+    100% { margin-left: 0; }
+  }
+
+  /* 10. EVENTS */
+  .event-item { background: var(--bg-card); margin-bottom: 20px; padding: 25px; border: 1px solid var(--subtle-silver); border-left: 10px solid var(--text-primary); width: 90%; max-width: 900px; box-sizing: border-box; }
+  
+  .footer { width: 100%; text-align: center; padding: 60px 0; background: rgba(255, 248, 225, 0.5); border-top: 4px solid var(--accent-gold); color: var(--text-primary); font-size: 13px; margin-top: 50px; }
+
+  .loader { border: 4px solid var(--subtle-silver); border-top: 4px solid var(--text-primary); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 30px auto; }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+</style>
 </head>
 <body>
-<header>
-    <h1>የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያን</h1>
-    <p style="color:var(--gold); font-weight:bold;">ETHIOPIAN ORTHODOX TEWAHEDO CHURCH</p>
-</header>
-<div class="ticker-bar">
-    <div class="ticker-label">NEWS</div><div class="ticker-wrap"><div id="ticker-content" class="ticker-text"></div></div>
+
+<div class="container">
+
+  <header class="church-header">
+    <div class="church-parish-name">ደብረ ገነት</div>
+    <div class="triple-cross">♰ ♰ ♰</div>
+    <h1 class="title-am">
+      ቅድስት ማርያም ወቅዱስ ገብርኤል<br>
+      <span style="font-size: 0.85em; opacity: 0.95;">ወቅዱስ አርሴማ</span>
+    </h1>
+    <div class="patrons-en">St. Mary • St. Gabriel • St. Arsema</div>
+    <div class="location-tag">Winnipeg, Manitoba</div>
+  </header>
+
+  <div class="notice-ticker">
+    <span class="ticker-label">ዜና / NEWS</span>
+    <div id="dynamic-notice">እንኳን በደህና መጡ:: Welcome to our Parish.</div>
+  </div>
+
+  <div class="action-hub">
+    <a href="#" class="hub-btn btn-member">የአባልነት ምዝገባ<small>Membership</small></a>
+    <a href="#" class="hub-btn btn-donate">መባና ስጦታ<small>Donations</small></a>
+  </div>
+
+  <div class="section-tag">Latest Sermon / ትምህርተ ወንጌል</div>
+  <div class="video-container">
+    <div class="video-aspect">
+      <iframe src="https://www.youtube.com/embed/videoseries?list=UUrJheShnfyHxDFO0kESPdlw" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="section-tag">Regular Services / አገልግሎቶች</div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div style="font-size: 22px; font-weight: bold;">Divine Liturgy / ቅዳሴ</div>
+      <div style="font-weight:bold;">Sunday: 6:00 AM - 9:30 AM</div>
+    </div>
+    <div class="service-card">
+      <div style="font-size: 22px; font-weight: bold;">Sunday School / ትምህርት</div>
+      <div style="font-weight:bold;">Sunday: 10:00 AM - 12:00 PM</div>
+    </div>
+  </div>
+
+  <div class="section-tag">Building Project / የህንፃ ግንባታ</div>
+  <div class="project-box">
+    <div style="display: flex; justify-content: space-between; font-weight: bold;">
+      <span>Fundraising Progress</span>
+      <span style="color: var(--text-primary);">65% Complete</span>
+    </div>
+    <div class="track"><div class="fill"></div></div>
+    <p style="font-size: 14px;">Goal: $1.2M. God bless you for your support.</p>
+  </div>
+
+  <div class="section-tag">Sacred Gallery / የፎቶ መዝገብ</div>
+  <div class="slider-frame">
+    <div class="slider-images">
+      <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=800" alt="Gallery 1">
+      <img src="https://images.unsplash.com/photo-1590076215667-875d4ef2d97e?w=800" alt="Gallery 2">
+      <img src="https://images.unsplash.com/photo-1519810755548-39cd217da494?w=800" alt="Gallery 3">
+    </div>
+  </div>
+
+  <div class="section-tag">Upcoming Events / መጪ መርሃ ግብሮች</div>
+  <div id="loading" class="loader"></div>
+  <div id="eventList" style="width:100%; display:flex; flex-direction:column; align-items:center;"></div>
+
+  <footer class="footer">
+    353 Mountain Ave, Winnipeg, MB R2W 1J9<br>
+    office@stmarywinnipeg.ca | © 2026 Debre Genet EOTC
+  </footer>
 </div>
-<nav>
-    <ul class="menu-container">
-        <li class="nav-item"><a class="nav-link">Home</a>
-            <div class="dropdown">
-                <a onclick="goTo('home-main')">Main Home</a>
-                <a onclick="goTo('about-us')">About Us</a>
-                <a onclick="goTo('clergy-p')">Clergy</a>
-                <a onclick="goTo('serv-p')">Services</a>
-            </div>
-        </li>
-        <li class="nav-item"><a class="nav-link">Ministries</a>
-            <div class="dropdown">
-                <a onclick="goTo('min-hub')">Ministry Hub</a>
-                <a onclick="goTo('min-ss')">Sunday School</a>
-                <a onclick="goTo('min-spon')">Sponsorship</a>
-            </div>
-        </li>
-        <li class="nav-item"><a class="nav-link">Calendar & Events</a>
-            <div class="dropdown">
-                <a onclick="goTo('cal-sch')">Parish Schedule</a>
-                <a onclick="goTo('cal-feast')">Calendar & Feasts</a>
-                <a onclick="goTo('cal-up')">Upcoming Events</a>
-            </div>
-        </li>
-        <li class="nav-item"><a class="nav-link">Contact Us</a>
-            <div class="dropdown">
-                <a onclick="goTo('reg-mem')">Become a Member</a>
-                <a onclick="goTo('reg-ss')">Sunday School</a>
-                <a onclick="goTo('reg-ab')">Abinet School</a>
-                <a onclick="goTo('reg-srv')">Serve With Us</a>
-                <a onclick="goTo('reg-sp')">Sponsorship Registration</a>
-            </div>
-        </li>
-        <li class="nav-item"><a class="nav-link" onclick="goTo('pay-p')">Donations</a></li>
-    </ul>
-</nav>
 
-<section id="home-main" class="page active">
-    <div class="card" style="text-align:center; border:2px solid var(--gold);">
-        <div id="g-date"></div><div id="e-date" style="font-size:1.5rem; color:var(--red); font-weight:bold;"></div>
-    </div>
-    <div class="card">
-        <h2 id="proj-title" style="color:var(--red);"></h2><p id="proj-desc"></p>
-        <div class="video-container"><iframe id="proj-video" src="" frameborder="0" allowfullscreen></iframe></div>
-        <h4>Construction Progress: <span id="proj-status"></span></h4>
-        <div class="progress-bg"><div id="proj-progress" class="progress-fill"></div></div>
-        <div id="building-gallery" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px;"></div>
-    </div>
-</section>
-
-<section id="about-us" class="page"><div class="card"><h2>About Us</h2><p id="txt-about"></p></div></section>
-<section id="clergy-p" class="page"><div class="card"><h2>Clergy</h2><div id="lst-clergy"></div></div></section>
-<section id="serv-p" class="page"><div class="card"><h2>Services</h2><div id="lst-serv"></div></div></section>
-<section id="min-hub" class="page"><div class="card"><h2>Ministry Hub</h2><p id="txt-hub"></p></div></section>
-
-<section id="min-ss" class="page">
-    <div class="card">
-        <div class="split-view">
-            <div class="split-text"><h2>Sunday School</h2><p id="txt-ss"></p></div>
-            <div class="split-img"><img id="img-ss" src=""></div>
-        </div>
-    </div>
-</section>
-
-<section id="min-spon" class="page"><div class="card"><h2>Sponsorship</h2><p id="txt-spon"></p></div></section>
-
-<section id="cal-sch" class="page"><div class="card"><h2>Parish Schedule</h2><p>Our weekly prayer schedule.</p></div></section>
-<section id="cal-feast" class="page"><div class="card"><h2>Calendar & Feasts</h2><iframe src="https://calendar.google.com/calendar/embed?src=en.et%23holiday%40group.v.calendar.google.com&ctz=America%2FWinnipeg" width="100%" height="600" frameborder="0"></iframe></div></section>
-<section id="cal-up" class="page"><div class="card"><h2>Upcoming Events</h2><iframe src="https://calendar.google.com/calendar/embed?mode=AGENDA&src=en.et%23holiday%40group.v.calendar.google.com&ctz=America%2FWinnipeg" width="100%" height="450" frameborder="0"></iframe></div></section>
-
-<section id="reg-mem" class="page"><div class="card"><h2>Become a Member</h2><a id="l-mem" class="btn-reg" target="_blank">Open Form</a></div></section>
-<section id="reg-ss" class="page"><div class="card"><h2>Sunday School</h2><a id="l-ss" class="btn-reg" target="_blank">Open Form</a></div></section>
-<section id="reg-ab" class="page"><div class="card"><h2>Abinet School</h2><a id="l-ab" class="btn-reg" target="_blank">Open Form</a></div></section>
-<section id="reg-srv" class="page"><div class="card"><h2>Serve With Us</h2><a id="l-srv" class="btn-reg" target="_blank">Open Form</a></div></section>
-<section id="reg-sp" class="page"><div class="card"><h2>Sponsorship</h2><a id="l-sp" class="btn-reg" target="_blank">Open Form</a></div></section>
-<section id="pay-p" class="page"><div class="card" style="text-align:center;"><h2>Donations</h2><p id="txt-zelle"></p></div></section>
-
-<script src="content.js"></script>
 <script>
-    function goTo(id) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
-    function render() {
-        const d = ChurchData;
-        document.getElementById('ticker-content').innerHTML = d.newsTicker;
-        document.getElementById('g-date').innerText = new Date().toDateString();
-        document.getElementById('e-date').innerText = "ጥር ፲፱, ፳፻፲፮ ዓ.ም"; // Static fix for date
-        document.getElementById('proj-title').innerText = d.buildingProject.title;
-        document.getElementById('proj-desc').innerText = d.buildingProject.description;
-        document.getElementById('proj-video').src = d.buildingProject.videoURL;
-        document.getElementById('proj-status').innerText = d.buildingProject.status;
-        document.getElementById('proj-progress').style.width = d.buildingProject.progress;
-        document.getElementById('proj-progress').innerText = d.buildingProject.progress;
-        document.getElementById('building-gallery').innerHTML = d.buildingGallery.map(img => `<img src="${img.url}" style="width:100%; border-radius:8px;">`).join('');
-        document.getElementById('txt-about').innerText = d.aboutUs;
-        document.getElementById('lst-clergy').innerHTML = d.clergy.map(c => `<h3>${c.name}</h3><p>${c.bio}</p>`).join('');
-        document.getElementById('lst-serv').innerHTML = d.services.map(s => `<b>${s.name}</b>: ${s.time}`).join('<br>');
-        document.getElementById('txt-hub').innerText = d.ministryHub;
-        document.getElementById('txt-ss').innerText = d.sundaySchool.text;
-        document.getElementById('img-ss').src = d.sundaySchool.image;
-        document.getElementById('txt-spon').innerText = d.sponsorship;
-        document.getElementById('l-mem').href = d.registrationLinks.membership;
-        document.getElementById('l-ss').href = d.registrationLinks.sundaySchool;
-        document.getElementById('l-ab').href = d.registrationLinks.abinetSchool;
-        document.getElementById('l-srv').href = d.registrationLinks.serveWithUs;
-        document.getElementById('l-sp').href = d.registrationLinks.sponsorship;
-        document.getElementById('txt-zelle').innerText = "Zelle: " + d.donations.zelle;
+  // TICKER LOGIC
+  const notices = ["እንኳን ለብርሃነ ጥምቀቱ በሰላም አደረሳችሁ::", "Building Project Goal: $1.2M.", "Sunday School: 10:30 AM."];
+  let nIdx = 0;
+  setInterval(() => {
+    const el = document.getElementById('dynamic-notice');
+    el.style.opacity = 0;
+    setTimeout(() => {
+      nIdx = (nIdx + 1) % notices.length;
+      el.innerText = notices[nIdx];
+      el.style.opacity = 1;
+    }, 500);
+  }, 5000);
+
+  // EVENTS LOGIC (Google Sheets CSV)
+  const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMZieFTAsbcpW9ROmJzlRuVJv34SEYx-5q-jg40his0eVg0D5Jef5x4yFJvfWizjGToIBB1Ycu2KLE/pub?output=csv";
+  async function fetchEvents() {
+    try {
+      const response = await fetch(SHEET_CSV_URL);
+      const data = await response.text();
+      const rows = data.split('\n').slice(1);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      let events = rows.map(row => {
+        const cols = row.split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+        if (!cols[0]) return null;
+        const dateParts = cols[0].split('-');
+        return { date: new Date(dateParts[0], dateParts[1] - 1, dateParts[2]), title: cols[1], start: cols[3], end: cols[4] };
+      })
+      .filter(e => e && e.date >= today)
+      .sort((a, b) => a.date - b.date).slice(0, 10);
+
+      document.getElementById('eventList').innerHTML = events.map(e => `
+        <div class="event-item">
+          <span style="color: var(--accent-gold); font-weight: bold;">${e.date.toDateString()}</span>
+          <div style="font-size: 24px; font-weight: bold;">${e.title}</div>
+          <div style="font-size:14px; opacity: 0.8;">◈ Time: ${e.start} - ${e.end}</div>
+        </div>
+      `).join('');
+    } catch (e) { 
+      document.getElementById('eventList').innerHTML = '<p>Offline.</p>'; 
+    } finally { 
+      document.getElementById('loading').style.display = 'none'; 
     }
-    window.onload = render;
+  }
+
+  fetchEvents();
 </script>
 </body>
 </html>
