@@ -39,89 +39,94 @@
   body::after { right: 0; background: var(--ethio-red); box-shadow: -4px 0 0 var(--ethio-yellow), -8px 0 0 var(--ethio-green); }
 
   /* --- HEADER --- */
-  header { width: 100%; padding: 60px 20px 20px; text-align: center; }
+  header { width: 100%; padding: 70px 20px 30px; text-align: center; }
   .diocese { font-size: 0.7rem; letter-spacing: 5px; color: var(--ethio-green); text-transform: uppercase; font-weight: 700; margin-bottom: 10px; }
-  .cathedral-title { font-family: 'Cinzel', serif; font-size: clamp(1.1rem, 4vw, 1.8rem); color: var(--burgundy); line-height: 1.3; font-weight: 700; }
+  .cathedral-title { font-family: 'Cinzel', serif; font-size: clamp(1.2rem, 4vw, 2.1rem); color: var(--burgundy); line-height: 1.3; font-weight: 700; }
   .location { font-size: 0.8rem; color: var(--ethio-red); font-weight: 600; letter-spacing: 4px; text-transform: uppercase; margin-top: 5px; }
 
   /* --- NAVIGATION --- */
   .nav-bar {
     position: sticky; top: 12px; background: rgba(255, 255, 255, 0.98);
     z-index: 1000; display: flex; justify-content: center; align-items: center;
-    padding: 15px 20px; border-bottom: 1px solid #f0f0f0; height: 60px;
+    padding: 0 20px; border-bottom: 1px solid #f0f0f0; height: 60px;
   }
 
-  .nav-menu { display: none; gap: 20px; list-style: none; }
-  .nav-item { position: relative; }
+  .nav-menu { display: none; gap: 30px; list-style: none; height: 100%; }
+  .nav-item { position: relative; display: flex; align-items: center; height: 100%; }
   .nav-link { 
-    text-decoration: none; color: var(--text); font-size: 0.65rem; 
+    text-decoration: none; color: var(--text); font-size: 0.7rem; 
     font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-    padding: 15px 5px; display: block;
+    padding: 0 10px;
   }
 
-  /* Invisible Bridge */
+  /* THE BRIDGE (RESTORED STYLE) */
   .nav-item::after { content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 20px; }
 
   .dropdown {
     position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-    background: var(--white); min-width: 220px; border-top: 3px solid var(--ethio-green);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none; padding: 10px 0;
+    background: var(--white); min-width: 260px; border-top: 4px solid var(--burgundy);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12); display: none; padding: 15px 0;
   }
 
   .nav-item:hover .dropdown { display: block; }
-  .dropdown a { display: block; padding: 10px 20px; text-decoration: none; color: #555; font-size: 0.75rem; }
-  .dropdown a:hover { background: #f9f9f9; color: var(--burgundy); }
+  .nav-item:hover .nav-link { color: var(--ethio-green); }
 
-  /* --- HAMBURGER MENU --- */
+  .dropdown a { 
+    display: block; padding: 12px 25px; text-decoration: none; color: #444; 
+    font-size: 0.8rem; transition: 0.2s; border-bottom: 1px solid #f9f9f9;
+  }
+  .dropdown a:last-child { border: none; }
+  .dropdown a:hover { background: #fcf8f0; color: var(--burgundy); padding-left: 30px; }
+
+  /* --- HAMBURGER --- */
   .hamburger {
     display: block; cursor: pointer; background: none; border: none; z-index: 10001;
-    padding: 10px;
+    position: absolute; left: 20px;
   }
   .hamburger span {
-    display: block; width: 25px; height: 3px; background: var(--burgundy);
+    display: block; width: 22px; height: 2px; background: var(--burgundy);
     margin: 5px 0; transition: 0.4s;
   }
-  .hamburger.open span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+  .hamburger.open span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 5px); }
   .hamburger.open span:nth-child(2) { opacity: 0; }
-  .hamburger.open span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+  .hamburger.open span:nth-child(3) { transform: rotate(45deg) translate(-5px, -5px); }
 
+  /* MOBILE OVERLAY */
   .mobile-overlay {
     position: fixed; top: 0; left: -100%; width: 100%; height: 100%;
-    background: var(--white); z-index: 10000; transition: 0.4s;
+    background: var(--white); z-index: 10000; transition: 0.5s cubic-bezier(0.77,0.2,0.05,1);
     padding: 100px 40px; overflow-y: auto;
   }
   .mobile-overlay.active { left: 0; }
-  .mob-group { margin-bottom: 30px; }
-  .mob-group a { display: block; font-size: 1.2rem; color: var(--burgundy); text-decoration: none; margin-bottom: 10px; font-weight: 700; }
+  .mob-group { margin-bottom: 35px; }
+  .mob-group h4 { font-size: 0.6rem; color: var(--ethio-green); letter-spacing: 3px; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+  .mob-group a { display: block; font-size: 1rem; color: var(--burgundy); text-decoration: none; margin-bottom: 8px; font-weight: 600; }
 
-  /* --- CINEMATIC VIDEO/IMAGE BACKGROUND --- */
+  /* --- CINEMATIC HERO --- */
   .video-hero {
-    position: relative; width: 100%; height: 60vh;
+    position: relative; width: 100%; height: 65vh;
     display: flex; align-items: center; justify-content: center;
-    overflow: hidden; background: #000;
+    overflow: hidden; background: #111;
   }
-  /* Replace the URL below with your actual video or image path */
-  .video-hero video, .video-hero img {
-    position: absolute; width: 100%; height: 100%; object-fit: cover;
-    opacity: 0.6; /* Darkens image to make text readable */
+  .video-hero img {
+    position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;
   }
-  .video-content {
-    position: relative; z-index: 2; text-align: center; padding: 0 20px;
-  }
+  .video-content { position: relative; z-index: 2; text-align: center; padding: 0 25px; }
   .video-content h2 {
-    font-family: 'Noto Serif Ethiopic'; font-size: clamp(1.8rem, 6vw, 4rem);
-    color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.5); line-height: 1.3;
+    font-family: 'Noto Serif Ethiopic'; font-size: clamp(2rem, 7vw, 4.5rem);
+    color: #fff; text-shadow: 0 5px 20px rgba(0,0,0,0.6); line-height: 1.2;
   }
 
-  /* --- MAIN CONTENT --- */
-  .container { max-width: 1000px; margin: 0 auto; padding: 60px 25px; }
-  .info-card { border: 1px solid #eee; padding: 50px; text-align: center; }
-  .btn { display: inline-block; padding: 15px 35px; background: var(--burgundy); color: white; text-decoration: none; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-top: 20px; }
+  /* --- CONTENT --- */
+  .container { max-width: 1100px; margin: 0 auto; padding: 80px 25px; }
+  .info-card { border: 1px solid #eee; padding: 60px 40px; text-align: center; }
+  .btn { display: inline-block; padding: 16px 40px; background: var(--burgundy); color: white; text-decoration: none; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-top: 25px; }
+
+  footer { text-align: center; padding: 80px 20px 120px; }
 
   @media (min-width: 1024px) {
     .nav-menu { display: flex; }
     .hamburger { display: none; }
-    header { padding-top: 80px; }
   }
 </style>
 </head>
@@ -129,11 +134,38 @@
 
 <div class="mobile-overlay" id="mobOverlay">
   <div class="mob-group">
-    <a href="#">Home</a>
-    <a href="#">Ministries</a>
-    <a href="#">Calendar</a>
-    <a href="#">Giving</a>
-    <a href="#">Contact</a>
+    <h4>HOME</h4>
+    <a href="#">About Southern Canada Diocese</a>
+    <a href="#">Cathedral History</a>
+    <a href="#">Our Clergy</a>
+    <a href="#">Our Faith & Tradition</a>
+  </div>
+  <div class="mob-group">
+    <h4>MINISTRIES</h4>
+    <a href="#">Ministry Hub</a>
+    <a href="#">Sunday School</a>
+    <a href="#">Abinet (Ge'ez) School</a>
+    <a href="#">Youth Ministry</a>
+    <a href="#">Pastoral Care & Counseling</a>
+    <a href="#">Sponsorship Programs</a>
+  </div>
+  <div class="mob-group">
+    <h4>CALENDAR</h4>
+    <a href="#">Full Liturgical Schedule</a>
+    <a href="#">Upcoming Feasts</a>
+    <a href="#">Fasting Seasons</a>
+    <a href="#">Special Events</a>
+  </div>
+  <div class="mob-group">
+    <h4>GIVING</h4>
+    <a href="#">Monthly Membership Dues</a>
+    <a href="#">Cathedral Building Project</a>
+    <a href="#">General Donations</a>
+  </div>
+  <div class="mob-group">
+    <h4>RESOURCES</h4>
+    <a href="#">Holy Books & Media</a>
+    <a href="#">Contact Us</a>
   </div>
 </div>
 
@@ -158,21 +190,27 @@
         <a href="#">Southern Canada Diocese</a>
         <a href="#">Cathedral History</a>
         <a href="#">Our Clergy</a>
+        <a href="#">Faith & Tradition</a>
       </div>
     </li>
     <li class="nav-item">
       <a href="#" class="nav-link">Ministries ▾</a>
       <div class="dropdown">
+        <a href="#">Ministry Hub</a>
         <a href="#">Sunday School</a>
         <a href="#">Abinet School</a>
-        <a href="#">Youth & Pastoral</a>
+        <a href="#">Youth Ministry</a>
+        <a href="#">Pastoral Care</a>
+        <a href="#">Sponsorship</a>
       </div>
     </li>
     <li class="nav-item">
       <a href="#" class="nav-link">Calendar ▾</a>
       <div class="dropdown">
-        <a href="#">Liturgy Schedule</a>
+        <a href="#">Liturgical Schedule</a>
         <a href="#">Upcoming Feasts</a>
+        <a href="#">Fasting Seasons</a>
+        <a href="#">Events</a>
       </div>
     </li>
     <li class="nav-item">
@@ -180,34 +218,46 @@
       <div class="dropdown">
         <a href="#">Monthly Dues</a>
         <a href="#">Building Project</a>
+        <a href="#">General Giving</a>
       </div>
     </li>
-    <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+    <li class="nav-item">
+      <a href="#" class="nav-link">Resources ▾</a>
+      <div class="dropdown">
+        <a href="#">Sacred Media</a>
+        <a href="#">Contact Us</a>
+      </div>
+    </li>
   </ul>
 </nav>
 
 <section class="video-hero">
-  <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?auto=format&fit=crop&q=80&w=2000" alt="Cathedral Background">
+  <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?auto=format&fit=crop&q=80&w=2000" alt="Church Image">
   
   <div class="video-content">
     <h2>ደብረ ገነት ቅድስት ማርያም፣ ቅዱስ ገብርኤልና ቅድስት አርሴማ ካቴድራል</h2>
-    <div style="width: 50px; height: 2px; background: var(--ethio-yellow); margin: 20px auto;"></div>
-    <p style="color: #fff; letter-spacing: 3px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">Winnipeg Cathedral</p>
+    <div style="width: 60px; height: 3px; background: var(--ethio-yellow); margin: 25px auto;"></div>
+    <p style="color: #fff; letter-spacing: 5px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Winnipeg, Canada</p>
   </div>
 </section>
 
 <main class="container">
   <div class="info-card">
-    <h3 style="font-family: 'Cinzel'; color: var(--burgundy); margin-bottom: 20px;">The Cathedral Project</h3>
-    <p style="font-weight: 300;">Help us establish a permanent legacy for the Southern Canada Diocese. Support the Building Fund today.</p>
-    <a href="#" class="btn">Give Support</a>
+    <h3 style="font-family: 'Cinzel'; color: var(--burgundy); font-size: 1.4rem; margin-bottom: 20px;">Support Our Building Project</h3>
+    <p style="font-weight: 300; max-width: 800px; margin: 0 auto;">We are building a permanent sanctuary for the faithful in the Southern Canada Diocese. Join us in making this vision a reality for the community of Winnipeg.</p>
+    <a href="#" class="btn">Make a Contribution</a>
   </div>
 </main>
 
-<footer style="text-align: center; padding: 60px 20px 100px;">
-  <div style="font-size: 1.5rem; color: var(--burgundy); margin-bottom: 10px;">✥</div>
-  <p style="font-family: 'Cinzel'; font-size: 0.8rem; font-weight: 700;">ST. MARY, ST. GABRIEL, & ST. ARSEMA CATHEDRAL</p>
-  <p style="font-size: 0.7rem; color: #999; margin-top: 10px;">353 Mountain Ave, Winnipeg, MB R2W 1J9</p>
+<footer>
+  <div style="font-size: 2rem; color: var(--burgundy); margin-bottom: 20px;">✥</div>
+  <p style="font-family: 'Cinzel'; font-size: 0.85rem; font-weight: 700; letter-spacing: 3px; color: var(--burgundy);">
+    ST. MARY, ST. GABRIEL, & ST. ARSEMA CATHEDRAL
+  </p>
+  <p style="font-size: 0.7rem; color: #999; margin-top: 15px; text-transform: uppercase; letter-spacing: 2px;">
+    353 Mountain Ave, Winnipeg, MB R2W 1J9 <br>
+    Southern Canada Diocese
+  </p>
 </footer>
 
 <script>
@@ -217,12 +267,8 @@
     hamb.classList.toggle('open');
     overlay.classList.toggle('active');
     
-    // Prevent scrolling when menu is open
-    if(overlay.classList.contains('active')) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
+    // Prevent body scrolling when menu is open
+    document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : 'auto';
   }
 </script>
 
