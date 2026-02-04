@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="am">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,14 +10,16 @@
     --ethio-green: #009c3b;
     --ethio-yellow: #fed100;
     --ethio-red: #ef3340;
-    --burgundy: #4a0404;
+    --burgundy: #630F16; /* Updated to your Deep Red */
+    --gold: #D4A017;     /* Updated to your Main Gold */
     --white: #ffffff;
+    --bg-page: #F9E8B2;
     --text: #1a1a1a;
   }
 
   /* --- TRIPLE LINE FRAME --- */
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { min-height: 100%; background-color: var(--white); }
+  html, body { min-height: 100%; background-color: var(--white); overflow-x: hidden; }
 
   body { 
     color: var(--text); 
@@ -53,13 +55,7 @@
 
   .nav-menu { display: none; gap: 30px; list-style: none; height: 100%; }
   .nav-item { position: relative; display: flex; align-items: center; height: 100%; }
-  .nav-link { 
-    text-decoration: none; color: var(--text); font-size: 0.7rem; 
-    font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-    padding: 0 10px;
-  }
-
-  /* THE BRIDGE (RESTORED STYLE) */
+  .nav-link { text-decoration: none; color: var(--text); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
   .nav-item::after { content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 20px; }
 
   .dropdown {
@@ -67,105 +63,83 @@
     background: var(--white); min-width: 260px; border-top: 4px solid var(--burgundy);
     box-shadow: 0 20px 40px rgba(0,0,0,0.12); display: none; padding: 15px 0;
   }
-
   .nav-item:hover .dropdown { display: block; }
-  .nav-item:hover .nav-link { color: var(--ethio-green); }
-
-  .dropdown a { 
-    display: block; padding: 12px 25px; text-decoration: none; color: #444; 
-    font-size: 0.8rem; transition: 0.2s; border-bottom: 1px solid #f9f9f9;
-  }
-  .dropdown a:last-child { border: none; }
+  .dropdown a { display: block; padding: 12px 25px; text-decoration: none; color: #444; font-size: 0.8rem; border-bottom: 1px solid #f9f9f9; }
   .dropdown a:hover { background: #fcf8f0; color: var(--burgundy); padding-left: 30px; }
 
-  /* --- HAMBURGER --- */
-  .hamburger {
-    display: block; cursor: pointer; background: none; border: none; z-index: 10001;
-    position: absolute; left: 20px;
-  }
-  .hamburger span {
-    display: block; width: 22px; height: 2px; background: var(--burgundy);
-    margin: 5px 0; transition: 0.4s;
-  }
+  /* HAMBURGER */
+  .hamburger { display: block; cursor: pointer; background: none; border: none; z-index: 10001; position: absolute; left: 20px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--burgundy); margin: 5px 0; transition: 0.4s; }
   .hamburger.open span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 5px); }
   .hamburger.open span:nth-child(2) { opacity: 0; }
   .hamburger.open span:nth-child(3) { transform: rotate(45deg) translate(-5px, -5px); }
 
-  /* MOBILE OVERLAY */
   .mobile-overlay {
     position: fixed; top: 0; left: -100%; width: 100%; height: 100%;
-    background: var(--white); z-index: 10000; transition: 0.5s cubic-bezier(0.77,0.2,0.05,1);
+    background: var(--white); z-index: 10000; transition: 0.5s ease-in-out;
     padding: 100px 40px; overflow-y: auto;
   }
   .mobile-overlay.active { left: 0; }
-  .mob-group { margin-bottom: 35px; }
-  .mob-group h4 { font-size: 0.6rem; color: var(--ethio-green); letter-spacing: 3px; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-  .mob-group a { display: block; font-size: 1rem; color: var(--burgundy); text-decoration: none; margin-bottom: 8px; font-weight: 600; }
+  .mob-group { margin-bottom: 30px; }
+  .mob-group a { display: block; font-size: 1.1rem; color: var(--burgundy); text-decoration: none; margin-bottom: 8px; font-weight: 600; }
 
   /* --- CINEMATIC HERO --- */
   .video-hero {
-    position: relative; width: 100%; height: 65vh;
+    position: relative; width: 100%; height: 60vh;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden; background: #111;
   }
-  .video-hero img {
-    position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5;
-  }
+  .video-hero img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
   .video-content { position: relative; z-index: 2; text-align: center; padding: 0 25px; }
-  .video-content h2 {
-    font-family: 'Noto Serif Ethiopic'; font-size: clamp(2rem, 7vw, 4.5rem);
-    color: #fff; text-shadow: 0 5px 20px rgba(0,0,0,0.6); line-height: 1.2;
-  }
+  .video-content h2 { font-family: 'Noto Serif Ethiopic'; font-size: clamp(2.2rem, 7vw, 4.5rem); color: #fff; text-shadow: 0 5px 20px rgba(0,0,0,0.6); }
 
-  /* --- CONTENT --- */
-  .container { max-width: 1100px; margin: 0 auto; padding: 80px 25px; }
-  .info-card { border: 1px solid #eee; padding: 60px 40px; text-align: center; }
-  .btn { display: inline-block; padding: 16px 40px; background: var(--burgundy); color: white; text-decoration: none; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-top: 25px; }
+  /* --- NEWS TICKER --- */
+  .notice-ticker { background: var(--white); border: 1px solid #eee; padding: 20px; text-align: center; position: relative; margin: 20px auto; max-width: 900px; }
+  #dynamic-notice { font-weight: bold; color: var(--burgundy); transition: opacity 0.5s; font-size: 1.1rem; }
 
-  footer { text-align: center; padding: 80px 20px 120px; }
+  /* --- HUB BUTTONS --- */
+  .action-hub { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 900px; margin: 20px auto; padding: 0 20px; }
+  .hub-btn { text-decoration: none; padding: 20px; text-align: center; border-radius: 4px; font-weight: bold; border: 1px solid #ddd; transition: 0.3s; }
+  .btn-member { background: var(--burgundy); color: white; }
+  .btn-donate { background: var(--gold); color: white; }
+  .hub-btn small { display: block; font-size: 10px; text-transform: uppercase; margin-top: 5px; opacity: 0.9; }
 
-  @media (min-width: 1024px) {
-    .nav-menu { display: flex; }
-    .hamburger { display: none; }
-  }
+  /* --- SECTIONS --- */
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+  .section-tag { font-family: 'Cinzel'; text-align: center; padding: 20px; border-bottom: 2px solid var(--gold); margin-bottom: 30px; color: var(--burgundy); letter-spacing: 2px; font-weight: 700; }
+
+  /* --- BUILDING PROJECT --- */
+  .project-box { background: #fafafa; padding: 30px; border: 1px solid #eee; border-left: 8px solid var(--ethio-green); margin-bottom: 40px; }
+  .progress-container { width: 100%; background: #eee; height: 14px; border-radius: 7px; margin: 15px 0; overflow: hidden; }
+  .progress-fill { width: 65%; background: linear-gradient(to right, var(--gold), var(--ethio-green)); height: 100%; }
+
+  /* --- GALLERY --- */
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 60px; }
+  .img-container { width: 100%; height: 300px; position: relative; background: #000; overflow: hidden; border-radius: 4px; }
+  .gallery-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.8s; }
+  .gallery-image.active { opacity: 1; }
+  .gallery-caption { padding: 15px; text-align: center; font-weight: 700; color: var(--burgundy); }
+
+  /* --- EVENTS --- */
+  .event-item { background: #fff; padding: 25px; border: 1px solid #eee; border-left: 10px solid var(--burgundy); margin-bottom: 15px; }
+
+  footer { text-align: center; padding: 80px 20px; background: #fafafa; }
+
+  @media (min-width: 1024px) { .nav-menu { display: flex; } .hamburger { display: none; } }
 </style>
 </head>
 <body>
 
 <div class="mobile-overlay" id="mobOverlay">
   <div class="mob-group">
-    <h4>HOME</h4>
-    <a href="#">About Southern Canada Diocese</a>
+    <a href="#">About Diocese</a>
     <a href="#">Cathedral History</a>
     <a href="#">Our Clergy</a>
-    <a href="#">Our Faith & Tradition</a>
-  </div>
-  <div class="mob-group">
-    <h4>MINISTRIES</h4>
-    <a href="#">Ministry Hub</a>
     <a href="#">Sunday School</a>
-    <a href="#">Abinet (Ge'ez) School</a>
-    <a href="#">Youth Ministry</a>
-    <a href="#">Pastoral Care & Counseling</a>
-    <a href="#">Sponsorship Programs</a>
-  </div>
-  <div class="mob-group">
-    <h4>CALENDAR</h4>
-    <a href="#">Full Liturgical Schedule</a>
-    <a href="#">Upcoming Feasts</a>
-    <a href="#">Fasting Seasons</a>
-    <a href="#">Special Events</a>
-  </div>
-  <div class="mob-group">
-    <h4>GIVING</h4>
-    <a href="#">Monthly Membership Dues</a>
-    <a href="#">Cathedral Building Project</a>
-    <a href="#">General Donations</a>
-  </div>
-  <div class="mob-group">
-    <h4>RESOURCES</h4>
-    <a href="#">Holy Books & Media</a>
-    <a href="#">Contact Us</a>
+    <a href="#">Abinet School</a>
+    <a href="#">Building Project</a>
+    <a href="#">Donations</a>
+    <a href="#">Contact</a>
   </div>
 </div>
 
@@ -179,10 +153,7 @@
 </header>
 
 <nav class="nav-bar">
-  <button class="hamburger" onclick="toggleMenu()" id="hamb">
-    <span></span><span></span><span></span>
-  </button>
-  
+  <button class="hamburger" onclick="toggleMenu()" id="hamb"><span></span><span></span><span></span></button>
   <ul class="nav-menu">
     <li class="nav-item">
       <a href="#" class="nav-link">Home ▾</a>
@@ -190,86 +161,143 @@
         <a href="#">Southern Canada Diocese</a>
         <a href="#">Cathedral History</a>
         <a href="#">Our Clergy</a>
-        <a href="#">Faith & Tradition</a>
       </div>
     </li>
     <li class="nav-item">
       <a href="#" class="nav-link">Ministries ▾</a>
       <div class="dropdown">
-        <a href="#">Ministry Hub</a>
         <a href="#">Sunday School</a>
         <a href="#">Abinet School</a>
-        <a href="#">Youth Ministry</a>
-        <a href="#">Pastoral Care</a>
-        <a href="#">Sponsorship</a>
+        <a href="#">Youth & Pastoral</a>
       </div>
     </li>
     <li class="nav-item">
       <a href="#" class="nav-link">Calendar ▾</a>
       <div class="dropdown">
-        <a href="#">Liturgical Schedule</a>
+        <a href="#">Liturgy Schedule</a>
         <a href="#">Upcoming Feasts</a>
-        <a href="#">Fasting Seasons</a>
-        <a href="#">Events</a>
       </div>
     </li>
     <li class="nav-item">
       <a href="#" class="nav-link">Giving ▾</a>
       <div class="dropdown">
-        <a href="#">Monthly Dues</a>
+        <a href="#">Membership Dues</a>
         <a href="#">Building Project</a>
-        <a href="#">General Giving</a>
       </div>
     </li>
-    <li class="nav-item">
-      <a href="#" class="nav-link">Resources ▾</a>
-      <div class="dropdown">
-        <a href="#">Sacred Media</a>
-        <a href="#">Contact Us</a>
-      </div>
-    </li>
+    <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
   </ul>
 </nav>
 
 <section class="video-hero">
-  <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?auto=format&fit=crop&q=80&w=2000" alt="Church Image">
-  
+  <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?auto=format&fit=crop&q=80&w=2000" alt="Church">
   <div class="video-content">
     <h2>ደብረ ገነት ቅድስት ማርያም፣ ቅዱስ ገብርኤልና ቅድስት አርሴማ ካቴድራል</h2>
     <div style="width: 60px; height: 3px; background: var(--ethio-yellow); margin: 25px auto;"></div>
-    <p style="color: #fff; letter-spacing: 5px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Winnipeg, Canada</p>
   </div>
 </section>
 
+<div class="notice-ticker">
+  <div id="dynamic-notice">እንኳን በደህና መጡ:: Welcome to our Parish.</div>
+</div>
+
+<div class="action-hub">
+  <a href="#" class="hub-btn btn-member">የአባልነት ምዝገባ<small>Membership</small></a>
+  <a href="#" class="hub-btn btn-donate">መባና ስጦታ<small>Donations</small></a>
+</div>
+
 <main class="container">
-  <div class="info-card">
-    <h3 style="font-family: 'Cinzel'; color: var(--burgundy); font-size: 1.4rem; margin-bottom: 20px;">Support Our Building Project</h3>
-    <p style="font-weight: 300; max-width: 800px; margin: 0 auto;">We are building a permanent sanctuary for the faithful in the Southern Canada Diocese. Join us in making this vision a reality for the community of Winnipeg.</p>
-    <a href="#" class="btn">Make a Contribution</a>
+  <div class="section-tag">Building Project / የህንፃ ግንባታ</div>
+  <div class="project-box">
+    <div style="display: flex; justify-content: space-between; font-weight: bold;">
+      <span>Fundraising Progress</span>
+      <span style="color: var(--ethio-green);">65% Complete</span>
+    </div>
+    <div class="progress-container"><div class="progress-fill"></div></div>
+    <p style="font-size: 14px;">Goal: $1.2M. God bless you for your support.</p>
   </div>
+
+  <div class="section-tag">Sacred Gallery / የፎቶ መዝገብ</div>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <div class="img-container" id="container-0">
+        <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=600" class="gallery-image active">
+        <img src="https://images.unsplash.com/photo-1548689816-c399f954f3bb?w=600" class="gallery-image">
+      </div>
+      <div class="gallery-caption">Holy Timket / ጥምቀት</div>
+    </div>
+    <div class="gallery-item">
+      <div class="img-container" id="container-1">
+        <img src="https://images.unsplash.com/photo-1590076215667-875d4ef2d97e?w=600" class="gallery-image active">
+        <img src="https://images.unsplash.com/photo-1523050853063-bd8012fec0c8?w=600" class="gallery-image">
+      </div>
+      <div class="gallery-caption">Sunday School / ሰንበት ትምህርት ቤት</div>
+    </div>
+  </div>
+
+  <div class="section-tag">Upcoming Events / መጪ መርሃ ግብሮች</div>
+  <div id="eventList"></div>
 </main>
 
 <footer>
-  <div style="font-size: 2rem; color: var(--burgundy); margin-bottom: 20px;">✥</div>
-  <p style="font-family: 'Cinzel'; font-size: 0.85rem; font-weight: 700; letter-spacing: 3px; color: var(--burgundy);">
-    ST. MARY, ST. GABRIEL, & ST. ARSEMA CATHEDRAL
-  </p>
-  <p style="font-size: 0.7rem; color: #999; margin-top: 15px; text-transform: uppercase; letter-spacing: 2px;">
-    353 Mountain Ave, Winnipeg, MB R2W 1J9 <br>
-    Southern Canada Diocese
-  </p>
+  <div style="font-size: 1.5rem; color: var(--burgundy); margin-bottom: 10px;">✥</div>
+  <p style="font-family: 'Cinzel'; font-size: 0.8rem; font-weight: 700;">ST. MARY, ST. GABRIEL, & ST. ARSEMA CATHEDRAL</p>
+  <p style="font-size: 0.7rem; color: #999; margin-top: 10px;">353 Mountain Ave, Winnipeg, MB R2W 1J9</p>
 </footer>
 
 <script>
-  function toggleMenu() {
-    const hamb = document.getElementById('hamb');
-    const overlay = document.getElementById('mobOverlay');
-    hamb.classList.toggle('open');
-    overlay.classList.toggle('active');
-    
-    // Prevent body scrolling when menu is open
-    document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : 'auto';
+  // TICKER LOGIC
+  const notices = ["እንኳን ለብርሃነ ጥምቀቱ በሰላም አደረሳችሁ::", "Building Project Goal: $1.2M.", "Sunday School: 10:30 AM."];
+  let nIdx = 0;
+  function startTicker() {
+    setInterval(() => {
+      const el = document.getElementById('dynamic-notice');
+      el.style.opacity = 0;
+      setTimeout(() => {
+        nIdx = (nIdx + 1) % notices.length;
+        el.innerText = notices[nIdx];
+        el.style.opacity = 1;
+      }, 500);
+    }, 5000);
   }
+
+  // GALLERY SLIDESHOW
+  const containers = [document.getElementById('container-0'), document.getElementById('container-1')];
+  function rotateGallery() {
+    containers.forEach(container => {
+      const imgs = container.getElementsByClassName('gallery-image');
+      let activeIdx = 0;
+      for(let i=0; i<imgs.length; i++) { if(imgs[i].classList.contains('active')) activeIdx = i; }
+      imgs[activeIdx].classList.remove('active');
+      imgs[(activeIdx + 1) % imgs.length].classList.add('active');
+    });
+  }
+
+  // EVENT FETCHING (FROM YOUR GOOGLE SHEET URL)
+  async function fetchEvents() {
+    const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMZieFTAsbcpW9ROmJzlRuVJv34SEYx-5q-jg40his0eVg0D5Jef5x4yFJvfWizjGToIBB1Ycu2KLE/pub?output=csv";
+    try {
+      const res = await fetch(URL);
+      const data = await res.text();
+      const rows = data.split('\n').slice(1);
+      document.getElementById('eventList').innerHTML = rows.slice(0, 5).map(row => {
+        const cols = row.split(',');
+        return `
+          <div class="event-item">
+            <div style="font-size: 0.8rem; color: var(--ethio-green); font-weight: 700;">${cols[0]}</div>
+            <div style="font-size: 1.2rem; font-weight: bold; color: var(--burgundy);">${cols[1] || 'Upcoming Event'}</div>
+            <div style="font-size: 0.8rem; opacity: 0.7;">Time: ${cols[3]} - ${cols[4]}</div>
+          </div>`;
+      }).join('');
+    } catch (e) { console.error("Event load failed"); }
+  }
+
+  function toggleMenu() {
+    document.getElementById('hamb').classList.toggle('open');
+    document.getElementById('mobOverlay').classList.toggle('active');
+  }
+
+  window.onload = () => { startTicker(); setInterval(rotateGallery, 4000); fetchEvents(); };
 </script>
 
 </body>
