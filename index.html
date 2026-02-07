@@ -14,8 +14,9 @@
             --text-dark: #2C3E50;
             --text-soft: #5D6D7E;
             --white: #FFFFFF;
-            --shadow: 0 8px 30px rgba(0, 119, 204, 0.08);
+            --shadow: 0 12px 40px rgba(0, 119, 204, 0.12);
             --ethio-red: #EF3340;
+            --glass: rgba(255, 255, 255, 0.8);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -62,7 +63,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #004477; /* Fallback */
+            background: #004477;
         }
 
         .video-wrapper {
@@ -72,7 +73,7 @@
         }
 
         .video-wrapper iframe {
-            width: 100vw; height: 56.25vw; /* 16:9 ratio */
+            width: 100vw; height: 56.25vw;
             min-height: 100vh; min-width: 177.77vh;
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
@@ -80,7 +81,6 @@
             filter: saturate(0.8) brightness(0.9);
         }
 
-        /* The "Frost" Overlay - Essential for readability */
         .hero-overlay {
             position: absolute; inset: 0;
             background: linear-gradient(to bottom, 
@@ -130,16 +130,68 @@
             letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block;
         }
 
-        /* --- IMAGES --- */
-        .img-frame { 
-            width: 100%; height: 260px; border-radius: 18px; 
-            overflow: hidden; position: relative; margin-bottom: 15px;
+        /* --- NEW MODERN GALLERY GRID --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
         }
-        .img-frame img { 
-            position: absolute; inset: 0; width: 100%; height: 100%; 
-            object-fit: cover; opacity: 0; transition: 1.5s ease-in-out; 
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-        .img-frame img.active { opacity: 1; }
+
+        .gallery-item:hover {
+            transform: scale(1.03) translateY(-5px);
+            z-index: 2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: filter 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            filter: brightness(1.1);
+        }
+
+        /* Fullscreen Lightbox */
+        #lightbox {
+            position: fixed; inset: 0;
+            background: rgba(10, 25, 41, 0.95);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            padding: 20px;
+        }
+
+        #lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
+
+        #lightbox img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            border: 3px solid var(--white);
+        }
+
+        .close-lightbox {
+            position: absolute; top: 30px; right: 30px;
+            color: white; font-size: 40px; cursor: pointer;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* --- PROGRESS --- */
         .progress-track {
@@ -179,8 +231,9 @@
         @media (min-width: 1024px) {
             .desktop-nav { display: flex; }
             .mobile-only { display: none; }
-            .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+            .grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 25px; }
             body { padding-bottom: 0; }
+            .gallery-grid { grid-template-columns: repeat(4, 1fr); }
         }
     </style>
 </head>
@@ -241,26 +294,33 @@
         <div class="grid">
             <div class="card">
                 <span class="section-label">Sacred Gallery / የፎቶ መዝገብ</span>
-                <div class="img-frame" id="frame-0">
-                    <img src="group1.jpg" class="active">
-                    <img src="wedding.jpg">
-                    <img src="kids2.jpg">
+                <p style="font-size: 13px; color: var(--text-soft); margin-bottom: 10px;">Glimpses of our spiritual journey and community.</p>
+                
+                <div class="gallery-grid">
+                    <div class="gallery-item" onclick="openLightbox(this)"><img src="group1.jpg" alt="Timket"></div>
+                    <div class="gallery-item" onclick="openLightbox(this)"><img src="wedding.jpg" alt="Sacrament"></div>
+                    <div class="gallery-item" onclick="openLightbox(this)"><img src="kids2.jpg" alt="Sunday School"></div>
+                    <div class="gallery-item" onclick="openLightbox(this)"><img src="kids.jpg" alt="Children"></div>
+                    <div class="gallery-item" onclick="openLightbox(this)"><img src="baptism.jpg" alt="Baptism"></div>
+                    <div class="gallery-item" onclick="openLightbox(this)"><img src="group.jpg" alt="Community"></div>
+                    </div>
+
+                <div style="margin-top: 20px; display: flex; align-items: center; gap: 10px;">
+                    <div style="flex: 1; height: 1px; background: var(--sky-light);"></div>
+                    <a href="gallery.html" style="font-size: 11px; font-weight: 800; color: var(--sky-main); text-decoration: none; text-transform: uppercase;">View Full Album</a>
+                    <div style="flex: 1; height: 1px; background: var(--sky-light);"></div>
                 </div>
-                <p style="font-weight: 700; font-size: 14px; color: var(--sky-main);">Holy Timket / ጥምቀት</p>
             </div>
 
             <div class="card">
-                <span class="section-label">Sunday School / ሰንበት ትምህርት ቤት</span>
-                <div class="img-frame" id="frame-1">
-                    <img src="kids.jpg" class="active">
-                    <img src="baptism.jpg">
-                    <img src="group.jpg">
+                <span class="section-label">Upcoming Events / መጪ መርሃ ግብሮች</span>
+                <div id="eventList">
+                    <div style="padding: 20px; text-align: center; color: var(--text-soft);">Connecting to sacred calendar...</div>
                 </div>
-                <p style="font-weight: 700; font-size: 14px; color: var(--sky-main);">Our Spiritual Children</p>
             </div>
         </div>
 
-        <div class="card" style="background: linear-gradient(135deg, var(--sky-main), #005599); color: white;">
+        <div class="card" style="background: linear-gradient(135deg, var(--sky-main), #005599); color: white; margin-top: 10px;">
             <span class="section-label" style="color: rgba(255,255,255,0.7);">Cathedral Building Project</span>
             <div style="display:flex; justify-content:space-between; font-weight:800; font-size: 18px;">
                 <span>Raised</span>
@@ -271,13 +331,11 @@
             </div>
             <p style="font-size: 13px; opacity: 0.8;">Help us build a sanctuary for generations to come. Every contribution counts.</p>
         </div>
+    </div>
 
-        <div class="card">
-            <span class="section-label">Upcoming Events / መጪ መርሃ ግብሮች</span>
-            <div id="eventList">
-                <div style="padding: 20px; text-align: center; color: var(--text-soft);">Connecting to sacred calendar...</div>
-            </div>
-        </div>
+    <div id="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightbox-img" src="">
     </div>
 
     <footer style="text-align: center; padding: 60px 20px; background: var(--white);">
@@ -299,21 +357,16 @@
             document.getElementById('menuOverlay').classList.toggle('active');
         }
 
-        // Image Sliders
-        const slideStates = [0, 0];
-        const frames = [
-            document.getElementById('frame-0').getElementsByTagName('img'),
-            document.getElementById('frame-1').getElementsByTagName('img')
-        ];
-        setInterval(() => {
-            frames.forEach((imgs, idx) => {
-                if(imgs.length > 0) {
-                    imgs[slideStates[idx]].classList.remove('active');
-                    slideStates[idx] = (slideStates[idx] + 1) % imgs.length;
-                    imgs[slideStates[idx]].classList.add('active');
-                }
-            });
-        }, 5000);
+        // Lightbox Logic
+        function openLightbox(element) {
+            const imgSrc = element.querySelector('img').src;
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
 
         // Dynamic Notice Text
         const notices = [
@@ -324,12 +377,14 @@
         let nIdx = 0;
         setInterval(() => {
             const el = document.getElementById('dynamic-notice');
-            el.style.opacity = 0;
-            setTimeout(() => {
-                nIdx = (nIdx + 1) % notices.length;
-                el.innerText = notices[nIdx];
-                el.style.opacity = 1;
-            }, 500);
+            if(el) {
+                el.style.opacity = 0;
+                setTimeout(() => {
+                    nIdx = (nIdx + 1) % notices.length;
+                    el.innerText = notices[nIdx];
+                    el.style.opacity = 1;
+                }, 500);
+            }
         }, 6000);
 
         // Fetching Events logic
@@ -348,7 +403,7 @@
                     return { date: d, title: c[1], time: c[3] };
                 }).filter(e => e.date >= today).sort((a,b) => a.date - b.date).slice(0, 3);
 
-                document.getElementById('eventList').innerHTML = events.map(e => `
+                document.getElementById('eventList').innerHTML = events.length > 0 ? events.map(e => `
                     <div class="event-item">
                         <div class="event-date">
                             <div style="font-size:10px; font-weight:800; opacity:0.5;">${e.date.toLocaleString('default', { month: 'short' }).toUpperCase()}</div>
@@ -360,7 +415,7 @@
                         </div>
                         <div style="color:var(--sky-main); opacity:0.3;">▶</div>
                     </div>
-                `).join('');
+                `).join('') : "<p style='text-align:center; padding:20px; font-size:12px;'>No upcoming events scheduled.</p>";
             } catch(e) { 
                 document.getElementById('eventList').innerHTML = "<p style='text-align:center; padding:20px;'>Check the calendar page for full details.</p>"; 
             }
