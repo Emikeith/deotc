@@ -2,7 +2,7 @@
 <html lang="am">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Debre Genet EOTC Winnipeg | Heavenly Sanctuary</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@300;700&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -16,7 +16,8 @@
             --white: #FFFFFF;
             --shadow: 0 12px 40px rgba(0, 119, 204, 0.12);
             --ethio-red: #EF3340;
-            --church-wood: #4A2B0F;
+            --glass: rgba(255, 255, 255, 0.8);
+            --church-wood: #4A2B0F; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -27,14 +28,13 @@
             color: var(--text-dark);
             line-height: 1.6;
             padding-bottom: 80px;
-            overflow-x: hidden;
         }
 
         .ethiopic { font-family: 'Noto Serif Ethiopic', serif; font-weight: 700; }
 
         /* --- NAVIGATION --- */
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
             padding: 15px 5%;
             display: flex;
@@ -42,7 +42,7 @@
             align-items: center;
             position: fixed;
             top: 0; width: 100%;
-            z-index: 2000;
+            z-index: 1000;
             border-bottom: 1px solid var(--sky-light);
         }
 
@@ -55,102 +55,205 @@
         .desktop-nav { display: none; gap: 20px; }
         .desktop-nav a { text-decoration: none; color: var(--sky-main); font-size: 11px; font-weight: 700; text-transform: uppercase; }
 
-        /* --- VIDEO HERO --- */
+        /* --- VIDEO HERO SECTION --- */
         .hero-video-container {
             position: relative;
             height: 85vh;
             width: 100%;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background: #004477;
         }
 
+        .video-wrapper {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+        }
+
         .video-wrapper iframe {
-            width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh;
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            pointer-events: none; filter: brightness(0.85);
+            width: 100vw; height: 56.25vw;
+            min-height: 100vh; min-width: 177.77vh;
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            filter: saturate(0.8) brightness(0.9);
         }
 
         .hero-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(to bottom, rgba(240, 247, 255, 0.2) 0%, rgba(0, 119, 204, 0.4) 50%, var(--sky-bg) 100%);
+            background: linear-gradient(to bottom, 
+                rgba(240, 247, 255, 0.2) 0%, 
+                rgba(0, 119, 204, 0.4) 50%, 
+                var(--sky-bg) 100%);
             z-index: 2;
         }
 
-        .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3; text-align: center; color: var(--white); width: 100%; }
-        .hero-content h1 { font-size: clamp(45px, 10vw, 90px); }
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: var(--white);
+            padding: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .hero h1 { font-size: clamp(45px, 10vw, 90px); margin-bottom: 5px; color: var(--white); }
+        .hero p { color: var(--sky-light); font-weight: 600; letter-spacing: 3px; font-size: 14px; }
 
         .btn-live {
             display: inline-flex; align-items: center; gap: 8px;
             background: var(--ethio-red); color: white; padding: 12px 25px;
             border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 12px;
-            margin-top: 25px; animation: pulse 2s infinite;
+            margin-top: 25px; box-shadow: 0 10px 20px rgba(239, 51, 64, 0.3);
+            animation: pulse 2s infinite;
         }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-        /* --- CONTENT --- */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- CONTENT CONTAINER --- */
         .container { padding: 20px; max-width: 1100px; margin: -40px auto 60px; position: relative; z-index: 10; }
-        .card { background: var(--white); border-radius: 24px; padding: 30px; margin-bottom: 25px; box-shadow: var(--shadow); border: 1px solid rgba(0, 119, 204, 0.05); }
-        .section-label { font-size: 10px; font-weight: 800; color: var(--holy-gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block; }
+        
+        .card {
+            background: var(--white); border-radius: 24px; padding: 30px;
+            margin-bottom: 25px; box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 119, 204, 0.05);
+        }
 
-        /* --- SACRED WINDOWS --- */
+        .section-label {
+            font-size: 10px; font-weight: 800; color: var(--holy-gold);
+            letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block;
+        }
+
+        /* --- ETHIOPIAN CHURCH WINDOW GALLERY --- */
         .window-gallery-wrapper {
-            background: linear-gradient(180deg, #1a0a00 0%, #3d1a00 100%);
-            padding: 40px 15px; border-radius: 30px; border: 2px solid var(--holy-gold); margin-bottom: 25px;
+            background: linear-gradient(180deg, #1a0a00 0%, #3d1a00 100%); 
+            padding: 40px 15px;
+            border-radius: 30px;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.6);
+            border: 2px solid var(--holy-gold);
+            margin-bottom: 25px;
         }
-        .gallery-grid { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 20px; scrollbar-width: none; }
-        .gallery-grid::-webkit-scrollbar { display: none; }
-        .gallery-item {
-            flex: 0 0 200px; height: 300px; border-radius: 100px 100px 15px 15px; 
-            border: 5px solid var(--church-wood); outline: 2px solid var(--holy-gold);
-            overflow: hidden; cursor: pointer; position: relative;
-        }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .gallery-item::after { content: "© Debre Genet"; position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.7); color: var(--holy-gold); font-size: 8px; padding: 8px 0; text-align: center; }
 
-        /* --- LIGHTBOX & PANNING --- */
-        #lightbox {
-            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.98);
-            display: none; z-index: 9999; justify-content: center; align-items: center;
-            overflow: hidden; touch-action: none;
+        .gallery-header-alt { text-align: center; margin-bottom: 25px; }
+        .gallery-header-alt i { color: var(--holy-gold); font-size: 24px; display: block; margin-bottom: 10px; }
+
+        .gallery-grid {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding: 10px 10px 30px;
+            scrollbar-width: none;
         }
-        #lightbox.active { display: flex; }
-        
-        .zoom-stage { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
-        
-        #lightbox-img {
-            max-width: 90%; max-height: 85vh;
-            transform-origin: center;
-            transition: transform 0.1s ease-out;
-            user-select: none; pointer-events: auto;
+        .gallery-grid::-webkit-scrollbar { display: none; }
+
+        .gallery-item {
+            flex: 0 0 200px;
+            height: 300px;
+            position: relative;
+            border-radius: 100px 100px 15px 15px; 
+            border: 5px solid var(--church-wood);
+            outline: 2px solid var(--holy-gold);
+            overflow: hidden;
+            cursor: pointer;
+            scroll-snap-align: start;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            background: #000;
+        }
+
+        .gallery-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: 0.5s ease;
+        }
+
+        .gallery-item::after {
+            content: "© Debre Genet";
+            position: absolute; bottom: 0; width: 100%;
+            background: rgba(0,0,0,0.7); color: var(--holy-gold);
+            font-size: 8px; padding: 8px 0; text-align: center;
+            font-weight: 800; border-top: 1px solid var(--holy-gold);
+            z-index: 3;
+        }
+
+        /* --- ZOOM LIGHTBOX --- */
+        #lightbox {
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.98);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        #lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
+
+        .lightbox-content-wrapper {
+            position: relative;
+            width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
         }
 
         .watermark-overlay {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg);
-            color: rgba(255, 255, 255, 0.2); font-size: clamp(18px, 5vw, 30px);
-            font-weight: 800; pointer-events: none; z-index: 10000; text-transform: uppercase; white-space: nowrap;
+            position: absolute;
+            z-index: 3050;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: clamp(14px, 4vw, 24px);
+            font-weight: 800;
+            pointer-events: none;
+            text-transform: uppercase;
+            text-align: center;
+            width: 100%;
         }
 
-        .close-lightbox { position: absolute; top: 30px; right: 30px; color: white; font-size: 40px; cursor: pointer; z-index: 10001; }
-        .zoom-hint { position: absolute; bottom: 30px; color: white; background: rgba(0,0,0,0.6); padding: 10px 20px; border-radius: 20px; font-size: 10px; }
+        #lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            transition: transform 0.1s ease-out;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
 
-        /* --- MENU --- */
-        .menu-overlay { position: fixed; inset: 0; background: white; z-index: 3000; display: none; flex-direction: column; padding: 50px; }
+        .close-lightbox {
+            position: absolute; top: 25px; right: 25px;
+            color: white; font-size: 35px; cursor: pointer;
+            z-index: 3100; background: rgba(0,0,0,0.3);
+            width: 45px; height: 45px; display: grid; place-items: center;
+            border-radius: 50%;
+        }
+
+        /* --- FOOTER & NAV FIXES --- */
+        .progress-track { background: var(--sky-light); height: 12px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
+        .progress-fill { height: 100%; width: 65%; background: linear-gradient(90deg, var(--sky-main), var(--holy-gold)); }
+        
+        .event-item { display: flex; align-items: center; gap: 15px; padding: 18px 0; border-bottom: 1px solid var(--sky-light); }
+        .event-date { text-align: center; min-width: 55px; color: var(--sky-main); }
+        
+        .mobile-nav { position: fixed; bottom: 0; width: 100%; background: rgba(255,255,255,0.96); backdrop-filter: blur(15px); display: flex; justify-content: space-around; padding: 12px 0 25px; border-top: 1px solid var(--sky-light); z-index: 1000; }
+        .nav-item { text-align: center; text-decoration: none; color: var(--text-soft); font-size: 10px; font-weight: 600; }
+        .nav-item i { display: block; font-size: 22px; margin-bottom: 4px; }
+
+        .menu-overlay { position: fixed; inset: 0; background: var(--sky-bg); z-index: 2000; display: none; padding: 40px; flex-direction: column; }
         .menu-overlay.active { display: flex; }
-        .menu-overlay a { font-size: 24px; color: var(--sky-main); text-decoration: none; margin-bottom: 20px; font-weight: 700; }
+        .close-menu { align-self: flex-end; font-size: 32px; color: var(--sky-main); cursor: pointer; }
 
-        /* --- UI ELEMENTS --- */
-        .grid { display: grid; gap: 20px; }
-        .progress-track { background: rgba(0,0,0,0.1); height: 12px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-        .progress-fill { height: 100%; width: 65%; background: var(--holy-gold); }
-        .event-item { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid #eee; }
-
-        .mobile-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0 30px; border-top: 1px solid #eee; z-index: 1500; }
-        .nav-item { text-align: center; text-decoration: none; color: var(--text-soft); font-size: 10px; }
+        .mobile-only { display: block; }
 
         @media (min-width: 1024px) {
             .desktop-nav { display: flex; }
             .mobile-only { display: none; }
-            .grid { grid-template-columns: 1.2fr 0.8fr; }
+            .grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 25px; }
+            body { padding-bottom: 0; }
         }
     </style>
 </head>
@@ -172,43 +275,46 @@
             <a href="donations.html">Give</a>
             <a href="contact.html">Contact</a>
         </div>
-        <div onclick="toggleMenu()" style="cursor:pointer; font-size: 28px; color: var(--sky-main);" class="mobile-only">☰</div>
+        <div onclick="toggleMenu()" style="cursor:pointer; font-size: 24px; color: var(--sky-main);" class="mobile-only">☰</div>
     </header>
 
     <div class="menu-overlay" id="menuOverlay">
-        <div style="text-align: right; font-size: 35px;" onclick="toggleMenu()">✕</div>
-        <a href="index.html">Home</a>
-        <a href="clergy.html">Clergy</a>
-        <a href="ministry-hub.html">Ministries</a>
-        <a href="calendar.html">Calendar</a>
-        <a href="building.html">Building Project</a>
-        <a href="donations.html">Donations</a>
-        <a href="contact.html">Contact</a>
+        <div class="close-menu" onclick="toggleMenu()">✕</div>
+        <div style="margin-top: 40px;">
+            <a href="index.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; margin-bottom:25px; font-weight:700;">Home</a>
+            <a href="clergy.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; margin-bottom:25px; font-weight:700;">Clergy</a>
+            <a href="ministry-hub.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; margin-bottom:25px; font-weight:700;">Ministries</a>
+            <a href="calendar.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; margin-bottom:25px; font-weight:700;">Calendar</a>
+            <a href="building.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; margin-bottom:25px; font-weight:700;">Building Project</a>
+            <a href="donations.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; margin-bottom:25px; font-weight:700;">Donations</a>
+            <a href="contact.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; font-weight:700;">Contact</a>
+        </div>
     </div>
 
     <section class="hero-video-container">
         <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/CMSl9QCcIHg?autoplay=1&mute=1&controls=0&loop=1&playlist=CMSl9QCcIHg&rel=0" frameborder="0"></iframe>
+            <iframe src="https://www.youtube.com/embed/CMSl9QCcIHg?autoplay=1&mute=1&controls=0&loop=1&playlist=CMSl9QCcIHg&rel=0&modestbranding=1" frameborder="0"></iframe>
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="ethiopic">ደብረ ገነት</h1>
-            <p>ETHIOPIAN ORTHODOX TEWAHEDO</p>
-            <div style="font-size: 11px; margin-top: 10px; opacity: 0.9;">ST. MARY, ST. GABRIEL, ST. ARSEMA CATHEDRAL</div>
-            <a href="https://youtube.com/live" class="btn-live">● WATCH LIVE SERVICE</a>
+            <h1 class="ethiopic" style="font-size: clamp(45px, 10vw, 90px); color: white;">ደብረ ገነት</h1>
+            <p style="color: var(--sky-light); letter-spacing: 3px; font-weight: 600;">ETHIOPIAN ORTHODOX TEWAHEDO</p>
+            <div style="font-size: 11px; font-weight: 700; color: var(--white); margin-top: 8px; opacity: 0.9; letter-spacing: 1px;">ST. MARY, ST. GABRIEL, ST. ARSEMA CATHEDRAL</div>
+            <a href="https://youtube.com/live" target="_blank" class="btn-live">● WATCH LIVE SERVICE</a>
         </div>
     </section>
 
     <div class="container">
         <div class="card" style="text-align: center; border-top: 4px solid var(--sky-main);">
             <span class="section-label">Notice / ማሳሰቢያ</span>
-            <h2 id="dynamic-notice" class="ethiopic" style="color: var(--sky-main);">እንኳን በደህና መጡ::</h2>
+            <h2 id="dynamic-notice" class="ethiopic" style="color: var(--sky-main); font-size: 22px;">እንኳን በደህና መጡ::</h2>
         </div>
 
         <div class="window-gallery-wrapper">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <span class="section-label" style="color: white;">Through the Sacred Windows</span>
-                <h3 class="ethiopic" style="color: var(--holy-gold);">የቤተክርስቲያን ትውስታዎች</h3>
+            <div class="gallery-header-alt">
+                <i class="ethiopic">✥</i>
+                <span class="section-label" style="color: var(--white); opacity: 0.8;">Through the Sacred Windows</span>
+                <h3 class="ethiopic" style="color: var(--holy-gold); font-size: 20px;">የቤተክርስቲያን ትውስታዎች</h3>
             </div>
             <div class="gallery-grid">
                 <div class="gallery-item" onclick="openLightbox(this)"><img src="group1.jpg"></div>
@@ -221,59 +327,71 @@
 
         <div class="grid">
             <div class="card">
-                <span class="section-label">Upcoming Events</span>
-                <div id="eventList">Loading calendar...</div>
+                <span class="section-label">Upcoming Events / መጪ መርሃ ግብሮች</span>
+                <div id="eventList">Connecting...</div>
             </div>
+
             <div class="card" style="background: linear-gradient(135deg, var(--sky-main), #005599); color: white;">
-                <span class="section-label" style="color: rgba(255,255,255,0.7);">Building Project</span>
-                <div style="display:flex; justify-content:space-between; font-weight:800;"><span>Raised</span><span style="color: var(--holy-gold);">$780k / $1.2M</span></div>
-                <div class="progress-track"><div class="progress-fill"></div></div>
-                <p style="font-size: 12px; opacity: 0.8;">Help us build a sanctuary for generations to come.</p>
+                <span class="section-label" style="color: rgba(255,255,255,0.7);">Cathedral Building Project</span>
+                <div style="display:flex; justify-content:space-between; font-weight:800; font-size: 18px;">
+                    <span>Raised</span>
+                    <span style="color: var(--holy-gold);">$780k / $1.2M</span>
+                </div>
+                <div class="progress-track" style="background: rgba(255,255,255,0.15);">
+                    <div class="progress-fill"></div>
+                </div>
+                <p style="font-size: 13px; opacity: 0.8;">Help us build a sanctuary for generations to come.</p>
             </div>
         </div>
     </div>
 
     <div id="lightbox">
         <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
-        <div class="zoom-stage" id="zoomStage">
-            <div class="watermark-overlay" id="wm">© Debre Genet Winnipeg</div>
-            <img id="lightbox-img" src="">
+        <div class="lightbox-content-wrapper" id="zoomWrapper">
+            <div class="watermark-overlay" id="fullWatermark">© Debre Genet Winnipeg</div>
+            <img id="lightbox-img" src="" alt="Full view">
         </div>
-        <div class="zoom-hint">PINCH/SCROLL TO ZOOM • DRAG TO PAN</div>
     </div>
 
+    <footer style="text-align: center; padding: 60px 20px; background: var(--white);">
+        <div style="font-size: 35px; color: var(--holy-gold); margin-bottom: 10px;">✥</div>
+        <p class="ethiopic" style="color: var(--sky-main); font-size: 18px;">ደብረ ገነት የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን</p>
+        <p style="font-size: 12px; color: var(--text-soft); margin-top: 10px;">353 Mountain Ave, Winnipeg, MB R2W 1J9</p>
+        <p style="font-size: 10px; margin-top: 40px; opacity: 0.4;">© 2026 Debre Genet EOTC. Peace be with you.</p>
+    </footer>
+
     <nav class="mobile-nav">
-        <a href="index.html" class="nav-item"><i>🏠</i><br>Home</a>
-        <a href="calendar.html" class="nav-item"><i>📅</i><br>Events</a>
-        <a href="donations.html" class="nav-item"><i>❤️</i><br>Donate</a>
-        <a href="contact.html" class="nav-item"><i>📍</i><br>Visit</a>
+        <a href="index.html" class="nav-item"><i>🏠</i>Home</a>
+        <a href="calendar.html" class="nav-item"><i>📅</i>Events</a>
+        <a href="donations.html" class="nav-item"><i>❤️</i>Donate</a>
+        <a href="contact.html" class="nav-item"><i>📍</i>Visit</a>
     </nav>
 
     <script>
         function toggleMenu() { document.getElementById('menuOverlay').classList.toggle('active'); }
 
-        // --- ZOOM & PAN ENGINE ---
+        // --- ZOOM LOGIC ---
         let scale = 1, translateX = 0, translateY = 0, isDragging = false, startX, startY;
-        const lightbox = document.getElementById('lightbox');
-        const img = document.getElementById('lightbox-img');
-        const stage = document.getElementById('zoomStage');
-        const wm = document.getElementById('wm');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const zoomWrapper = document.getElementById('zoomWrapper');
+        const watermark = document.getElementById('fullWatermark');
 
         function openLightbox(el) {
-            img.src = el.querySelector('img').src;
-            lightbox.classList.add('active');
-            scale = 1; translateX = 0; translateY = 0;
-            updateTransform();
+            lightboxImg.src = el.querySelector('img').src;
+            document.getElementById('lightbox').classList.add('active');
+            resetZoom();
         }
 
-        function closeLightbox() { lightbox.classList.remove('active'); }
+        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+
+        function resetZoom() { scale = 1; translateX = 0; translateY = 0; updateTransform(); }
 
         function updateTransform() {
-            img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-            wm.style.transform = `translate(-50%, -50%) translate(${translateX}px, ${translateY}px) scale(${scale}) rotate(-15deg)`;
+            lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            watermark.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale}) rotate(-15deg)`;
         }
 
-        stage.addEventListener('wheel', (e) => {
+        zoomWrapper.addEventListener('wheel', (e) => {
             e.preventDefault();
             const delta = e.deltaY > 0 ? -0.3 : 0.3;
             scale = Math.min(Math.max(1, scale + delta), 6);
@@ -281,69 +399,52 @@
             updateTransform();
         }, { passive: false });
 
-        stage.addEventListener('mousedown', (e) => {
-            if (scale > 1) { isDragging = true; startX = e.clientX - translateX; startY = e.clientY - translateY; }
-        });
+        function startDrag(e) {
+            if (scale > 1) {
+                isDragging = true;
+                const pt = e.touches ? e.touches[0] : e;
+                startX = pt.clientX - translateX;
+                startY = pt.clientY - translateY;
+            }
+        }
 
-        window.addEventListener('mousemove', (e) => {
-            if (isDragging) { translateX = e.clientX - startX; translateY = e.clientY - startY; updateTransform(); }
-        });
+        function doDrag(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            const pt = e.touches ? e.touches[0] : e;
+            translateX = pt.clientX - startX;
+            translateY = pt.clientY - startY;
+            updateTransform();
+        }
 
+        zoomWrapper.addEventListener('mousedown', startDrag);
+        window.addEventListener('mousemove', doDrag);
         window.addEventListener('mouseup', () => isDragging = false);
+        zoomWrapper.addEventListener('touchstart', startDrag, {passive: false});
+        zoomWrapper.addEventListener('touchmove', doDrag, {passive: false});
+        zoomWrapper.addEventListener('touchend', () => isDragging = false);
 
-        // Mobile Touch (Pinch & Pan)
-        let initialDist = 0;
-        stage.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1 && scale > 1) {
-                isDragging = true; startX = e.touches[0].clientX - translateX; startY = e.touches[0].clientY - translateY;
-            } else if (e.touches.length === 2) {
-                initialDist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
-            }
-        });
-
-        stage.addEventListener('touchmove', (e) => {
-            if (e.touches.length === 1 && isDragging) {
-                e.preventDefault(); translateX = e.touches[0].clientX - startX; translateY = e.touches[0].clientY - startY; updateTransform();
-            } else if (e.touches.length === 2) {
-                e.preventDefault();
-                const dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
-                const delta = dist > initialDist ? 0.1 : -0.1;
-                scale = Math.min(Math.max(1, scale + delta), 6);
-                initialDist = dist; updateTransform();
-            }
-        }, { passive: false });
-
-        stage.addEventListener('touchend', () => { isDragging = false; initialDist = 0; });
-
-        // Notices & Events
-        const notices = ["እንኳን ለብርሃነ ጥምቀቱ በሰላም አደረሳችሁ::", "Building Project Goal: $1.2M.", "Sunday School: Every Sunday at 10:30 AM."];
-        let nIdx = 0;
-        setInterval(() => {
-            const el = document.getElementById('dynamic-notice');
-            if(el) { el.style.opacity = 0; setTimeout(() => { nIdx = (nIdx + 1) % notices.length; el.innerText = notices[nIdx]; el.style.opacity = 1; }, 500); }
-        }, 5000);
-
+        // --- DATA FETCHING ---
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMZieFTAsbcpW9ROmJzlRuVJv34SEYx-5q-jg40his0eVg0D5Jef5x4yFJvfWizjGToIBB1Ycu2KLE/pub?output=csv";
         async function fetchEvents() {
             try {
                 const res = await fetch(SHEET_URL);
                 const data = await res.text();
                 const rows = data.split('\n').slice(1);
-                const today = new Date(); today.setHours(0,0,0,0);
+                const today = new Date();
                 const events = rows.map(r => {
                     const c = r.split(',').map(x => x.trim().replace(/^"|"$/g, ''));
-                    const d = new Date(c[0].split('-')[0], c[0].split('-')[1]-1, c[0].split('-')[2]);
-                    return { date: d, title: c[1], time: c[3] };
+                    return { date: new Date(c[0]), title: c[1], time: c[3] };
                 }).filter(e => e.date >= today).sort((a,b) => a.date - b.date).slice(0, 3);
                 document.getElementById('eventList').innerHTML = events.map(e => `
                     <div class="event-item">
-                        <div style="text-align:center; min-width:50px; color:var(--sky-main);">
-                            <div style="font-size:10px; font-weight:800;">${e.date.toLocaleString('default', { month: 'short' }).toUpperCase()}</div>
-                            <div style="font-size:20px; font-weight:900;">${e.date.getDate()}</div>
+                        <div class="event-date">
+                            <div style="font-size:10px; font-weight:800;">${e.date.toLocaleString('default', {month:'short'}).toUpperCase()}</div>
+                            <div style="font-size:22px; font-weight:900;">${e.date.getDate()}</div>
                         </div>
                         <div><div style="font-weight:700;">${e.title}</div><div style="font-size:11px; color:var(--holy-gold);">Starts at ${e.time}</div></div>
-                    </div>`).join('') || "No upcoming events.";
-            } catch(e) { document.getElementById('eventList').innerHTML = "View calendar page for details."; }
+                    </div>`).join('');
+            } catch(e) { document.getElementById('eventList').innerHTML = "Calendar currently unavailable."; }
         }
         fetchEvents();
     </script>
