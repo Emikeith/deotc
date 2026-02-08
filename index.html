@@ -2,7 +2,7 @@
 <html lang="am">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Debre Genet EOTC Winnipeg | Heavenly Sanctuary</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@300;700&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -16,7 +16,7 @@
             --white: #FFFFFF;
             --shadow: 0 12px 40px rgba(0, 119, 204, 0.12);
             --ethio-red: #EF3340;
-            --church-blue: #003366; 
+            --church-wood: #4A2B0F;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -34,7 +34,7 @@
 
         /* --- NAVIGATION --- */
         header {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 15px 5%;
             display: flex;
@@ -42,7 +42,7 @@
             align-items: center;
             position: fixed;
             top: 0; width: 100%;
-            z-index: 1000;
+            z-index: 2000;
             border-bottom: 1px solid var(--sky-light);
         }
 
@@ -61,153 +61,96 @@
             height: 85vh;
             width: 100%;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--church-blue);
+            background: #004477;
         }
 
-        .video-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .video-wrapper iframe {
             width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh;
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            pointer-events: none; filter: saturate(0.8) brightness(0.9);
+            pointer-events: none; filter: brightness(0.85);
         }
 
         .hero-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(to bottom, rgba(240, 247, 255, 0.2) 0%, rgba(0, 51, 102, 0.6) 50%, var(--sky-bg) 100%);
+            background: linear-gradient(to bottom, rgba(240, 247, 255, 0.2) 0%, rgba(0, 119, 204, 0.4) 50%, var(--sky-bg) 100%);
             z-index: 2;
         }
 
-        .hero-content { position: relative; z-index: 3; text-align: center; color: var(--white); padding: 20px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .hero h1 { font-size: clamp(45px, 10vw, 90px); margin-bottom: 5px; }
-        .hero p { color: var(--sky-light); font-weight: 600; letter-spacing: 3px; font-size: 14px; }
+        .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3; text-align: center; color: var(--white); width: 100%; }
+        .hero-content h1 { font-size: clamp(45px, 10vw, 90px); }
 
         .btn-live {
             display: inline-flex; align-items: center; gap: 8px;
             background: var(--ethio-red); color: white; padding: 12px 25px;
             border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 12px;
-            margin-top: 25px; box-shadow: 0 10px 20px rgba(239, 51, 64, 0.3);
-            animation: pulse 2s infinite;
+            margin-top: 25px; animation: pulse 2s infinite;
         }
-
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-        /* --- CONTAINER --- */
+        /* --- CONTENT --- */
         .container { padding: 20px; max-width: 1100px; margin: -40px auto 60px; position: relative; z-index: 10; }
-        
-        .card {
-            background: var(--white); border-radius: 24px; padding: 30px;
-            margin-bottom: 25px; box-shadow: var(--shadow);
-            border: 1px solid rgba(0, 119, 204, 0.05);
-        }
+        .card { background: var(--white); border-radius: 24px; padding: 30px; margin-bottom: 25px; box-shadow: var(--shadow); border: 1px solid rgba(0, 119, 204, 0.05); }
+        .section-label { font-size: 10px; font-weight: 800; color: var(--holy-gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block; }
 
-        .section-label {
-            font-size: 10px; font-weight: 800; color: var(--holy-gold);
-            letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block;
-        }
-
-        /* --- SACRED WINDOWS (BLUE STYLE) --- */
+        /* --- SACRED WINDOWS --- */
         .window-gallery-wrapper {
-            background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
-            padding: 40px 15px; border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0, 51, 102, 0.3);
-            border: 2px solid var(--holy-gold); margin-bottom: 25px;
+            background: linear-gradient(180deg, #1a0a00 0%, #3d1a00 100%);
+            padding: 40px 15px; border-radius: 30px; border: 2px solid var(--holy-gold); margin-bottom: 25px;
         }
-
-        .gallery-header-alt { text-align: center; margin-bottom: 25px; }
-        .gallery-header-alt i { color: var(--holy-gold); font-size: 24px; display: block; margin-bottom: 10px; }
-
-        .gallery-grid {
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-            gap: 20px; padding: 10px 10px 30px; scrollbar-width: none;
-        }
+        .gallery-grid { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 20px; scrollbar-width: none; }
         .gallery-grid::-webkit-scrollbar { display: none; }
-
         .gallery-item {
-            flex: 0 0 200px; height: 300px; position: relative;
-            border-radius: 100px 100px 15px 15px; 
-            border: 5px solid var(--church-blue); outline: 2px solid var(--holy-gold);
-            overflow: hidden; cursor: pointer; scroll-snap-align: start; transition: 0.4s ease;
+            flex: 0 0 200px; height: 300px; border-radius: 100px 100px 15px 15px; 
+            border: 5px solid var(--church-wood); outline: 2px solid var(--holy-gold);
+            overflow: hidden; cursor: pointer; position: relative;
         }
-        .gallery-item:hover { transform: translateY(-10px); outline-color: var(--white); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; user-select: none; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-item::after { content: "© Debre Genet"; position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.7); color: var(--holy-gold); font-size: 8px; padding: 8px 0; text-align: center; }
 
-        /* --- YOUTUBE SECTION --- */
-        .video-feed-section { margin-top: 20px; margin-bottom: 40px; }
-        .video-card { background: var(--white); border-radius: 24px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--sky-light); }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
-        /* --- LIGHTBOX, ZOOM & WATERMARK SYSTEM --- */
+        /* --- LIGHTBOX & PANNING --- */
         #lightbox {
-            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95);
-            display: none; z-index: 9999; overflow: hidden; touch-action: none;
-        }
-        #lightbox.active { display: flex; flex-direction: column; justify-content: center; align-items: center; }
-
-        .zoom-stage {
-            position: relative; width: 100%; height: 100%;
-            display: flex; justify-content: center; align-items: center;
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.98);
+            display: none; z-index: 9999; justify-content: center; align-items: center;
             overflow: hidden; touch-action: none;
         }
-
+        #lightbox.active { display: flex; }
+        
+        .zoom-stage { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+        
         #lightbox-img {
-            max-width: 95%; max-height: 85vh;
-            transform-origin: center center;
+            max-width: 90%; max-height: 85vh;
+            transform-origin: center;
             transition: transform 0.1s ease-out;
-            user-select: none; -webkit-user-drag: none;
-            z-index: 10;
+            user-select: none; pointer-events: auto;
         }
 
-        /* Watermark Floating ON TOP of image */
         .watermark-overlay {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-25deg);
-            color: rgba(255, 255, 255, 0.25);
-            font-size: clamp(20px, 6vw, 50px);
-            font-weight: 900;
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: 20; /* Ensures it is on top of image */
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            font-family: sans-serif;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg);
+            color: rgba(255, 255, 255, 0.2); font-size: clamp(18px, 5vw, 30px);
+            font-weight: 800; pointer-events: none; z-index: 10000; text-transform: uppercase; white-space: nowrap;
         }
 
-        .close-lightbox {
-            position: absolute; top: 40px; right: 30px;
-            color: white; font-size: 40px; cursor: pointer; z-index: 10005;
-            text-shadow: 0 0 10px rgba(0,0,0,1);
-        }
+        .close-lightbox { position: absolute; top: 30px; right: 30px; color: white; font-size: 40px; cursor: pointer; z-index: 10001; }
+        .zoom-hint { position: absolute; bottom: 30px; color: white; background: rgba(0,0,0,0.6); padding: 10px 20px; border-radius: 20px; font-size: 10px; }
 
-        .zoom-hint {
-            position: absolute; bottom: 30px; color: rgba(255,255,255,0.7);
-            font-size: 11px; letter-spacing: 1px; font-weight: 600; z-index: 10005;
-        }
-
-        /* --- PROGRESS & EVENTS --- */
-        .progress-track { background: var(--sky-light); height: 12px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-        .progress-fill { height: 100%; width: 65%; background: linear-gradient(90deg, var(--sky-main), var(--holy-gold)); }
-        .event-item { display: flex; align-items: center; gap: 15px; padding: 18px 0; border-bottom: 1px solid var(--sky-light); }
-        .event-date { text-align: center; min-width: 55px; color: var(--sky-main); }
-        
-        /* --- MOBILE NAV --- */
-        .mobile-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0 25px; border-top: 1px solid var(--sky-light); z-index: 1000; }
-        .nav-item { text-align: center; text-decoration: none; color: var(--text-soft); font-size: 10px; font-weight: 600; }
-        .nav-item.active { color: var(--sky-main); }
-        .nav-item i { display: block; font-size: 22px; margin-bottom: 4px; }
-        
-        .menu-overlay { position: fixed; inset: 0; background: var(--sky-bg); z-index: 2000; display: none; padding: 40px; flex-direction: column; }
+        /* --- MENU --- */
+        .menu-overlay { position: fixed; inset: 0; background: white; z-index: 3000; display: none; flex-direction: column; padding: 50px; }
         .menu-overlay.active { display: flex; }
+        .menu-overlay a { font-size: 24px; color: var(--sky-main); text-decoration: none; margin-bottom: 20px; font-weight: 700; }
+
+        /* --- UI ELEMENTS --- */
+        .grid { display: grid; gap: 20px; }
+        .progress-track { background: rgba(0,0,0,0.1); height: 12px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
+        .progress-fill { height: 100%; width: 65%; background: var(--holy-gold); }
+        .event-item { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid #eee; }
+
+        .mobile-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0 30px; border-top: 1px solid #eee; z-index: 1500; }
+        .nav-item { text-align: center; text-decoration: none; color: var(--text-soft); font-size: 10px; }
 
         @media (min-width: 1024px) {
             .desktop-nav { display: flex; }
             .mobile-only { display: none; }
-            .grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 25px; }
-            .gallery-item { flex: 0 0 240px; height: 360px; }
+            .grid { grid-template-columns: 1.2fr 0.8fr; }
         }
     </style>
 </head>
@@ -229,42 +172,42 @@
             <a href="donations.html">Give</a>
             <a href="contact.html">Contact</a>
         </div>
-        <div onclick="toggleMenu()" style="cursor:pointer; font-size: 24px; color: var(--sky-main);" class="mobile-only">☰</div>
+        <div onclick="toggleMenu()" style="cursor:pointer; font-size: 28px; color: var(--sky-main);" class="mobile-only">☰</div>
     </header>
 
     <div class="menu-overlay" id="menuOverlay">
-        <div style="text-align: right; font-size: 30px;" onclick="toggleMenu()">✕</div>
-        <nav style="margin-top: 40px; display: flex; flex-direction: column; gap: 20px;">
-            <a href="index.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">መነሻ ገጽ</a>
-            <a href="calendar.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">መቁጠሪያ</a>
-            <a href="donations.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">መባ ማበርከቻ</a>
-            <a href="contact.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">አድራሻ</a>
-        </nav>
+        <div style="text-align: right; font-size: 35px;" onclick="toggleMenu()">✕</div>
+        <a href="index.html">Home</a>
+        <a href="clergy.html">Clergy</a>
+        <a href="ministry-hub.html">Ministries</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="building.html">Building Project</a>
+        <a href="donations.html">Donations</a>
+        <a href="contact.html">Contact</a>
     </div>
 
     <section class="hero-video-container">
         <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/CMSl9QCcIHg?autoplay=1&mute=1&controls=0&loop=1&playlist=CMSl9QCcIHg&rel=0" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+            <iframe src="https://www.youtube.com/embed/CMSl9QCcIHg?autoplay=1&mute=1&controls=0&loop=1&playlist=CMSl9QCcIHg&rel=0" frameborder="0"></iframe>
         </div>
         <div class="hero-overlay"></div>
-        <div class="hero-content hero">
+        <div class="hero-content">
             <h1 class="ethiopic">ደብረ ገነት</h1>
             <p>ETHIOPIAN ORTHODOX TEWAHEDO</p>
-            <div style="font-size: 11px; font-weight: 700; color: var(--white); margin-top: 8px; opacity: 0.9;">ST. MARY, ST. GABRIEL, ST. ARSEMA CATHEDRAL</div>
-            <a href="https://youtube.com/live" target="_blank" class="btn-live">● WATCH LIVE SERVICE</a>
+            <div style="font-size: 11px; margin-top: 10px; opacity: 0.9;">ST. MARY, ST. GABRIEL, ST. ARSEMA CATHEDRAL</div>
+            <a href="https://youtube.com/live" class="btn-live">● WATCH LIVE SERVICE</a>
         </div>
     </section>
 
     <div class="container">
-        <div class="card" style="text-align: center;">
+        <div class="card" style="text-align: center; border-top: 4px solid var(--sky-main);">
             <span class="section-label">Notice / ማሳሰቢያ</span>
-            <h2 id="dynamic-notice" class="ethiopic" style="color: var(--sky-main); transition: 0.5s; font-size: 22px;">እንኳን በደህና መጡ::</h2>
+            <h2 id="dynamic-notice" class="ethiopic" style="color: var(--sky-main);">እንኳን በደህና መጡ::</h2>
         </div>
 
         <div class="window-gallery-wrapper">
-            <div class="gallery-header-alt">
-                <i>✥</i>
-                <span class="section-label" style="color: var(--white); opacity: 0.8;">Sacred Gallery</span>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span class="section-label" style="color: white;">Through the Sacred Windows</span>
                 <h3 class="ethiopic" style="color: var(--holy-gold);">የቤተክርስቲያን ትውስታዎች</h3>
             </div>
             <div class="gallery-grid">
@@ -276,31 +219,16 @@
             </div>
         </div>
 
-        <div class="video-feed-section">
-            <span class="section-label">Spiritual Media / ስብከቶች</span>
-            <div class="grid">
-                <div class="video-card">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/CMSl9QCcIHg" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="card" style="text-align:center;">
-                    <h4 class="ethiopic" style="color: var(--sky-main); margin-bottom: 10px;">የዩቲዩብ ቻናላችን</h4>
-                    <p style="font-size: 13px; margin-bottom: 20px;">Subscribe to our channel for live services.</p>
-                    <a href="https://youtube.com" target="_blank" style="background: var(--ethio-red); color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 11px;">SUBSCRIBE</a>
-                </div>
-            </div>
-        </div>
-
         <div class="grid">
             <div class="card">
                 <span class="section-label">Upcoming Events</span>
-                <div id="eventList">Loading events...</div>
+                <div id="eventList">Loading calendar...</div>
             </div>
             <div class="card" style="background: linear-gradient(135deg, var(--sky-main), #005599); color: white;">
                 <span class="section-label" style="color: rgba(255,255,255,0.7);">Building Project</span>
-                <div style="display:flex; justify-content:space-between; font-weight:800;"><span>Raised</span><span>$780k / $1.2M</span></div>
-                <div class="progress-track" style="background: rgba(255,255,255,0.15);"><div class="progress-fill"></div></div>
+                <div style="display:flex; justify-content:space-between; font-weight:800;"><span>Raised</span><span style="color: var(--holy-gold);">$780k / $1.2M</span></div>
+                <div class="progress-track"><div class="progress-fill"></div></div>
+                <p style="font-size: 12px; opacity: 0.8;">Help us build a sanctuary for generations to come.</p>
             </div>
         </div>
     </div>
@@ -308,36 +236,31 @@
     <div id="lightbox">
         <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
         <div class="zoom-stage" id="zoomStage">
-            <div class="watermark-overlay" id="wm">DEBRE GENET WINNIPEG</div>
+            <div class="watermark-overlay" id="wm">© Debre Genet Winnipeg</div>
             <img id="lightbox-img" src="">
         </div>
-        <div class="zoom-hint">SCROLL OR PINCH TO ZOOM • DRAG TO PAN</div>
+        <div class="zoom-hint">PINCH/SCROLL TO ZOOM • DRAG TO PAN</div>
     </div>
 
-    <footer style="text-align: center; padding: 60px 20px; background: var(--white);">
-        <p class="ethiopic" style="color: var(--sky-main);">ደብረ ገነት የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን</p>
-        <p style="font-size: 10px; margin-top: 10px; opacity: 0.4;">© 2026 Debre Genet EOTC Winnipeg.</p>
-    </footer>
-
     <nav class="mobile-nav">
-        <a href="index.html" class="nav-item active"><i>🏠</i>Home</a>
-        <a href="calendar.html" class="nav-item"><i>📅</i>Events</a>
-        <a href="donations.html" class="nav-item"><i>❤️</i>Donate</a>
-        <a href="contact.html" class="nav-item"><i>📍</i>Visit</a>
+        <a href="index.html" class="nav-item"><i>🏠</i><br>Home</a>
+        <a href="calendar.html" class="nav-item"><i>📅</i><br>Events</a>
+        <a href="donations.html" class="nav-item"><i>❤️</i><br>Donate</a>
+        <a href="contact.html" class="nav-item"><i>📍</i><br>Visit</a>
     </nav>
 
     <script>
         function toggleMenu() { document.getElementById('menuOverlay').classList.toggle('active'); }
 
-        /* --- ADVANCED ZOOM & PAN ENGINE --- */
+        // --- ZOOM & PAN ENGINE ---
         let scale = 1, translateX = 0, translateY = 0, isDragging = false, startX, startY;
         const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const zoomStage = document.getElementById('zoomStage');
+        const img = document.getElementById('lightbox-img');
+        const stage = document.getElementById('zoomStage');
         const wm = document.getElementById('wm');
 
-        function openLightbox(element) {
-            lightboxImg.src = element.querySelector('img').src;
+        function openLightbox(el) {
+            img.src = el.querySelector('img').src;
             lightbox.classList.add('active');
             scale = 1; translateX = 0; translateY = 0;
             updateTransform();
@@ -346,64 +269,60 @@
         function closeLightbox() { lightbox.classList.remove('active'); }
 
         function updateTransform() {
-            const transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-            lightboxImg.style.transform = transform;
-            wm.style.transform = `translate(-50%, -50%) translate(${translateX*0.5}px, ${translateY*0.5}px) rotate(-25deg) scale(${1 + (scale-1)*0.2})`;
+            img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            wm.style.transform = `translate(-50%, -50%) translate(${translateX}px, ${translateY}px) scale(${scale}) rotate(-15deg)`;
         }
 
-        // Zoom with Scroll
-        zoomStage.addEventListener('wheel', (e) => {
+        stage.addEventListener('wheel', (e) => {
             e.preventDefault();
-            const factor = e.deltaY > 0 ? 0.9 : 1.1;
-            scale = Math.min(Math.max(1, scale * factor), 6);
+            const delta = e.deltaY > 0 ? -0.3 : 0.3;
+            scale = Math.min(Math.max(1, scale + delta), 6);
             if (scale === 1) { translateX = 0; translateY = 0; }
             updateTransform();
         }, { passive: false });
 
-        // Pan Handling
-        function startPan(e) {
-            if (scale > 1) {
-                isDragging = true;
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                startX = clientX - translateX;
-                startY = clientY - translateY;
-            }
-        }
+        stage.addEventListener('mousedown', (e) => {
+            if (scale > 1) { isDragging = true; startX = e.clientX - translateX; startY = e.clientY - translateY; }
+        });
 
-        function movePan(e) {
-            if (!isDragging) return;
-            e.preventDefault();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            translateX = clientX - startX;
-            translateY = clientY - startY;
-            updateTransform();
-        }
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) { translateX = e.clientX - startX; translateY = e.clientY - startY; updateTransform(); }
+        });
 
-        zoomStage.addEventListener('mousedown', startPan);
-        window.addEventListener('mousemove', movePan);
         window.addEventListener('mouseup', () => isDragging = false);
-        zoomStage.addEventListener('touchstart', startPan, { passive: false });
-        zoomStage.addEventListener('touchmove', movePan, { passive: false });
-        zoomStage.addEventListener('touchend', () => isDragging = false);
 
-        /* --- NOTICES --- */
+        // Mobile Touch (Pinch & Pan)
+        let initialDist = 0;
+        stage.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1 && scale > 1) {
+                isDragging = true; startX = e.touches[0].clientX - translateX; startY = e.touches[0].clientY - translateY;
+            } else if (e.touches.length === 2) {
+                initialDist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+            }
+        });
+
+        stage.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 1 && isDragging) {
+                e.preventDefault(); translateX = e.touches[0].clientX - startX; translateY = e.touches[0].clientY - startY; updateTransform();
+            } else if (e.touches.length === 2) {
+                e.preventDefault();
+                const dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+                const delta = dist > initialDist ? 0.1 : -0.1;
+                scale = Math.min(Math.max(1, scale + delta), 6);
+                initialDist = dist; updateTransform();
+            }
+        }, { passive: false });
+
+        stage.addEventListener('touchend', () => { isDragging = false; initialDist = 0; });
+
+        // Notices & Events
         const notices = ["እንኳን ለብርሃነ ጥምቀቱ በሰላም አደረሳችሁ::", "Building Project Goal: $1.2M.", "Sunday School: Every Sunday at 10:30 AM."];
         let nIdx = 0;
         setInterval(() => {
             const el = document.getElementById('dynamic-notice');
-            if(el) {
-                el.style.opacity = 0;
-                setTimeout(() => {
-                    nIdx = (nIdx + 1) % notices.length;
-                    el.innerText = notices[nIdx];
-                    el.style.opacity = 1;
-                }, 500);
-            }
-        }, 6000);
+            if(el) { el.style.opacity = 0; setTimeout(() => { nIdx = (nIdx + 1) % notices.length; el.innerText = notices[nIdx]; el.style.opacity = 1; }, 500); }
+        }, 5000);
 
-        /* --- FETCH EVENTS --- */
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMZieFTAsbcpW9ROmJzlRuVJv34SEYx-5q-jg40his0eVg0D5Jef5x4yFJvfWizjGToIBB1Ycu2KLE/pub?output=csv";
         async function fetchEvents() {
             try {
@@ -418,17 +337,13 @@
                 }).filter(e => e.date >= today).sort((a,b) => a.date - b.date).slice(0, 3);
                 document.getElementById('eventList').innerHTML = events.map(e => `
                     <div class="event-item">
-                        <div class="event-date">
-                            <div style="font-size:10px; font-weight:800; opacity:0.5;">${e.date.toLocaleString('default', { month: 'short' }).toUpperCase()}</div>
-                            <div style="font-size:22px; font-weight:900;">${e.date.getDate()}</div>
+                        <div style="text-align:center; min-width:50px; color:var(--sky-main);">
+                            <div style="font-size:10px; font-weight:800;">${e.date.toLocaleString('default', { month: 'short' }).toUpperCase()}</div>
+                            <div style="font-size:20px; font-weight:900;">${e.date.getDate()}</div>
                         </div>
-                        <div style="flex:1">
-                            <div style="font-size:14px; font-weight:700;">${e.title}</div>
-                            <div style="font-size:11px; color:var(--holy-gold); font-weight:600;">Starts at ${e.time}</div>
-                        </div>
-                    </div>
-                `).join('') || "No upcoming events.";
-            } catch(e) { document.getElementById('eventList').innerHTML = "View calendar for details."; }
+                        <div><div style="font-weight:700;">${e.title}</div><div style="font-size:11px; color:var(--holy-gold);">Starts at ${e.time}</div></div>
+                    </div>`).join('') || "No upcoming events.";
+            } catch(e) { document.getElementById('eventList').innerHTML = "View calendar page for details."; }
         }
         fetchEvents();
     </script>
