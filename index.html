@@ -16,7 +16,8 @@
             --white: #FFFFFF;
             --shadow: 0 12px 40px rgba(0, 119, 204, 0.12);
             --ethio-red: #EF3340;
-            --glass: rgba(255, 255, 255, 0.8);
+            --glass: rgba(255, 255, 255, 0.7);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -26,350 +27,336 @@
             font-family: 'Montserrat', sans-serif;
             color: var(--text-dark);
             line-height: 1.6;
-            padding-bottom: 80px;
+            overflow-x: hidden;
         }
 
         .ethiopic { font-family: 'Noto Serif Ethiopic', serif; font-weight: 700; }
 
-        /* --- NAVIGATION --- */
+        /* --- THE ULTIMATE HEADER --- */
         header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             padding: 0 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: fixed;
-            top: 0; width: 100%;
-            height: 80px;
-            z-index: 1000;
-            border-bottom: 1px solid var(--sky-light);
+            top: 20px; 
+            left: 5%;
+            right: 5%;
+            width: 90%;
+            height: 70px;
+            z-index: 2000;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 70, 120, 0.08);
+            transition: var(--transition);
         }
 
-        .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        header.scrolled {
+            top: 0;
+            width: 100%;
+            left: 0;
+            right: 0;
+            border-radius: 0;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
         .logo-circle {
-            width: 38px; height: 38px; background: var(--sky-main);
-            color: white; border-radius: 50%; display: grid; place-items: center; font-size: 18px;
+            width: 42px; height: 42px; background: linear-gradient(135deg, var(--sky-main), #004488);
+            color: white; border-radius: 50%; display: grid; place-items: center; font-size: 20px;
+            box-shadow: 0 4px 15px rgba(0, 119, 204, 0.3);
         }
 
-        /* Desktop Nav with Dropdowns */
-        .desktop-nav { display: none; gap: 5px; height: 100%; }
-        .menu-item { position: relative; height: 100%; display: flex; align-items: center; }
-        .menu-item > a { 
-            text-decoration: none; color: var(--sky-main); font-size: 11px; 
-            font-weight: 700; text-transform: uppercase; padding: 0 15px;
-            transition: 0.3s;
+        /* --- DESKTOP ULTIMATE NAVIGATION --- */
+        .desktop-nav { display: none; gap: 10px; height: 100%; }
+        
+        .nav-link-wrapper { position: relative; height: 100%; display: flex; align-items: center; }
+        
+        .main-link {
+            text-decoration: none; 
+            color: var(--sky-main); 
+            font-size: 11px; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            padding: 8px 16px;
+            letter-spacing: 1px;
+            border-radius: 20px;
+            transition: var(--transition);
         }
-        .menu-item:hover > a { color: var(--holy-gold); }
 
-        .sub-menu {
-            position: absolute; top: 80px; left: 0; background: var(--white);
-            min-width: 200px; display: none; flex-direction: column;
-            box-shadow: var(--shadow); border-top: 3px solid var(--holy-gold);
-            padding: 10px 0; border-radius: 0 0 8px 8px;
+        .nav-link-wrapper:hover .main-link {
+            background: var(--sky-light);
+            color: var(--sky-main);
         }
-        .sub-menu a {
-            color: var(--text-dark); padding: 12px 20px; text-decoration: none;
-            font-size: 11px; font-weight: 600; text-transform: uppercase;
+
+        /* The Ultimate Mega Dropdown */
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--white);
+            min-width: 240px;
+            opacity: 0;
+            visibility: hidden;
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border: 1px solid var(--sky-light);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-link-wrapper:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(10px);
+        }
+
+        .mega-menu a {
+            padding: 12px 18px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mega-menu a:hover {
+            background: var(--sky-bg);
+            color: var(--sky-main);
+            padding-left: 22px;
+        }
+
+        .mega-menu a::after {
+            content: '→';
+            opacity: 0;
             transition: 0.2s;
         }
-        .sub-menu a:hover { background: var(--sky-bg); color: var(--sky-main); }
-        .menu-item:hover .sub-menu { display: flex; }
 
-        /* --- VIDEO HERO SECTION --- */
-        .hero-video-container {
-            position: relative; height: 85vh; width: 100%; overflow: hidden;
-            display: flex; align-items: center; justify-content: center; background: #004477;
+        .mega-menu a:hover::after { opacity: 1; }
+
+        /* --- MOBILE MENU TRIGGER --- */
+        .menu-btn {
+            width: 45px; height: 45px; border-radius: 50%;
+            background: var(--sky-light);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            gap: 4px; cursor: pointer; transition: 0.3s;
+        }
+        .menu-btn span { width: 20px; height: 2px; background: var(--sky-main); border-radius: 2px; transition: 0.3s; }
+        .menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+        .menu-btn.active span:nth-child(2) { opacity: 0; }
+        .menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+        /* --- FULLSCREEN PORTAL OVERLAY --- */
+        .portal-overlay {
+            position: fixed; inset: 0;
+            background: linear-gradient(135deg, #f8fbff 0%, #e1f0ff 100%);
+            z-index: 1500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            clip-path: circle(0% at 90% 5%);
+            transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-        .video-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-        .video-wrapper iframe {
+        .portal-overlay.active { clip-path: circle(150% at 90% 5%); }
+
+        .portal-content {
+            width: 80%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .portal-group { border-bottom: 1px solid rgba(0, 119, 204, 0.1); padding-bottom: 15px; }
+        .portal-label { font-size: 10px; font-weight: 800; color: var(--holy-gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+        
+        .portal-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .portal-links a {
+            text-decoration: none; color: var(--sky-main); font-size: 16px; font-weight: 700;
+            transition: 0.3s; padding: 5px 0;
+        }
+
+        /* --- HERO & VIDEO --- */
+        .hero-section {
+            position: relative; height: 100vh; width: 100%; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .video-bg { position: absolute; inset: 0; z-index: 1; }
+        .video-bg iframe {
             width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh;
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            pointer-events: none; filter: saturate(0.8) brightness(0.9);
+            pointer-events: none; filter: brightness(0.8) saturate(1.2);
         }
-
-        .hero-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to bottom, rgba(240, 247, 255, 0.2) 0%, rgba(0, 119, 204, 0.4) 50%, var(--sky-bg) 100%);
-            z-index: 2;
+        .hero-overlay { 
+            position: absolute; inset: 0; z-index: 2;
+            background: radial-gradient(circle at center, rgba(0,68,119,0.2) 0%, var(--sky-bg) 90%);
         }
-
-        .hero-content {
-            position: relative; z-index: 3; text-align: center; color: var(--white);
-            padding: 20px; text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .hero h1 { font-size: clamp(45px, 10vw, 90px); margin-bottom: 5px; color: var(--white); }
-        .hero p { color: var(--sky-light); font-weight: 600; letter-spacing: 3px; font-size: 14px; }
-
-        .btn-live {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: var(--ethio-red); color: white; padding: 12px 25px;
-            border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 12px;
-            margin-top: 25px; box-shadow: 0 10px 20px rgba(239, 51, 64, 0.3);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* --- CONTENT CONTAINER --- */
-        .container { padding: 20px; max-width: 1100px; margin: -40px auto 60px; position: relative; z-index: 10; }
-        .card {
-            background: var(--white); border-radius: 24px; padding: 30px;
-            margin-bottom: 25px; box-shadow: var(--shadow);
-            border: 1px solid rgba(0, 119, 204, 0.05);
-        }
-
-        .section-label {
-            font-size: 10px; font-weight: 800; color: var(--holy-gold);
-            letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block;
-        }
-
-        /* --- GALLERY & LIGHTBOX --- */
-        .gallery-scroll-container { position: relative; margin: 15px -10px; }
-        .gallery-grid {
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px;
-            padding: 10px; scrollbar-width: none;
-        }
-        .gallery-grid::-webkit-scrollbar { display: none; }
-        .gallery-item {
-            flex: 0 0 180px; height: 220px; position: relative; border-radius: 18px;
-            overflow: hidden; cursor: pointer; scroll-snap-align: start; transition: 0.3s;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        .gallery-item:hover { transform: scale(1.02); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        #lightbox {
-            position: fixed; inset: 0; background: rgba(10, 25, 41, 0.98);
-            backdrop-filter: blur(15px); display: none; justify-content: center;
-            align-items: center; z-index: 3000; overflow: hidden; touch-action: none;
-        }
-        #lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
-        .lightbox-content-wrapper { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
-        #lightbox img { max-width: 90%; max-height: 85vh; border-radius: 4px; transition: 0.1s ease-out; }
-
-        /* --- MOBILE OVERLAY --- */
-        .menu-overlay { 
-            position: fixed; inset: 0; background: var(--sky-bg); 
-            z-index: 2000; display: none; padding: 40px; flex-direction: column; 
-            overflow-y: auto;
-        }
-        .menu-overlay.active { display: flex; }
-        .close-menu { align-self: flex-end; font-size: 32px; color: var(--sky-main); cursor: pointer; }
-        .mobile-menu-link {
-            display: block; font-size: 20px; color: var(--sky-main); 
-            text-decoration: none; margin-bottom: 15px; font-weight: 700;
-        }
-        .mobile-submenu-link {
-            display: block; font-size: 14px; color: var(--text-soft); 
-            text-decoration: none; margin: -10px 0 20px 20px; font-weight: 500;
-        }
-
-        .progress-track { background: var(--sky-light); height: 12px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-        .progress-fill { height: 100%; width: 65%; background: linear-gradient(90deg, var(--sky-main), var(--holy-gold)); }
-        .event-item { display: flex; align-items: center; gap: 15px; padding: 18px 0; border-bottom: 1px solid var(--sky-light); }
-        .event-date { text-align: center; min-width: 55px; color: var(--sky-main); }
+        .hero-text { position: relative; z-index: 10; text-align: center; color: var(--text-dark); }
+        .hero-text h1 { font-size: clamp(50px, 12vw, 100px); line-height: 1; margin-bottom: 10px; color: var(--sky-main); text-shadow: 0 10px 30px rgba(255,255,255,0.5); }
         
-        .mobile-nav { position: fixed; bottom: 0; width: 100%; background: rgba(255,255,255,0.96); backdrop-filter: blur(15px); display: flex; justify-content: space-around; padding: 12px 0 25px; border-top: 1px solid var(--sky-light); z-index: 1000; }
-        .nav-item { text-align: center; text-decoration: none; color: var(--text-soft); font-size: 10px; font-weight: 600; }
-        .nav-item.active { color: var(--sky-main); }
-        .nav-item i { display: block; font-size: 22px; margin-bottom: 4px; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* --- UTILS --- */
+        .container { padding: 40px 20px; max-width: 1100px; margin: 0 auto; }
+        .card { background: var(--white); border-radius: 30px; padding: 40px; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.8); }
 
         @media (min-width: 1024px) {
             .desktop-nav { display: flex; }
-            .mobile-only { display: none; }
-            .grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 25px; }
-            body { padding-bottom: 0; }
-            .gallery-item { flex: 0 0 250px; height: 300px; }
+            .menu-btn { display: none; }
+        }
+
+        @media (max-width: 1024px) {
+            header { top: 0; width: 100%; left: 0; border-radius: 0; }
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <header>
+    <header id="mainHeader">
         <a href="index.html" class="brand">
             <div class="logo-circle">✥</div>
             <div>
-                <div class="ethiopic" style="font-size: 13px; color: var(--sky-main);">ደብረ ገነት</div>
-                <div style="font-size: 9px; font-weight: 800; color: var(--holy-gold);">WINNIPEG</div>
+                <div class="ethiopic" style="font-size: 14px; color: var(--sky-main);">ደብረ ገነት</div>
+                <div style="font-size: 9px; font-weight: 800; color: var(--holy-gold); letter-spacing: 1px;">WINNIPEG</div>
             </div>
         </a>
 
-        <div class="desktop-nav">
-            <div class="menu-item">
-                <a href="index.html">Home</a>
-                <div class="sub-menu">
-                    <a href="index.html">Main Home</a>
-                    <a href="clergy.html">Clergy</a>
-                    <a href="services.html">Services</a>
-                    <a href="about.html">About Us</a>
-                    <a href="faith.html">Our Faith</a>
+        <nav class="desktop-nav">
+            <div class="nav-link-wrapper">
+                <a href="index.html" class="main-link">Home</a>
+                <div class="mega-menu">
+                    <a href="index.html">Welcome Home</a>
+                    <a href="clergy.html">Clergy & Fathers</a>
+                    <a href="about.html">Our History</a>
+                    <a href="faith.html">The Orthodox Faith</a>
                 </div>
             </div>
-            <div class="menu-item">
-                <a href="ministry-hub.html">Ministries</a>
-                <div class="sub-menu">
-                    <a href="ministry-hub.html">Ministry Hub</a>
+            <div class="nav-link-wrapper">
+                <a href="ministry-hub.html" class="main-link">Ministries</a>
+                <div class="mega-menu">
                     <a href="sunday-school.html">Sunday School</a>
                     <a href="abinet.html">Abinet School</a>
                     <a href="care.html">Pastoral Care</a>
+                    <a href="youth.html">Youth Association</a>
                 </div>
             </div>
-            <div class="menu-item">
-                <a href="calendar.html">Calendar</a>
-                <div class="sub-menu">
-                    <a href="calendar.html">Monthly Calendar</a>
-                    <a href="upcoming.html">Upcoming Events</a>
+            <div class="nav-link-wrapper">
+                <a href="calendar.html" class="main-link">Calendar</a>
+                <div class="mega-menu">
+                    <a href="calendar.html">Monthly Schedule</a>
+                    <a href="upcoming.html">Holy Feasts</a>
                 </div>
             </div>
-            <div class="menu-item">
-                <a href="donations.html">Payments</a>
-                <div class="sub-menu">
-                    <a href="donations.html">Donations</a>
+            <div class="nav-link-wrapper">
+                <a href="donations.html" class="main-link">Giving</a>
+                <div class="mega-menu">
+                    <a href="donations.html">One-time Donation</a>
                     <a href="building.html">Building Project</a>
+                    <a href="membership.html">Monthly Tithing</a>
                 </div>
             </div>
-            <div class="menu-item"><a href="contact.html">Contact</a></div>
-        </div>
+            <div class="nav-link-wrapper">
+                <a href="contact.html" class="main-link">Contact</a>
+            </div>
+        </nav>
 
-        <div onclick="toggleMenu()" style="cursor:pointer; font-size: 24px; color: var(--sky-main);" class="mobile-only">☰</div>
+        <div class="menu-btn" id="menuBtn" onclick="togglePortal()">
+            <span></span><span></span><span></span>
+        </div>
     </header>
 
-    <div class="menu-overlay" id="menuOverlay">
-        <div class="close-menu" onclick="toggleMenu()">✕</div>
-        <div style="margin-top: 20px;">
-            <p class="mobile-menu-link">Home</p>
-            <a href="index.html" class="mobile-submenu-link">Main Home</a>
-            <a href="clergy.html" class="mobile-submenu-link">Clergy</a>
-            <a href="services.html" class="mobile-submenu-link">Services</a>
-            
-            <p class="mobile-menu-link">Ministries</p>
-            <a href="ministry-hub.html" class="mobile-submenu-link">Ministry Hub</a>
-            <a href="sunday-school.html" class="mobile-submenu-link">Sunday School</a>
-            
-            <p class="mobile-menu-link">Calendar</p>
-            <a href="calendar.html" class="mobile-submenu-link">Monthly Calendar</a>
-            <a href="upcoming.html" class="mobile-submenu-link">Upcoming Events</a>
-
-            <p class="mobile-menu-link">Payments</p>
-            <a href="donations.html" class="mobile-submenu-link">Donations</a>
-            <a href="building.html" class="mobile-submenu-link">Building Project</a>
-
-            <a href="contact.html" class="mobile-menu-link">Contact</a>
+    <div class="portal-overlay" id="portal">
+        <div class="portal-content">
+            <div class="portal-group">
+                <div class="portal-label">Sanctuary</div>
+                <div class="portal-links">
+                    <a href="index.html">Home</a>
+                    <a href="clergy.html">Clergy</a>
+                    <a href="services.html">Services</a>
+                    <a href="faith.html">Faith</a>
+                </div>
+            </div>
+            <div class="portal-group">
+                <div class="portal-label">Ministries</div>
+                <div class="portal-links">
+                    <a href="sunday-school.html">Sunday School</a>
+                    <a href="abinet.html">Abinet School</a>
+                    <a href="youth.html">Youth</a>
+                </div>
+            </div>
+            <div class="portal-group">
+                <div class="portal-label">Community</div>
+                <div class="portal-links">
+                    <a href="calendar.html">Calendar</a>
+                    <a href="donations.html">Donations</a>
+                    <a href="building.html">Building</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <a href="https://youtube.com/live" target="_blank" style="background: var(--ethio-red); color: white; padding: 15px; border-radius: 15px; text-align: center; text-decoration: none; font-weight: 800; margin-top: 20px;">● WATCH LIVE SERVICE</a>
         </div>
     </div>
 
-    <section class="hero-video-container">
-        <div class="video-wrapper">
+    <section class="hero-section">
+        <div class="video-bg">
             <iframe src="https://www.youtube.com/embed/CMSl9QCcIHg?autoplay=1&mute=1&controls=0&loop=1&playlist=CMSl9QCcIHg&rel=0&modestbranding=1&iv_load_policy=3" 
                     frameborder="0" allow="autoplay; encrypted-media"></iframe>
         </div>
         <div class="hero-overlay"></div>
-        <div class="hero-content hero">
+        <div class="hero-text">
             <h1 class="ethiopic">ደብረ ገነት</h1>
-            <p>ETHIOPIAN ORTHODOX TEWAHEDO</p>
-            <div style="font-size: 11px; font-weight: 700; color: var(--white); margin-top: 8px; opacity: 0.9; letter-spacing: 1px;">ST. MARY, ST. GABRIEL, ST. ARSEMA CATHEDRAL</div>
-            <a href="https://youtube.com/live" target="_blank" class="btn-live">● WATCH LIVE SERVICE</a>
+            <p style="font-weight: 800; letter-spacing: 5px; color: var(--sky-main); opacity: 0.8;">CATHEDRAL WINNIPEG</p>
+            <p style="font-style: italic; font-family: 'Playfair Display', serif; color: var(--text-soft); margin-top: 10px;">St. Mary, St. Gabriel, and St. Arsema</p>
         </div>
     </section>
 
     <div class="container">
-        <div class="card" style="text-align: center; border-top: 4px solid var(--sky-main);">
-            <span class="section-label">Notice / ማሳሰቢያ</span>
-            <h2 id="dynamic-notice" class="ethiopic" style="color: var(--sky-main); transition: 0.5s; font-size: 22px;">እንኳን በደህና መጡ::</h2>
-        </div>
-
-        <div class="grid">
-            <div class="card">
-                <span class="section-label">Sacred Gallery / የፎቶ መዝገብ</span>
-                <div class="gallery-scroll-container">
-                    <div class="gallery-grid" id="galleryGrid">
-                        <div class="gallery-item" onclick="openLightbox(this)"><img src="group1.jpg"></div>
-                        <div class="gallery-item" onclick="openLightbox(this)"><img src="wedding.jpg"></div>
-                        <div class="gallery-item" onclick="openLightbox(this)"><img src="kids2.jpg"></div>
-                        <div class="gallery-item" onclick="openLightbox(this)"><img src="kids.jpg"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <span class="section-label">Upcoming Events / መጪ መርሃ ግብሮች</span>
-                <div id="eventList"><div style="padding: 20px; text-align: center; color: var(--text-soft);">Connecting to sacred calendar...</div></div>
-            </div>
-        </div>
-
-        <div class="card" style="background: linear-gradient(135deg, var(--sky-main), #005599); color: white;">
-            <span class="section-label" style="color: rgba(255,255,255,0.7);">Cathedral Building Project</span>
-            <div style="display:flex; justify-content:space-between; font-weight:800; font-size: 18px;">
-                <span>Raised</span>
-                <span style="color: var(--holy-gold);">$780k / $1.2M</span>
-            </div>
-            <div class="progress-track" style="background: rgba(255,255,255,0.15);">
-                <div class="progress-fill"></div>
-            </div>
+        <div class="card" style="text-align: center;">
+            <span style="color: var(--holy-gold); font-weight: 800; font-size: 10px; letter-spacing: 3px; text-transform: uppercase;">Peace be with you</span>
+            <h2 class="ethiopic" style="font-size: 28px; margin-top: 10px; color: var(--sky-main);">እንኳን በደህና መጡ</h2>
+            <p style="color: var(--text-soft); margin-top: 15px;">Experience the ancient traditions and spiritual beauty of the Ethiopian Orthodox Tewahedo Church in the heart of Winnipeg.</p>
         </div>
     </div>
-
-    <div id="lightbox">
-        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
-        <div class="lightbox-content-wrapper" id="zoomWrapper">
-            <img id="lightbox-img" src="">
-        </div>
-    </div>
-
-    <footer style="text-align: center; padding: 60px 20px; background: var(--white);">
-        <div style="font-size: 35px; color: var(--holy-gold); margin-bottom: 10px;">✥</div>
-        <p class="ethiopic" style="color: var(--sky-main); font-size: 18px;">ደብረ ገነት የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን</p>
-        <p style="font-size: 12px; color: var(--text-soft); margin-top: 10px;">353 Mountain Ave, Winnipeg, MB R2W 1J9</p>
-    </footer>
-
-    <nav class="mobile-nav">
-        <a href="index.html" class="nav-item active"><i>⛪</i>Home</a>
-        <a href="services.html" class="nav-item"><i>📖</i>Services</a>
-        <a href="donations.html" class="nav-item"><i>🤲</i>Donate</a>
-        <a href="contact.html" class="nav-item"><i>🔔</i>Visit</a>
-    </nav>
 
     <script>
-        function toggleMenu() { document.getElementById('menuOverlay').classList.toggle('active'); }
-        function openLightbox(element) { document.getElementById('lightbox-img').src = element.querySelector('img').src; document.getElementById('lightbox').classList.add('active'); }
-        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+        // Scroll Header Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
 
-        const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMZieFTAsbcpW9ROmJzlRuVJv34SEYx-5q-jg40his0eVg0D5Jef5x4yFJvfWizjGToIBB1Ycu2KLE/pub?output=csv";
-        async function fetchEvents() {
-            try {
-                const res = await fetch(SHEET_URL);
-                const data = await res.text();
-                const rows = data.split('\n').slice(1);
-                const today = new Date(); today.setHours(0,0,0,0);
-                const events = rows.map(r => {
-                    const c = r.split(',').map(x => x.trim().replace(/^"|"$/g, ''));
-                    const d = new Date(c[0].split('-')[0], c[0].split('-')[1]-1, c[0].split('-')[2]);
-                    return { date: d, title: c[1], time: c[3] };
-                }).filter(e => e.date >= today).sort((a,b) => a.date - b.date).slice(0, 3);
-                document.getElementById('eventList').innerHTML = events.map(e => `
-                    <div class="event-item">
-                        <div class="event-date">
-                            <div style="font-size:10px; font-weight:800; opacity:0.5;">${e.date.toLocaleString('default', { month: 'short' }).toUpperCase()}</div>
-                            <div style="font-size:22px; font-weight:900;">${e.date.getDate()}</div>
-                        </div>
-                        <div style="flex:1">
-                            <div style="font-size:14px; font-weight:700;">${e.title}</div>
-                            <div style="font-size:11px; color:var(--holy-gold); font-weight:600;">Starts at ${e.time}</div>
-                        </div>
-                    </div>
-                `).join('');
-            } catch(e) { document.getElementById('eventList').innerHTML = "<p>Events loading error.</p>"; }
+        // Toggle Fullscreen Portal
+        function togglePortal() {
+            const btn = document.getElementById('menuBtn');
+            const portal = document.getElementById('portal');
+            btn.classList.toggle('active');
+            portal.classList.toggle('active');
+
+            // Prevent scroll when menu is open
+            if (portal.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
         }
-        fetchEvents();
+
+        // Close portal on link click
+        document.querySelectorAll('.portal-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                togglePortal();
+            });
+        });
     </script>
 </body>
 </html>
