@@ -160,7 +160,6 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
-        /* Small Copyright Overlay on Grid */
         .gallery-item::after {
             content: "© Debre Genet Winnipeg";
             position: absolute;
@@ -193,7 +192,7 @@
             align-items: center;
             z-index: 3000;
             overflow: hidden;
-            touch-action: none; /* Disables default browser touch actions for custom zoom */
+            touch-action: none;
         }
 
         #lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
@@ -392,10 +391,18 @@
     </footer>
 
     <nav class="mobile-nav">
-        <a href="index.html" class="nav-item active"><i>🏠</i>Home</a>
-        <a href="calendar.html" class="nav-item"><i>📅</i>Events</a>
-        <a href="donations.html" class="nav-item"><i>❤️</i>Donate</a>
-        <a href="contact.html" class="nav-item"><i>📍</i>Visit</a>
+        <a href="index.html" class="nav-item active"><i>⛪</i>Home</a>
+        <a href="services.html" class="nav-item">
+            <i style="display: flex; justify-content: center; align-items: center; height: 22px; margin-bottom: 4px;">
+                <svg width="20" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C12 2 9 5.5 9 8C9 9.65685 10.3431 11 12 11C13.6569 11 15 9.65685 15 8C15 5.5 12 2 12 2Z" fill="#FFD700" />
+                    <rect x="11.2" y="11" width="1.6" height="11" rx="0.8" fill="#D4AF37" />
+                    <path d="M11.2 11H12.8L12.5 12.5H11.5L11.2 11Z" fill="#A6892C" />
+                </svg>
+            </i>Services
+        </a>
+        <a href="donations.html" class="nav-item"><i>🤲</i>Donate</a>
+        <a href="contact.html" class="nav-item"><i>🔔</i>Visit</a>
     </nav>
 
     <script>
@@ -403,7 +410,6 @@
             document.getElementById('menuOverlay').classList.toggle('active');
         }
 
-        // --- UPDATED ZOOM & MULTI-DIRECTIONAL PAN LOGIC ---
         let scale = 1, translateX = 0, translateY = 0, isDragging = false, startX, startY;
         const lightboxImg = document.getElementById('lightbox-img');
         const zoomWrapper = document.getElementById('zoomWrapper');
@@ -432,7 +438,6 @@
             watermark.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale}) rotate(-15deg)`;
         }
 
-        // Mouse Scroll Zoom
         zoomWrapper.addEventListener('wheel', (e) => {
             e.preventDefault();
             const delta = e.deltaY > 0 ? -0.25 : 0.25;
@@ -445,7 +450,6 @@
             }
         });
 
-        // Start Dragging (Mouse & Touch)
         function startPan(e) {
             if (scale > 1) {
                 isDragging = true;
@@ -470,7 +474,6 @@
         window.addEventListener('mousemove', movePan);
         window.addEventListener('mouseup', () => isDragging = false);
 
-        // Mobile Touch (Pinch & Pan)
         let initialDist = 0;
         zoomWrapper.addEventListener('touchstart', (e) => {
             if (e.touches.length === 1) startPan(e);
@@ -491,7 +494,6 @@
 
         zoomWrapper.addEventListener('touchend', () => { isDragging = false; initialDist = 0; });
 
-        // Original Dynamic Notice Logic
         const notices = ["እንኳን ለብርሃነ ጥምቀቱ በሰላም አደረሳችሁ::", "Building Project Goal: $1.2M.", "Sunday School: Every Sunday at 10:30 AM."];
         let nIdx = 0;
         setInterval(() => {
@@ -506,7 +508,6 @@
             }
         }, 6000);
 
-        // Original Fetch Events Logic
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMZieFTAsbcpW9ROmJzlRuVJv34SEYx-5q-jg40his0eVg0D5Jef5x4yFJvfWizjGToIBB1Ycu2KLE/pub?output=csv";
         async function fetchEvents() {
             try {
