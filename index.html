@@ -17,6 +17,7 @@
             --shadow: 0 12px 40px rgba(0, 119, 204, 0.12);
             --ethio-red: #EF3340;
             --glass: rgba(255, 255, 255, 0.8);
+            --church-wood: #4A2B0F; /* Symbolic wood color */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -130,18 +131,34 @@
             letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block;
         }
 
-        /* --- SCROLLABLE GALLERY --- */
-        .gallery-scroll-container {
-            position: relative;
-            margin: 15px -10px;
+        /* --- ETHIOPIAN CHURCH WINDOW GALLERY --- */
+        .window-gallery-wrapper {
+            background: linear-gradient(180deg, #1a0a00 0%, #3d1a00 100%); /* Deep sanctuary feel */
+            padding: 40px 15px;
+            border-radius: 30px;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.6);
+            border: 2px solid var(--holy-gold);
+            margin-bottom: 25px;
+        }
+
+        .gallery-header-alt {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .gallery-header-alt i {
+            color: var(--holy-gold);
+            font-size: 24px;
+            display: block;
+            margin-bottom: 10px;
         }
 
         .gallery-grid {
             display: flex;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            gap: 15px;
-            padding: 10px;
+            gap: 20px;
+            padding: 10px 10px 30px;
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
@@ -149,51 +166,78 @@
         .gallery-grid::-webkit-scrollbar { display: none; }
 
         .gallery-item {
-            flex: 0 0 180px;
-            height: 220px;
+            flex: 0 0 200px;
+            height: 300px;
             position: relative;
-            border-radius: 18px;
+            /* The Arch Shape */
+            border-radius: 100px 100px 15px 15px; 
+            border: 5px solid var(--church-wood);
+            outline: 2px solid var(--holy-gold);
             overflow: hidden;
             cursor: pointer;
             scroll-snap-align: start;
-            transition: transform 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            background: #000;
         }
 
-        /* Small Copyright Overlay on Grid */
-        .gallery-item::after {
-            content: "© Debre Genet Winnipeg";
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.03);
+            outline-color: var(--white);
+        }
+
+        /* Glass Reflection Effect */
+        .gallery-item::before {
+            content: "";
             position: absolute;
-            bottom: 8px;
-            right: 8px;
-            font-size: 8px;
-            color: rgba(255,255,255,0.6);
-            background: rgba(0,0,0,0.2);
-            padding: 2px 6px;
-            border-radius: 4px;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%);
+            z-index: 2;
             pointer-events: none;
         }
 
-        .gallery-item:hover { transform: scale(1.02); }
+        /* Window Copyright Overlay */
+        .gallery-item::after {
+            content: "© Debre Genet";
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.7);
+            color: var(--holy-gold);
+            font-size: 8px;
+            padding: 8px 0;
+            text-align: center;
+            font-weight: 800;
+            letter-spacing: 1px;
+            border-top: 1px solid var(--holy-gold);
+            z-index: 3;
+        }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             user-select: none;
+            filter: sepia(10%);
+            transition: 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            filter: sepia(0%);
+            transform: scale(1.1);
         }
 
         /* --- FULLSCREEN LIGHTBOX & PAN LOGIC --- */
         #lightbox {
             position: fixed; inset: 0;
-            background: rgba(10, 25, 41, 0.98);
+            background: rgba(0, 0, 0, 0.98);
             backdrop-filter: blur(15px);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 3000;
             overflow: hidden;
-            touch-action: none; /* Disables default browser touch actions for custom zoom */
+            touch-action: none;
         }
 
         #lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
@@ -228,7 +272,7 @@
             max-width: 90%;
             max-height: 85vh;
             border-radius: 4px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
             transition: transform 0.1s ease-out;
             transform-origin: center;
             user-select: none;
@@ -249,8 +293,9 @@
             color: rgba(255,255,255,0.7);
             font-size: 10px; font-weight: 600; letter-spacing: 1px;
             z-index: 3100; pointer-events: none;
-            background: rgba(0,0,0,0.4); padding: 8px 15px; border-radius: 20px;
-            text-align: center; width: 80%; max-width: 300px;
+            background: rgba(0,0,0,0.6); padding: 12px 20px; border-radius: 30px;
+            text-align: center; width: 85%; max-width: 350px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         /* --- REMAINING STYLES --- */
@@ -273,7 +318,7 @@
             .mobile-only { display: none; }
             .grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 25px; }
             body { padding-bottom: 0; }
-            .gallery-item { flex: 0 0 250px; height: 300px; }
+            .gallery-item { flex: 0 0 240px; height: 360px; }
         }
     </style>
 </head>
@@ -331,47 +376,46 @@
             <h2 id="dynamic-notice" class="ethiopic" style="color: var(--sky-main); transition: 0.5s; font-size: 22px;">እንኳን በደህና መጡ::</h2>
         </div>
 
-        <div class="grid">
-            <div class="card">
-                <span class="section-label">Sacred Gallery / የፎቶ መዝገብ</span>
-                <p style="font-size: 13px; color: var(--text-soft); margin-bottom: 10px;">Glimpses of our spiritual journey. Scroll left & right to view more.</p>
-                
-                <div class="gallery-scroll-container">
-                    <div class="gallery-grid" id="galleryGrid">
-                        <div class="gallery-item" onclick="openLightbox(this)"><img src="group1.jpg" alt="Timket"></div>
-                        <div class="gallery-item" onclick="openLightbox(this)"><img src="wedding.jpg" alt="Sacrament"></div>
-                        <div class="gallery-item" onclick="openLightbox(this)"><img src="kids2.jpg" alt="Sunday School"></div>
-                        <div class="gallery-item" onclick="openLightbox(this)"><img src="kids.jpg" alt="Children"></div>
-                        <div class="gallery-item" onclick="openLightbox(this)"><img src="baptism.jpg" alt="Baptism"></div>
-                        <div class="gallery-item" onclick="openLightbox(this)"><img src="group.jpg" alt="Community"></div>
-                    </div>
-                </div>
-
-                <div style="margin-top: 20px; display: flex; align-items: center; gap: 10px;">
-                    <div style="flex: 1; height: 1px; background: var(--sky-light);"></div>
-                    <a href="gallery.html" style="font-size: 11px; font-weight: 800; color: var(--sky-main); text-decoration: none; text-transform: uppercase;">View Full Album</a>
-                    <div style="flex: 1; height: 1px; background: var(--sky-light);"></div>
-                </div>
+        <div class="window-gallery-wrapper">
+            <div class="gallery-header-alt">
+                <i class="ethiopic">✥</i>
+                <span class="section-label" style="color: var(--white); opacity: 0.8;">Through the Sacred Windows</span>
+                <h3 class="ethiopic" style="color: var(--holy-gold); font-size: 20px;">የቤተክርስቲያን ትውስታዎች</h3>
             </div>
 
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="group1.jpg" alt="Timket"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="wedding.jpg" alt="Sacrament"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="kids2.jpg" alt="Sunday School"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="kids.jpg" alt="Children"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="baptism.jpg" alt="Baptism"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="group.jpg" alt="Community"></div>
+            </div>
+            
+            <div style="text-align:center; margin-top: 10px;">
+                <a href="gallery.html" style="font-size: 10px; font-weight: 800; color: var(--holy-gold); text-decoration: none; text-transform: uppercase; letter-spacing: 2px;">+ Open Full Album</a>
+            </div>
+        </div>
+
+        <div class="grid">
             <div class="card">
                 <span class="section-label">Upcoming Events / መጪ መርሃ ግብሮች</span>
                 <div id="eventList">
                     <div style="padding: 20px; text-align: center; color: var(--text-soft);">Connecting to sacred calendar...</div>
                 </div>
             </div>
-        </div>
 
-        <div class="card" style="background: linear-gradient(135deg, var(--sky-main), #005599); color: white; margin-top: 10px;">
-            <span class="section-label" style="color: rgba(255,255,255,0.7);">Cathedral Building Project</span>
-            <div style="display:flex; justify-content:space-between; font-weight:800; font-size: 18px;">
-                <span>Raised</span>
-                <span style="color: var(--holy-gold);">$780k / $1.2M</span>
+            <div class="card" style="background: linear-gradient(135deg, var(--sky-main), #005599); color: white;">
+                <span class="section-label" style="color: rgba(255,255,255,0.7);">Cathedral Building Project</span>
+                <div style="display:flex; justify-content:space-between; font-weight:800; font-size: 18px;">
+                    <span>Raised</span>
+                    <span style="color: var(--holy-gold);">$780k / $1.2M</span>
+                </div>
+                <div class="progress-track" style="background: rgba(255,255,255,0.15);">
+                    <div class="progress-fill"></div>
+                </div>
+                <p style="font-size: 13px; opacity: 0.8;">Help us build a sanctuary for generations to come. Every contribution counts.</p>
             </div>
-            <div class="progress-track" style="background: rgba(255,255,255,0.15);">
-                <div class="progress-fill"></div>
-            </div>
-            <p style="font-size: 13px; opacity: 0.8;">Help us build a sanctuary for generations to come. Every contribution counts.</p>
         </div>
     </div>
 
@@ -381,7 +425,7 @@
             <div class="watermark-overlay" id="fullWatermark">© Debre Genet Winnipeg</div>
             <img id="lightbox-img" src="" alt="Full view">
         </div>
-        <div class="zoom-hint">PINCH/SCROLL TO ZOOM<br>CLICK & DRAG TO SEE ALL AREAS</div>
+        <div class="zoom-hint">PINCH/SCROLL TO ZOOM<br>CLICK & DRAG IN ANY DIRECTION TO SEE FACES</div>
     </div>
 
     <footer style="text-align: center; padding: 60px 20px; background: var(--white);">
@@ -403,7 +447,7 @@
             document.getElementById('menuOverlay').classList.toggle('active');
         }
 
-        // --- UPDATED ZOOM & MULTI-DIRECTIONAL PAN LOGIC ---
+        // --- FULL MULTI-DIRECTIONAL ZOOM & PAN LOGIC ---
         let scale = 1, translateX = 0, translateY = 0, isDragging = false, startX, startY;
         const lightboxImg = document.getElementById('lightbox-img');
         const zoomWrapper = document.getElementById('zoomWrapper');
@@ -427,16 +471,18 @@
         }
 
         function updateTransform() {
+            // Apply scale and translation together
             const transformStr = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
             lightboxImg.style.transform = transformStr;
+            // Ensure watermark follows the pan but keeps its slight tilt
             watermark.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale}) rotate(-15deg)`;
         }
 
         // Mouse Scroll Zoom
         zoomWrapper.addEventListener('wheel', (e) => {
             e.preventDefault();
-            const delta = e.deltaY > 0 ? -0.25 : 0.25;
-            const newScale = Math.min(Math.max(1, scale + delta), 5);
+            const delta = e.deltaY > 0 ? -0.3 : 0.3;
+            const newScale = Math.min(Math.max(1, scale + delta), 6); // Max zoom 6x for faces
             
             if (newScale !== scale) {
                 scale = newScale;
@@ -445,7 +491,7 @@
             }
         });
 
-        // Start Dragging (Mouse & Touch)
+        // Start Dragging/Panning
         function startPan(e) {
             if (scale > 1) {
                 isDragging = true;
@@ -456,13 +502,17 @@
             }
         }
 
+        // Handle Movement
         function movePan(e) {
             if (!isDragging) return;
             e.preventDefault();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            
+            // This calculation allows movement in ALL directions
             translateX = clientX - startX;
             translateY = clientY - startY;
+            
             updateTransform();
         }
 
@@ -470,7 +520,7 @@
         window.addEventListener('mousemove', movePan);
         window.addEventListener('mouseup', () => isDragging = false);
 
-        // Mobile Touch (Pinch & Pan)
+        // Mobile Touch Support
         let initialDist = 0;
         zoomWrapper.addEventListener('touchstart', (e) => {
             if (e.touches.length === 1) startPan(e);
@@ -482,8 +532,8 @@
             if (e.touches.length === 2) {
                 e.preventDefault();
                 const dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
-                const delta = dist > initialDist ? 0.08 : -0.08;
-                scale = Math.min(Math.max(1, scale + delta), 5);
+                const delta = dist > initialDist ? 0.1 : -0.1;
+                scale = Math.min(Math.max(1, scale + delta), 6);
                 initialDist = dist;
                 updateTransform();
             }
@@ -491,7 +541,7 @@
 
         zoomWrapper.addEventListener('touchend', () => { isDragging = false; initialDist = 0; });
 
-        // Original Dynamic Notice Logic
+        // Notices
         const notices = ["እንኳን ለብርሃነ ጥምቀቱ በሰላም አደረሳችሁ::", "Building Project Goal: $1.2M.", "Sunday School: Every Sunday at 10:30 AM."];
         let nIdx = 0;
         setInterval(() => {
@@ -506,7 +556,7 @@
             }
         }, 6000);
 
-        // Original Fetch Events Logic
+        // Fetch Events
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMZieFTAsbcpW9ROmJzlRuVJv34SEYx-5q-jg40his0eVg0D5Jef5x4yFJvfWizjGToIBB1Ycu2KLE/pub?output=csv";
         async function fetchEvents() {
             try {
