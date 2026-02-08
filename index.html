@@ -142,11 +142,11 @@
             scroll-snap-type: x mandatory;
             gap: 15px;
             padding: 10px;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
 
-        .gallery-grid::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+        .gallery-grid::-webkit-scrollbar { display: none; }
 
         .gallery-item {
             flex: 0 0 180px;
@@ -160,17 +160,30 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
-        .gallery-item:hover {
-            transform: scale(1.02);
+        /* Small Copyright Overlay on Grid */
+        .gallery-item::after {
+            content: "© Debre Genet Winnipeg";
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            font-size: 8px;
+            color: rgba(255,255,255,0.6);
+            background: rgba(0,0,0,0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            pointer-events: none;
         }
+
+        .gallery-item:hover { transform: scale(1.02); }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            user-select: none;
         }
 
-        /* Lightbox - UPDATED FOR ZOOM */
+        /* Lightbox with Copyright Watermark */
         #lightbox {
             position: fixed; inset: 0;
             background: rgba(10, 25, 41, 0.98);
@@ -195,7 +208,20 @@
             cursor: grab;
         }
 
-        .lightbox-content-wrapper:active { cursor: grabbing; }
+        /* Large Copyright Overlay for Lightbox */
+        .watermark-overlay {
+            position: absolute;
+            z-index: 3050;
+            color: rgba(255, 255, 255, 0.25);
+            font-size: clamp(14px, 4vw, 24px);
+            font-weight: 800;
+            letter-spacing: 2px;
+            pointer-events: none;
+            text-transform: uppercase;
+            text-align: center;
+            width: 100%;
+            transform: rotate(-15deg);
+        }
 
         #lightbox img {
             max-width: 90%;
@@ -271,9 +297,7 @@
         }
     </style>
 </head>
-<body>
-
-    <header>
+<body oncontextmenu="return false;"> <header>
         <a href="index.html" class="brand">
             <div class="logo-circle">✥</div>
             <div>
@@ -372,6 +396,7 @@
     <div id="lightbox">
         <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
         <div class="lightbox-content-wrapper" id="zoomWrapper">
+            <div class="watermark-overlay" id="fullWatermark">© Debre Genet Winnipeg</div>
             <img id="lightbox-img" src="" alt="Full view">
         </div>
         <div class="zoom-hint">PINCH OR MOUSEWHEEL TO ZOOM • DRAG TO PAN</div>
@@ -396,10 +421,11 @@
             document.getElementById('menuOverlay').classList.toggle('active');
         }
 
-        // --- ENHANCED LIGHTBOX ZOOM LOGIC ---
+        // --- ENHANCED LIGHTBOX ZOOM & WATERMARK LOGIC ---
         let scale = 1, translateX = 0, translateY = 0, isDragging = false, startX, startY;
         const lightboxImg = document.getElementById('lightbox-img');
         const zoomWrapper = document.getElementById('zoomWrapper');
+        const watermark = document.getElementById('fullWatermark');
 
         function openLightbox(element) {
             const imgSrc = element.querySelector('img').src;
@@ -419,10 +445,11 @@
         }
 
         function updateTransform() {
+            // Apply transform to both image and watermark so watermark follows the scale
             lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            watermark.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale}) rotate(-15deg)`;
         }
 
-        // Mouse Wheel Zoom
         zoomWrapper.addEventListener('wheel', (e) => {
             e.preventDefault();
             const delta = e.deltaY > 0 ? -0.2 : 0.2;
@@ -431,7 +458,6 @@
             updateTransform();
         });
 
-        // Drag/Pan Logic
         zoomWrapper.addEventListener('mousedown', (e) => {
             if (scale > 1) {
                 isDragging = true;
@@ -449,7 +475,6 @@
 
         window.addEventListener('mouseup', () => isDragging = false);
 
-        // Simple Touch Pinch-to-Zoom handling (Mobile)
         let initialDist = 0;
         zoomWrapper.addEventListener('touchmove', (e) => {
             if (e.touches.length === 2) {
@@ -464,8 +489,7 @@
         });
         zoomWrapper.addEventListener('touchend', () => initialDist = 0);
 
-
-        // --- DYNAMIC CONTENT LOGIC (Original) ---
+        // Dynamic Notice Text
         const notices = [
             "እንኳን ለብርሃነ ጥምቀቱ በሰላም አደረሳችሁ::", 
             "Building Project Goal: $1.2M.", 
@@ -484,6 +508,7 @@
             }
         }, 6000);
 
+        // Fetching Events logic
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMZieFTAsbcpW9ROmJzlRuVJv34SEYx-5q-jg40his0eVg0D5Jef5x4yFJvfWizjGToIBB1Ycu2KLE/pub?output=csv";
         async function fetchEvents() {
             try {
