@@ -2,7 +2,7 @@
 <html lang="am">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Debre Genet EOTC Winnipeg | Heavenly Sanctuary</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@300;700&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -16,7 +16,6 @@
             --white: #FFFFFF;
             --shadow: 0 12px 40px rgba(0, 119, 204, 0.12);
             --ethio-red: #EF3340;
-            --glass: rgba(255, 255, 255, 0.8);
             --church-blue: #003366; 
         }
 
@@ -28,6 +27,7 @@
             color: var(--text-dark);
             line-height: 1.6;
             padding-bottom: 80px;
+            overflow-x: hidden;
         }
 
         .ethiopic { font-family: 'Noto Serif Ethiopic', serif; font-weight: 700; }
@@ -55,7 +55,7 @@
         .desktop-nav { display: none; gap: 20px; }
         .desktop-nav a { text-decoration: none; color: var(--sky-main); font-size: 11px; font-weight: 700; text-transform: uppercase; }
 
-        /* --- VIDEO HERO SECTION --- */
+        /* --- VIDEO HERO --- */
         .hero-video-container {
             position: relative;
             height: 85vh;
@@ -100,7 +100,7 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        .hero h1 { font-size: clamp(45px, 10vw, 90px); margin-bottom: 5px; color: var(--white); }
+        .hero h1 { font-size: clamp(45px, 10vw, 90px); margin-bottom: 5px; }
         .hero p { color: var(--sky-light); font-weight: 600; letter-spacing: 3px; font-size: 14px; }
 
         .btn-live {
@@ -117,7 +117,7 @@
             100% { transform: scale(1); }
         }
 
-        /* --- CONTENT CONTAINER --- */
+        /* --- CONTAINER --- */
         .container { padding: 20px; max-width: 1100px; margin: -40px auto 60px; position: relative; z-index: 10; }
         
         .card {
@@ -131,7 +131,7 @@
             letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block;
         }
 
-        /* --- ROYAL BLUE ARCHED WINDOW GALLERY --- */
+        /* --- SACRED WINDOWS (BLUE STYLE) --- */
         .window-gallery-wrapper {
             background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
             padding: 40px 15px;
@@ -151,7 +151,6 @@
             gap: 20px;
             padding: 10px 10px 30px;
             scrollbar-width: none;
-            -ms-overflow-style: none;
         }
         .gallery-grid::-webkit-scrollbar { display: none; }
 
@@ -170,65 +169,83 @@
         }
 
         .gallery-item:hover { transform: translateY(-10px); outline-color: var(--white); }
-
-        .gallery-item img {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: brightness(0.9); transition: 0.5s ease;
-            user-select: none;
-        }
-        .gallery-item:hover img { filter: brightness(1.1); transform: scale(1.1); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; user-select: none; -webkit-user-drag: none; }
+        .gallery-item:hover img { transform: scale(1.1); }
 
         .gallery-item::after {
-            content: "✥ VIEW FULL";
+            content: "✥ ZOOM VIEW";
             position: absolute; bottom: 0; width: 100%;
             background: rgba(0, 51, 102, 0.9); color: var(--holy-gold);
             font-size: 9px; padding: 10px 0; text-align: center; font-weight: 800;
             border-top: 1px solid var(--holy-gold);
         }
 
-        /* --- YOUTUBE VIDEO SECTION --- */
-        .youtube-section { margin-bottom: 25px; }
+        /* --- YOUTUBE SECTION --- */
+        .video-feed-section { margin-top: 20px; margin-bottom: 40px; }
         .video-card {
             background: var(--white); border-radius: 24px; overflow: hidden;
-            box-shadow: var(--shadow); margin-bottom: 20px;
-            border: 1px solid var(--sky-light);
+            box-shadow: var(--shadow); margin-bottom: 20px; border: 1px solid var(--sky-light);
         }
-        .video-responsive {
-            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
-            background: #000;
-        }
-        .video-responsive iframe {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        }
-        .video-body { padding: 20px; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .video-info { padding: 20px; }
 
-        /* --- LIGHTBOX & ZOOM --- */
+        /* --- LIGHTBOX & ZOOM SYSTEM --- */
         #lightbox {
             position: fixed; inset: 0; background: rgba(0, 0, 0, 0.98);
-            backdrop-filter: blur(15px); display: none; justify-content: center;
-            align-items: center; z-index: 3000; overflow: hidden; touch-action: none;
+            display: none; justify-content: center; align-items: center;
+            z-index: 9999; overflow: hidden; touch-action: none;
         }
         #lightbox.active { display: flex; }
-        .lightbox-content-wrapper { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: grab; }
-        .lightbox-content-wrapper:active { cursor: grabbing; }
-        #lightbox img { max-width: 90%; max-height: 85vh; border-radius: 4px; transition: transform 0.1s ease-out; user-select: none; }
-        .close-lightbox { position: absolute; top: 25px; right: 25px; color: white; font-size: 35px; cursor: pointer; z-index: 3100; background: rgba(0,0,0,0.3); width: 45px; height: 45px; display: grid; place-items: center; border-radius: 50%; }
-        .watermark-overlay { position: absolute; z-index: 3050; color: rgba(255, 255, 255, 0.2); font-size: clamp(14px, 4vw, 24px); font-weight: 800; pointer-events: none; text-transform: uppercase; text-align: center; width: 100%; transition: transform 0.1s ease-out; }
+        
+        .zoom-stage {
+            position: relative; width: 100vw; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; cursor: grab;
+        }
+        .zoom-stage:active { cursor: grabbing; }
 
-        /* --- UI COMPONENTS --- */
+        #lightbox-img {
+            max-width: 90%; max-height: 85vh;
+            transition: transform 0.1s ease-out;
+            user-select: none; -webkit-user-drag: none;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        .watermark {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            color: rgba(255, 255, 255, 0.15);
+            font-size: clamp(20px, 8vw, 40px);
+            font-weight: 900;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 10001;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .close-lightbox {
+            position: absolute; top: 30px; right: 30px;
+            color: white; font-size: 35px; cursor: pointer; z-index: 10005;
+            background: rgba(255,255,255,0.1); width: 50px; height: 50px;
+            display: grid; place-items: center; border-radius: 50%;
+        }
+
+        /* --- PROGRESS & EVENTS --- */
         .progress-track { background: var(--sky-light); height: 12px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
         .progress-fill { height: 100%; width: 65%; background: linear-gradient(90deg, var(--sky-main), var(--holy-gold)); }
         .event-item { display: flex; align-items: center; gap: 15px; padding: 18px 0; border-bottom: 1px solid var(--sky-light); }
         .event-date { text-align: center; min-width: 55px; color: var(--sky-main); }
         
-        .mobile-nav { position: fixed; bottom: 0; width: 100%; background: rgba(255,255,255,0.96); backdrop-filter: blur(15px); display: flex; justify-content: space-around; padding: 12px 0 25px; border-top: 1px solid var(--sky-light); z-index: 1000; }
+        /* --- MOBILE NAV --- */
+        .mobile-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0 25px; border-top: 1px solid var(--sky-light); z-index: 1000; }
         .nav-item { text-align: center; text-decoration: none; color: var(--text-soft); font-size: 10px; font-weight: 600; }
         .nav-item.active { color: var(--sky-main); }
         .nav-item i { display: block; font-size: 22px; margin-bottom: 4px; }
         
         .menu-overlay { position: fixed; inset: 0; background: var(--sky-bg); z-index: 2000; display: none; padding: 40px; flex-direction: column; }
         .menu-overlay.active { display: flex; }
-        .close-menu { align-self: flex-end; font-size: 32px; color: var(--sky-main); }
 
         @media (min-width: 1024px) {
             .desktop-nav { display: flex; }
@@ -260,16 +277,15 @@
     </header>
 
     <div class="menu-overlay" id="menuOverlay">
-        <div class="close-menu" onclick="toggleMenu()">✕</div>
-        <div style="margin-top: 40px;">
-            <a href="index.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; margin-bottom:25px; font-weight:700;">Home</a>
-            <a href="clergy.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; margin-bottom:25px; font-weight:700;">Clergy</a>
-            <a href="ministry-hub.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; margin-bottom:25px; font-weight:700;">Ministries</a>
-            <a href="calendar.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; margin-bottom:25px; font-weight:700;">Calendar</a>
-            <a href="building.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; margin-bottom:25px; font-weight:700;">Building Project</a>
-            <a href="donations.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; margin-bottom:25px; font-weight:700;">Donations</a>
-            <a href="contact.html" style="display:block; font-size:24px; color:var(--sky-main); text-decoration:none; font-weight:700;">Contact</a>
-        </div>
+        <div style="text-align: right; font-size: 30px;" onclick="toggleMenu()">✕</div>
+        <nav style="margin-top: 40px; display: flex; flex-direction: column; gap: 20px;">
+            <a href="index.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">መነሻ ገጽ</a>
+            <a href="clergy.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">ካህናት</a>
+            <a href="ministry-hub.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">አገልግሎቶች</a>
+            <a href="calendar.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">መቁጠሪያ</a>
+            <a href="donations.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">መባ ማበርከቻ</a>
+            <a href="contact.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">አድራሻ</a>
+        </nav>
     </div>
 
     <section class="hero-video-container">
@@ -280,7 +296,7 @@
         <div class="hero-content hero">
             <h1 class="ethiopic">ደብረ ገነት</h1>
             <p>ETHIOPIAN ORTHODOX TEWAHEDO</p>
-            <div style="font-size: 11px; font-weight: 700; color: var(--white); margin-top: 8px; opacity: 0.9; letter-spacing: 1px;">ST. MARY, ST. GABRIEL, ST. ARSEMA CATHEDRAL</div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--white); margin-top: 8px; opacity: 0.9;">ST. MARY, ST. GABRIEL, ST. ARSEMA CATHEDRAL</div>
             <a href="https://youtube.com/live" target="_blank" class="btn-live">● WATCH LIVE SERVICE</a>
         </div>
     </section>
@@ -294,77 +310,67 @@
         <div class="window-gallery-wrapper">
             <div class="gallery-header-alt">
                 <i>✥</i>
-                <span class="section-label" style="color: var(--white); opacity: 0.8;">Sacred Moments</span>
-                <h3 class="ethiopic" style="color: var(--holy-gold); font-size: 20px;">የቤተክርስቲያን ትውስታዎች</h3>
+                <span class="section-label" style="color: var(--white); opacity: 0.8;">Sacred Gallery</span>
+                <h3 class="ethiopic" style="color: var(--holy-gold);">የቤተክርስቲያን ትውስታዎች</h3>
             </div>
-            <div class="gallery-grid" id="galleryGrid">
-                <div class="gallery-item" onclick="openLightbox(this)"><img src="group1.jpg" alt="Gallery"></div>
-                <div class="gallery-item" onclick="openLightbox(this)"><img src="wedding.jpg" alt="Gallery"></div>
-                <div class="gallery-item" onclick="openLightbox(this)"><img src="kids2.jpg" alt="Gallery"></div>
-                <div class="gallery-item" onclick="openLightbox(this)"><img src="kids.jpg" alt="Gallery"></div>
-                <div class="gallery-item" onclick="openLightbox(this)"><img src="baptism.jpg" alt="Gallery"></div>
-                <div class="gallery-item" onclick="openLightbox(this)"><img src="group.jpg" alt="Gallery"></div>
-            </div>
-            <div style="text-align:center; margin-top: 15px;">
-                <a href="gallery.html" style="font-size: 10px; font-weight: 800; color: var(--holy-gold); text-decoration: none; text-transform: uppercase; letter-spacing: 2px;">+ Open Full Album</a>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="group1.jpg" alt="Gallery 1"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="wedding.jpg" alt="Gallery 2"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="kids2.jpg" alt="Gallery 3"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="kids.jpg" alt="Gallery 4"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="baptism.jpg" alt="Gallery 5"></div>
             </div>
         </div>
 
-        <div class="youtube-section">
-            <span class="section-label">Spiritual Media / መንፈሳዊ ትምህርቶች</span>
+        <div class="video-feed-section">
+            <span class="section-label">Spiritual Nourishment / ስብከቶች</span>
             <div class="grid">
                 <div class="video-card">
-                    <div class="video-responsive">
+                    <div class="video-container">
                         <iframe src="https://www.youtube.com/embed/CMSl9QCcIHg" frameborder="0" allowfullscreen></iframe>
                     </div>
-                    <div class="video-body">
-                        <h4 style="font-size: 15px; font-weight: 700;">Latest Service Reflection</h4>
-                        <p style="font-size: 12px; color: var(--text-soft); margin-top: 5px;">Join us for our weekly spiritual teachings and hymns.</p>
+                    <div class="video-info">
+                        <h4 style="font-size: 15px; margin-bottom: 5px;">Weekly Divine Teaching</h4>
+                        <p style="font-size: 12px; color: var(--text-soft);">Live from Winnipeg - Spiritual growth and hymns.</p>
                     </div>
                 </div>
-                <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-left: 4px solid var(--ethio-red);">
-                    <h4 class="ethiopic" style="color: var(--sky-main); margin-bottom: 10px;">የዩቲዩብ ቻናላችንን ሰብስክራይብ ያድርጉ</h4>
-                    <p style="font-size: 13px; margin-bottom: 20px;">Subscribe to our official channel for all live transmissions and archives.</p>
-                    <a href="https://youtube.com/@YourChannel" target="_blank" style="background: var(--ethio-red); color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 11px;">SUBSCRIBE NOW</a>
+                <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                    <h4 class="ethiopic" style="color: var(--sky-main); margin-bottom: 15px;">የዩቲዩብ ቻናላችን</h4>
+                    <p style="font-size: 13px; margin-bottom: 20px;">Subscribe to stay connected with our latest services and spiritual songs.</p>
+                    <a href="https://youtube.com/@YourChannel" target="_blank" style="background: var(--ethio-red); color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 11px;">SUBSCRIBE</a>
                 </div>
             </div>
         </div>
 
         <div class="grid">
             <div class="card">
-                <span class="section-label">Upcoming Events / መጪ መርሃ ግብሮች</span>
-                <div id="eventList">
-                    <div style="padding: 20px; text-align: center; color: var(--text-soft);">Connecting to sacred calendar...</div>
-                </div>
+                <span class="section-label">Upcoming Events</span>
+                <div id="eventList"><div style="padding: 20px; text-align: center;">Loading events...</div></div>
             </div>
 
             <div class="card" style="background: linear-gradient(135deg, var(--sky-main), #005599); color: white;">
-                <span class="section-label" style="color: rgba(255,255,255,0.7);">Cathedral Building Project</span>
-                <div style="display:flex; justify-content:space-between; font-weight:800; font-size: 18px;">
-                    <span>Raised</span>
-                    <span style="color: var(--holy-gold);">$780k / $1.2M</span>
+                <span class="section-label" style="color: rgba(255,255,255,0.7);">Building Project</span>
+                <div style="display:flex; justify-content:space-between; font-weight:800;">
+                    <span>Raised</span><span>$780k / $1.2M</span>
                 </div>
-                <div class="progress-track" style="background: rgba(255,255,255,0.15);">
-                    <div class="progress-fill"></div>
-                </div>
-                <p style="font-size: 13px; opacity: 0.8;">Help us build a sanctuary for generations to come. Every contribution counts.</p>
+                <div class="progress-track" style="background: rgba(255,255,255,0.15);"><div class="progress-fill"></div></div>
+                <p style="font-size: 12px; opacity: 0.8;">Help us expand our spiritual home.</p>
             </div>
         </div>
     </div>
 
     <div id="lightbox">
         <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
-        <div class="lightbox-content-wrapper" id="zoomWrapper">
-            <div class="watermark-overlay" id="fullWatermark">© Debre Genet Winnipeg</div>
-            <img id="lightbox-img" src="" alt="Full view">
+        <div class="zoom-stage" id="zoomStage">
+            <div class="watermark">Debre Genet Winnipeg</div>
+            <img id="lightbox-img" src="" alt="Sacred Image">
         </div>
     </div>
 
     <footer style="text-align: center; padding: 60px 20px; background: var(--white);">
         <div style="font-size: 35px; color: var(--holy-gold); margin-bottom: 10px;">✥</div>
-        <p class="ethiopic" style="color: var(--sky-main); font-size: 18px;">ደብረ ገነት የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን</p>
-        <p style="font-size: 12px; color: var(--text-soft); margin-top: 10px;">353 Mountain Ave, Winnipeg, MB R2W 1J9</p>
-        <p style="font-size: 10px; margin-top: 40px; opacity: 0.4;">© 2026 Debre Genet EOTC. Peace be with you.</p>
+        <p class="ethiopic" style="color: var(--sky-main);">ደብረ ገነት የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን</p>
+        <p style="font-size: 10px; margin-top: 40px; opacity: 0.4;">© 2026 Debre Genet EOTC Winnipeg.</p>
     </footer>
 
     <nav class="mobile-nav">
@@ -375,70 +381,64 @@
     </nav>
 
     <script>
-        function toggleMenu() {
-            document.getElementById('menuOverlay').classList.toggle('active');
-        }
+        function toggleMenu() { document.getElementById('menuOverlay').classList.toggle('active'); }
 
-        /* --- MULTI-DIRECTIONAL PAN & ZOOM SCRIPT --- */
+        /* --- RESTORED ZOOM & PAN LOGIC --- */
         let scale = 1, translateX = 0, translateY = 0, isDragging = false, startX, startY;
+        const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
-        const zoomWrapper = document.getElementById('zoomWrapper');
-        const watermark = document.getElementById('fullWatermark');
+        const zoomStage = document.getElementById('zoomStage');
 
         function openLightbox(element) {
-            const imgSrc = element.querySelector('img').src;
-            lightboxImg.src = imgSrc;
-            document.getElementById('lightbox').classList.add('active');
+            lightboxImg.src = element.querySelector('img').src;
+            lightbox.classList.add('active');
             scale = 1; translateX = 0; translateY = 0;
             updateTransform();
         }
 
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-        }
+        function closeLightbox() { lightbox.classList.remove('active'); }
 
         function updateTransform() {
-            const transformStr = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-            lightboxImg.style.transform = transformStr;
-            watermark.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale}) rotate(-15deg)`;
+            lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
         }
 
-        zoomWrapper.addEventListener('wheel', (e) => {
+        // Mouse Wheel Zoom
+        zoomStage.addEventListener('wheel', (e) => {
             e.preventDefault();
             const delta = e.deltaY > 0 ? -0.3 : 0.3;
-            scale = Math.min(Math.max(1, scale + delta), 6);
+            scale = Math.min(Math.max(1, scale + delta), 5);
             if (scale === 1) { translateX = 0; translateY = 0; }
             updateTransform();
-        });
+        }, { passive: false });
 
-        function startPan(e) {
+        // Pan Logic
+        function handleStart(e) {
             if (scale > 1) {
                 isDragging = true;
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                startX = clientX - translateX;
-                startY = clientY - translateY;
+                const touch = e.touches ? e.touches[0] : e;
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
             }
         }
 
-        function movePan(e) {
+        function handleMove(e) {
             if (!isDragging) return;
             e.preventDefault();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            translateX = clientX - startX;
-            translateY = clientY - startY;
+            const touch = e.touches ? e.touches[0] : e;
+            translateX = touch.clientX - startX;
+            translateY = touch.clientY - startY;
             updateTransform();
         }
 
-        zoomWrapper.addEventListener('mousedown', startPan);
-        window.addEventListener('mousemove', movePan);
+        zoomStage.addEventListener('mousedown', handleStart);
+        window.addEventListener('mousemove', handleMove);
         window.addEventListener('mouseup', () => isDragging = false);
-        zoomWrapper.addEventListener('touchstart', startPan);
-        zoomWrapper.addEventListener('touchmove', movePan);
-        zoomWrapper.addEventListener('touchend', () => isDragging = false);
 
-        /* --- DYNAMIC NOTICES --- */
+        zoomStage.addEventListener('touchstart', handleStart, { passive: false });
+        zoomStage.addEventListener('touchmove', handleMove, { passive: false });
+        zoomStage.addEventListener('touchend', () => isDragging = false);
+
+        /* --- NOTICES --- */
         const notices = ["እንኳን ለብርሃነ ጥምቀቱ በሰላም አደረሳችሁ::", "Building Project Goal: $1.2M.", "Sunday School: Every Sunday at 10:30 AM."];
         let nIdx = 0;
         setInterval(() => {
@@ -453,7 +453,7 @@
             }
         }, 6000);
 
-        /* --- EVENT FETCHING --- */
+        /* --- GOOGLE SHEETS EVENTS --- */
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMZieFTAsbcpW9ROmJzlRuVJv34SEYx-5q-jg40his0eVg0D5Jef5x4yFJvfWizjGToIBB1Ycu2KLE/pub?output=csv";
         async function fetchEvents() {
             try {
@@ -463,12 +463,11 @@
                 const today = new Date(); today.setHours(0,0,0,0);
                 const events = rows.map(r => {
                     const c = r.split(',').map(x => x.trim().replace(/^"|"$/g, ''));
-                    if(c.length < 2) return null;
                     const d = new Date(c[0].split('-')[0], c[0].split('-')[1]-1, c[0].split('-')[2]);
                     return { date: d, title: c[1], time: c[3] };
-                }).filter(e => e && e.date >= today).sort((a,b) => a.date - b.date).slice(0, 3);
+                }).filter(e => e.date >= today).sort((a,b) => a.date - b.date).slice(0, 3);
                 
-                document.getElementById('eventList').innerHTML = events.length > 0 ? events.map(e => `
+                document.getElementById('eventList').innerHTML = events.map(e => `
                     <div class="event-item">
                         <div class="event-date">
                             <div style="font-size:10px; font-weight:800; opacity:0.5;">${e.date.toLocaleString('default', { month: 'short' }).toUpperCase()}</div>
@@ -479,8 +478,8 @@
                             <div style="font-size:11px; color:var(--holy-gold); font-weight:600;">Starts at ${e.time}</div>
                         </div>
                     </div>
-                `).join('') : "<p style='text-align:center; padding:20px;'>No upcoming events.</p>";
-            } catch(e) { document.getElementById('eventList').innerHTML = "<p>Check the calendar for details.</p>"; }
+                `).join('') || "<p>No upcoming events.</p>";
+            } catch(e) { document.getElementById('eventList').innerHTML = "<p>Please visit our calendar page.</p>"; }
         }
         fetchEvents();
     </script>
