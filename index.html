@@ -7,16 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@300;700&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --sky-bg: #f9f7f2; /* Creamy White */
-            --sky-main: #800020; /* Deep Burgundy */
-            --sky-light: #f2e6e9; /* Soft Burgundy Tint */
-            --holy-gold: #D4AF37; /* Metallic Gold */
-            --text-dark: #2C1810; /* Dark Earth */
-            --text-soft: #635049; /* Muted Taupe */
+            --sky-bg: #F8F9F5; /* Bone White / Marble */
+            --sky-main: #2E7D32; /* Royal Orthodox Green */
+            --sky-light: #E8F5E9; /* Very Pale Sage */
+            --holy-gold: #C5A021; /* Burnished Gold */
+            --text-dark: #1B2E1C; /* Deep Forest (for readability) */
+            --text-soft: #757575; 
             --white: #FFFFFF;
-            --shadow: 0 12px 40px rgba(128, 0, 32, 0.12);
-            --ethio-red: #EF3340;
-            --glass: rgba(255, 255, 255, 0.9);
+            --shadow: 0 15px 45px rgba(46, 125, 50, 0.08);
+            --ethio-red: #D32F2F; /* Liturgical Red */
+            --glass: rgba(255, 255, 255, 0.92);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -33,44 +33,45 @@
 
         /* --- NAVIGATION --- */
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: var(--glass);
+            backdrop-filter: blur(12px);
             padding: 0 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: fixed;
             top: 0; width: 100%;
-            height: 80px;
+            height: 85px;
             z-index: 1000;
-            border-bottom: 2px solid var(--holy-gold);
+            border-bottom: 3px solid var(--sky-main);
         }
 
-        .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
         .logo-circle {
-            width: 38px; height: 38px; background: var(--sky-main);
-            color: var(--holy-gold); border-radius: 50%; display: grid; place-items: center; font-size: 18px;
-            border: 1px solid var(--holy-gold);
+            width: 42px; height: 42px; background: var(--white);
+            color: var(--sky-main); border-radius: 50%; display: grid; place-items: center; 
+            font-size: 20px; border: 2px solid var(--holy-gold);
+            box-shadow: 0 4px 10px rgba(197, 160, 33, 0.2);
         }
 
-        /* Desktop Nav with Dropdowns */
-        .desktop-nav { display: none; gap: 5px; height: 100%; }
+        /* Desktop Nav */
+        .desktop-nav { display: none; gap: 8px; height: 100%; }
         .menu-item { position: relative; height: 100%; display: flex; align-items: center; }
         .menu-item > a { 
-            text-decoration: none; color: var(--sky-main); font-size: 11px; 
-            font-weight: 700; text-transform: uppercase; padding: 0 15px;
-            transition: 0.3s;
+            text-decoration: none; color: var(--text-dark); font-size: 11px; 
+            font-weight: 700; text-transform: uppercase; padding: 0 18px;
+            transition: 0.3s; letter-spacing: 1px;
         }
-        .menu-item:hover > a { color: var(--holy-gold); }
+        .menu-item:hover > a { color: var(--sky-main); }
 
         .sub-menu {
-            position: absolute; top: 80px; left: 0; background: var(--white);
-            min-width: 200px; display: none; flex-direction: column;
-            box-shadow: var(--shadow); border-top: 3px solid var(--holy-gold);
-            padding: 10px 0; border-radius: 0 0 8px 8px;
+            position: absolute; top: 85px; left: 0; background: var(--white);
+            min-width: 220px; display: none; flex-direction: column;
+            box-shadow: var(--shadow); border-top: 4px solid var(--holy-gold);
+            padding: 12px 0; border-radius: 0 0 12px 12px;
         }
         .sub-menu a {
-            color: var(--text-dark); padding: 12px 20px; text-decoration: none;
+            color: var(--text-dark); padding: 14px 24px; text-decoration: none;
             font-size: 11px; font-weight: 600; text-transform: uppercase;
             transition: 0.2s;
         }
@@ -79,117 +80,112 @@
 
         /* --- VIDEO HERO SECTION --- */
         .hero-video-container {
-            position: relative; height: 85vh; width: 100%; overflow: hidden;
-            display: flex; align-items: center; justify-content: center; background: #2b000b;
+            position: relative; height: 90vh; width: 100%; overflow: hidden;
+            display: flex; align-items: center; justify-content: center; background: #f0f0f0;
         }
 
         .video-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .video-wrapper iframe {
             width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh;
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            pointer-events: none; filter: saturate(0.7) brightness(0.7);
+            pointer-events: none; filter: saturate(1.1) brightness(1.05);
         }
 
         .hero-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(to bottom, rgba(128, 0, 32, 0.2) 0%, rgba(43, 0, 11, 0.6) 50%, var(--sky-bg) 100%);
+            background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 60%, var(--sky-bg) 100%);
             z-index: 2;
         }
 
         .hero-content {
-            position: relative; z-index: 3; text-align: center; color: var(--white);
-            padding: 20px; text-shadow: 0 2px 15px rgba(0,0,0,0.5);
+            position: relative; z-index: 3; text-align: center; color: var(--text-dark);
+            padding: 25px;
         }
 
-        .hero h1 { font-size: clamp(45px, 10vw, 90px); margin-bottom: 5px; color: var(--holy-gold); }
-        .hero p { color: var(--white); font-weight: 600; letter-spacing: 3px; font-size: 14px; opacity: 0.9; }
+        .hero h1 { font-size: clamp(48px, 12vw, 95px); margin-bottom: 8px; color: var(--sky-main); text-shadow: 2px 2px 0px var(--white); }
+        .hero p { color: var(--text-dark); font-weight: 800; letter-spacing: 4px; font-size: 15px; opacity: 0.9; }
 
         .btn-live {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: var(--ethio-red); color: white; padding: 12px 25px;
-            border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 12px;
-            margin-top: 25px; box-shadow: 0 10px 20px rgba(239, 51, 64, 0.3);
-            animation: pulse 2s infinite;
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--ethio-red); color: white; padding: 14px 32px;
+            border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 13px;
+            margin-top: 30px; box-shadow: 0 12px 25px rgba(211, 47, 47, 0.3);
+            animation: pulse 2.5s infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1); box-shadow: 0 12px 25px rgba(211, 47, 47, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 35px rgba(211, 47, 47, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 12px 25px rgba(211, 47, 47, 0.3); }
         }
 
         /* --- CONTENT CONTAINER --- */
-        .container { padding: 20px; max-width: 1100px; margin: -40px auto 60px; position: relative; z-index: 10; }
+        .container { padding: 25px; max-width: 1150px; margin: -60px auto 80px; position: relative; z-index: 10; }
         .card {
-            background: var(--white); border-radius: 24px; padding: 30px;
-            margin-bottom: 25px; box-shadow: var(--shadow);
-            border: 1px solid rgba(128, 0, 32, 0.05);
+            background: var(--white); border-radius: 28px; padding: 40px;
+            margin-bottom: 30px; box-shadow: var(--shadow);
+            border: 1px solid var(--sky-light);
         }
 
         .section-label {
-            font-size: 10px; font-weight: 800; color: var(--holy-gold);
-            letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block;
+            font-size: 11px; font-weight: 900; color: var(--holy-gold);
+            letter-spacing: 4px; text-transform: uppercase; margin-bottom: 18px; display: block;
         }
 
         /* --- GALLERY & LIGHTBOX --- */
-        .gallery-scroll-container { position: relative; margin: 15px -10px; }
+        .gallery-scroll-container { position: relative; margin: 20px -10px; }
         .gallery-grid {
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px;
-            padding: 10px; scrollbar-width: none;
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px;
+            padding: 15px; scrollbar-width: none;
         }
         .gallery-grid::-webkit-scrollbar { display: none; }
         .gallery-item {
-            flex: 0 0 180px; height: 220px; position: relative; border-radius: 18px;
-            overflow: hidden; cursor: pointer; scroll-snap-align: start; transition: 0.3s;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: 2px solid transparent;
+            flex: 0 0 200px; height: 260px; position: relative; border-radius: 22px;
+            overflow: hidden; cursor: pointer; scroll-snap-align: start; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border: 3px solid var(--white);
         }
-        .gallery-item:hover { transform: scale(1.02); border-color: var(--holy-gold); }
+        .gallery-item:hover { transform: translateY(-10px); border-color: var(--holy-gold); }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
         #lightbox {
-            position: fixed; inset: 0; background: rgba(20, 0, 5, 0.98);
-            backdrop-filter: blur(15px); display: none; justify-content: center;
-            align-items: center; z-index: 3000; overflow: hidden; touch-action: none;
+            position: fixed; inset: 0; background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px); display: none; justify-content: center;
+            align-items: center; z-index: 3000;
         }
-        #lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
-        #lightbox img { max-width: 90%; max-height: 85vh; border: 2px solid var(--holy-gold); transition: 0.1s ease-out; }
+        #lightbox.active { display: flex; animation: fadeIn 0.4s ease; }
+        #lightbox img { max-width: 90%; max-height: 80vh; border-radius: 15px; border: 5px solid var(--white); box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
 
-        /* --- MOBILE OVERLAY --- */
+        /* --- MOBILE MENU --- */
         .menu-overlay { 
-            position: fixed; inset: 0; background: var(--sky-bg); 
-            z-index: 2000; display: none; padding: 40px; flex-direction: column; 
-            overflow-y: auto;
+            position: fixed; inset: 0; background: var(--white); 
+            z-index: 2000; display: none; padding: 50px; flex-direction: column; 
+            text-align: center;
         }
         .menu-overlay.active { display: flex; }
-        .close-menu { align-self: flex-end; font-size: 32px; color: var(--sky-main); cursor: pointer; }
+        .close-menu { align-self: flex-end; font-size: 35px; color: var(--sky-main); cursor: pointer; }
         .mobile-menu-link {
-            display: block; font-size: 20px; color: var(--sky-main); 
-            text-decoration: none; margin-bottom: 15px; font-weight: 700;
-        }
-        .mobile-submenu-link {
-            display: block; font-size: 14px; color: var(--text-soft); 
-            text-decoration: none; margin: -10px 0 20px 20px; font-weight: 500;
+            display: block; font-size: 24px; color: var(--sky-main); 
+            text-decoration: none; margin-bottom: 20px; font-weight: 800;
         }
 
-        .progress-track { background: var(--sky-light); height: 12px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-        .progress-fill { height: 100%; width: 65%; background: linear-gradient(90deg, var(--sky-main), var(--holy-gold)); }
+        .progress-track { background: var(--sky-light); height: 16px; border-radius: 20px; margin: 20px 0; overflow: hidden; }
+        .progress-fill { height: 100%; width: 65%; background: linear-gradient(90deg, var(--sky-main), var(--holy-gold)); border-radius: 20px; }
         
-        .event-item { display: flex; align-items: center; gap: 15px; padding: 18px 0; border-bottom: 1px solid var(--sky-light); }
-        .event-date { text-align: center; min-width: 55px; color: var(--sky-main); }
+        .event-item { display: flex; align-items: center; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--sky-light); }
+        .event-date { text-align: center; min-width: 65px; color: var(--sky-main); }
         
-        .mobile-nav { position: fixed; bottom: 0; width: 100%; background: rgba(255,255,255,0.96); backdrop-filter: blur(15px); display: flex; justify-content: space-around; padding: 12px 0 25px; border-top: 1px solid var(--holy-gold); z-index: 1000; }
-        .nav-item { text-align: center; text-decoration: none; color: var(--text-soft); font-size: 10px; font-weight: 600; }
+        .mobile-nav { position: fixed; bottom: 0; width: 100%; background: var(--white); border-top: 2px solid var(--sky-light); display: flex; justify-content: space-around; padding: 15px 0 30px; z-index: 1000; box-shadow: 0 -10px 30px rgba(0,0,0,0.03); }
+        .nav-item { text-align: center; text-decoration: none; color: var(--text-soft); font-size: 11px; font-weight: 700; }
         .nav-item.active { color: var(--sky-main); }
-        .nav-item i { display: block; font-size: 22px; margin-bottom: 4px; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .nav-item i { display: block; font-size: 24px; margin-bottom: 5px; }
 
         @media (min-width: 1024px) {
             .desktop-nav { display: flex; }
             .mobile-only { display: none; }
-            .grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 25px; }
+            .grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; }
             body { padding-bottom: 0; }
-            .gallery-item { flex: 0 0 250px; height: 300px; }
+            .gallery-item { flex: 0 0 280px; height: 350px; }
         }
     </style>
 </head>
@@ -199,71 +195,40 @@
         <a href="index.html" class="brand">
             <div class="logo-circle">✥</div>
             <div>
-                <div class="ethiopic" style="font-size: 13px; color: var(--sky-main);">ደብረ ገነት</div>
-                <div style="font-size: 9px; font-weight: 800; color: var(--holy-gold);">WINNIPEG</div>
+                <div class="ethiopic" style="font-size: 15px; color: var(--sky-main);">ደብረ ገነት</div>
+                <div style="font-size: 10px; font-weight: 900; color: var(--holy-gold); letter-spacing: 1px;">WINNIPEG</div>
             </div>
         </a>
 
         <div class="desktop-nav">
-            <div class="menu-item">
-                <a href="index.html">Home</a>
+            <div class="menu-item"><a href="index.html">Home</a>
                 <div class="sub-menu">
                     <a href="index.html">Main Home</a>
                     <a href="clergy.html">Clergy</a>
                     <a href="services.html">Services</a>
-                    <a href="about.html">About Us</a>
-                    <a href="faith.html">Our Faith</a>
                 </div>
             </div>
-            <div class="menu-item">
-                <a href="ministry-hub.html">Ministries</a>
+            <div class="menu-item"><a href="ministry-hub.html">Ministries</a>
                 <div class="sub-menu">
-                    <a href="ministry-hub.html">Ministry Hub</a>
                     <a href="sunday-school.html">Sunday School</a>
                     <a href="abinet.html">Abinet School</a>
-                    <a href="care.html">Pastoral Care</a>
                 </div>
             </div>
-            <div class="menu-item">
-                <a href="calendar.html">Calendar</a>
-                <div class="sub-menu">
-                    <a href="calendar.html">Monthly Calendar</a>
-                    <a href="upcoming.html">Upcoming Events</a>
-                </div>
-            </div>
-            <div class="menu-item">
-                <a href="donations.html">Payments</a>
-                <div class="sub-menu">
-                    <a href="donations.html">Donations</a>
-                    <a href="building.html">Building Project</a>
-                </div>
-            </div>
+            <div class="menu-item"><a href="calendar.html">Calendar</a></div>
+            <div class="menu-item"><a href="donations.html">Donations</a></div>
             <div class="menu-item"><a href="contact.html">Contact</a></div>
         </div>
 
-        <div onclick="toggleMenu()" style="cursor:pointer; font-size: 24px; color: var(--sky-main);" class="mobile-only">☰</div>
+        <div onclick="toggleMenu()" style="cursor:pointer; font-size: 28px; color: var(--sky-main);" class="mobile-only">☰</div>
     </header>
 
     <div class="menu-overlay" id="menuOverlay">
         <div class="close-menu" onclick="toggleMenu()">✕</div>
-        <div style="margin-top: 20px;">
-            <p class="mobile-menu-link">Home</p>
-            <a href="index.html" class="mobile-submenu-link">Main Home</a>
-            <a href="clergy.html" class="mobile-submenu-link">Clergy</a>
-            <a href="services.html" class="mobile-submenu-link">Services</a>
-            
-            <p class="mobile-menu-link">Ministries</p>
-            <a href="ministry-hub.html" class="mobile-submenu-link">Ministry Hub</a>
-            <a href="sunday-school.html" class="mobile-submenu-link">Sunday School</a>
-            
-            <p class="mobile-menu-link">Calendar</p>
-            <a href="calendar.html" class="mobile-submenu-link">Monthly Calendar</a>
-            <a href="upcoming.html" class="mobile-submenu-link">Upcoming Events</a>
-
-            <p class="mobile-menu-link">Payments</p>
-            <a href="donations.html" class="mobile-submenu-link">Donations</a>
-            <a href="building.html" class="mobile-submenu-link">Building Project</a>
-
+        <div style="margin-top: 40px;">
+            <a href="index.html" class="mobile-menu-link">Home</a>
+            <a href="services.html" class="mobile-menu-link">Services</a>
+            <a href="ministry-hub.html" class="mobile-menu-link">Ministries</a>
+            <a href="donations.html" class="mobile-menu-link">Donations</a>
             <a href="contact.html" class="mobile-menu-link">Contact</a>
         </div>
     </div>
@@ -277,15 +242,15 @@
         <div class="hero-content hero">
             <h1 class="ethiopic">ደብረ ገነት</h1>
             <p>ETHIOPIAN ORTHODOX TEWAHEDO</p>
-            <div style="font-size: 11px; font-weight: 700; color: var(--white); margin-top: 8px; opacity: 0.9; letter-spacing: 1px;">ST. MARY, ST. GABRIEL, ST. ARSEMA CATHEDRAL</div>
+            <div style="font-size: 12px; font-weight: 800; color: var(--text-dark); margin-top: 12px; opacity: 0.8; letter-spacing: 2px;">ST. MARY, ST. GABRIEL, ST. ARSEMA CATHEDRAL</div>
             <a href="https://youtube.com/live" target="_blank" class="btn-live">● WATCH LIVE SERVICE</a>
         </div>
     </section>
 
     <div class="container">
-        <div class="card" style="text-align: center; border-top: 4px solid var(--holy-gold);">
+        <div class="card" style="text-align: center; border-bottom: 5px solid var(--holy-gold);">
             <span class="section-label">Notice / ማሳሰቢያ</span>
-            <h2 id="dynamic-notice" class="ethiopic" style="color: var(--sky-main); transition: 0.5s; font-size: 22px;">እንኳን በደህና መጡ::</h2>
+            <h2 id="dynamic-notice" class="ethiopic" style="color: var(--sky-main); font-size: 26px;">እንኳን በደህና መጡ::</h2>
         </div>
 
         <div class="grid">
@@ -303,33 +268,31 @@
 
             <div class="card">
                 <span class="section-label">Upcoming Events / መጪ መርሃ ግብሮች</span>
-                <div id="eventList"><div style="padding: 20px; text-align: center; color: var(--text-soft);">Connecting to sacred calendar...</div></div>
+                <div id="eventList"><div style="padding: 20px; text-align: center; color: var(--text-soft);">Connecting...</div></div>
             </div>
         </div>
 
-        <div class="card" style="background: linear-gradient(135deg, var(--sky-main), #5a0016); color: white;">
+        <div class="card" style="background: var(--sky-main); color: white;">
             <span class="section-label" style="color: var(--holy-gold);">Cathedral Building Project</span>
-            <div style="display:flex; justify-content:space-between; font-weight:800; font-size: 18px;">
+            <div style="display:flex; justify-content:space-between; font-weight:900; font-size: 22px;">
                 <span>Raised</span>
                 <span style="color: var(--holy-gold);">$780k / $1.2M</span>
             </div>
-            <div class="progress-track" style="background: rgba(255,255,255,0.15);">
+            <div class="progress-track">
                 <div class="progress-fill"></div>
             </div>
+            <p style="text-align: center; font-size: 12px; font-weight: 600; letter-spacing: 1px; opacity: 0.9;">Help us build the house of the Lord</p>
         </div>
     </div>
 
-    <div id="lightbox">
-        <span class="close-lightbox" onclick="closeLightbox()" style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;">&times;</span>
-        <div class="lightbox-content-wrapper" id="zoomWrapper">
-            <img id="lightbox-img" src="">
-        </div>
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="">
     </div>
 
-    <footer style="text-align: center; padding: 60px 20px; background: var(--white); border-top: 1px solid var(--sky-light);">
-        <div style="font-size: 35px; color: var(--holy-gold); margin-bottom: 10px;">✥</div>
-        <p class="ethiopic" style="color: var(--sky-main); font-size: 18px;">ደብረ ገነት የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን</p>
-        <p style="font-size: 12px; color: var(--text-soft); margin-top: 10px;">353 Mountain Ave, Winnipeg, MB R2W 1J9</p>
+    <footer style="text-align: center; padding: 80px 20px; background: var(--white);">
+        <div style="font-size: 40px; color: var(--holy-gold); margin-bottom: 15px;">✥</div>
+        <p class="ethiopic" style="color: var(--sky-main); font-size: 20px;">ደብረ ገነት የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን</p>
+        <p style="font-size: 13px; color: var(--text-soft); margin-top: 15px; font-weight: 600;">353 Mountain Ave, Winnipeg, MB R2W 1J9</p>
     </footer>
 
     <nav class="mobile-nav">
@@ -353,23 +316,22 @@
                 const today = new Date(); today.setHours(0,0,0,0);
                 const events = rows.map(r => {
                     const c = r.split(',').map(x => x.trim().replace(/^"|"$/g, ''));
-                    if(c.length < 2) return null;
                     const d = new Date(c[0].split('-')[0], c[0].split('-')[1]-1, c[0].split('-')[2]);
                     return { date: d, title: c[1], time: c[3] };
-                }).filter(e => e && e.date >= today).sort((a,b) => a.date - b.date).slice(0, 3);
+                }).filter(e => e.date >= today).sort((a,b) => a.date - b.date).slice(0, 3);
                 document.getElementById('eventList').innerHTML = events.map(e => `
                     <div class="event-item">
                         <div class="event-date">
-                            <div style="font-size:10px; font-weight:800; opacity:0.6;">${e.date.toLocaleString('default', { month: 'short' }).toUpperCase()}</div>
-                            <div style="font-size:22px; font-weight:900;">${e.date.getDate()}</div>
+                            <div style="font-size:11px; font-weight:900; opacity:0.6;">${e.date.toLocaleString('default', { month: 'short' }).toUpperCase()}</div>
+                            <div style="font-size:26px; font-weight:900; color:var(--holy-gold);">${e.date.getDate()}</div>
                         </div>
                         <div style="flex:1">
-                            <div style="font-size:14px; font-weight:700;">${e.title}</div>
-                            <div style="font-size:11px; color:var(--holy-gold); font-weight:600;">Starts at ${e.time}</div>
+                            <div style="font-size:15px; font-weight:800; color:var(--sky-main);">${e.title}</div>
+                            <div style="font-size:12px; color:var(--text-soft); font-weight:700;">Starts at ${e.time}</div>
                         </div>
                     </div>
                 `).join('');
-            } catch(e) { document.getElementById('eventList').innerHTML = "<p>Events loading error.</p>"; }
+            } catch(e) { document.getElementById('eventList').innerHTML = "<p>Events updating soon.</p>"; }
         }
         fetchEvents();
     </script>
