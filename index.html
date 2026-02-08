@@ -2,7 +2,7 @@
 <html lang="am">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes">
     <title>Debre Genet EOTC Winnipeg | Heavenly Sanctuary</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@300;700&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -67,39 +67,20 @@
             background: var(--church-blue);
         }
 
-        .video-wrapper {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1;
-        }
-
+        .video-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .video-wrapper iframe {
-            width: 100vw; height: 56.25vw;
-            min-height: 100vh; min-width: 177.77vh;
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            filter: saturate(0.8) brightness(0.9);
+            width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            pointer-events: none; filter: saturate(0.8) brightness(0.9);
         }
 
         .hero-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(to bottom, 
-                rgba(240, 247, 255, 0.2) 0%, 
-                rgba(0, 51, 102, 0.6) 50%, 
-                var(--sky-bg) 100%);
+            background: linear-gradient(to bottom, rgba(240, 247, 255, 0.2) 0%, rgba(0, 51, 102, 0.6) 50%, var(--sky-bg) 100%);
             z-index: 2;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            text-align: center;
-            color: var(--white);
-            padding: 20px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
+        .hero-content { position: relative; z-index: 3; text-align: center; color: var(--white); padding: 20px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
         .hero h1 { font-size: clamp(45px, 10vw, 90px); margin-bottom: 5px; }
         .hero p { color: var(--sky-light); font-weight: 600; letter-spacing: 3px; font-size: 14px; }
 
@@ -111,11 +92,7 @@
             animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
         /* --- CONTAINER --- */
         .container { padding: 20px; max-width: 1100px; margin: -40px auto 60px; position: relative; z-index: 10; }
@@ -134,102 +111,81 @@
         /* --- SACRED WINDOWS (BLUE STYLE) --- */
         .window-gallery-wrapper {
             background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
-            padding: 40px 15px;
-            border-radius: 30px;
+            padding: 40px 15px; border-radius: 30px;
             box-shadow: 0 20px 50px rgba(0, 51, 102, 0.3);
-            border: 2px solid var(--holy-gold);
-            margin-bottom: 25px;
+            border: 2px solid var(--holy-gold); margin-bottom: 25px;
         }
 
         .gallery-header-alt { text-align: center; margin-bottom: 25px; }
         .gallery-header-alt i { color: var(--holy-gold); font-size: 24px; display: block; margin-bottom: 10px; }
 
         .gallery-grid {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 20px;
-            padding: 10px 10px 30px;
-            scrollbar-width: none;
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+            gap: 20px; padding: 10px 10px 30px; scrollbar-width: none;
         }
         .gallery-grid::-webkit-scrollbar { display: none; }
 
         .gallery-item {
-            flex: 0 0 200px;
-            height: 300px;
-            position: relative;
+            flex: 0 0 200px; height: 300px; position: relative;
             border-radius: 100px 100px 15px 15px; 
-            border: 5px solid var(--church-blue);
-            outline: 2px solid var(--holy-gold);
-            overflow: hidden;
-            cursor: pointer;
-            scroll-snap-align: start;
-            transition: all 0.4s ease;
-            background: #000;
+            border: 5px solid var(--church-blue); outline: 2px solid var(--holy-gold);
+            overflow: hidden; cursor: pointer; scroll-snap-align: start; transition: 0.4s ease;
         }
-
         .gallery-item:hover { transform: translateY(-10px); outline-color: var(--white); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; user-select: none; -webkit-user-drag: none; }
-        .gallery-item:hover img { transform: scale(1.1); }
-
-        .gallery-item::after {
-            content: "✥ ZOOM VIEW";
-            position: absolute; bottom: 0; width: 100%;
-            background: rgba(0, 51, 102, 0.9); color: var(--holy-gold);
-            font-size: 9px; padding: 10px 0; text-align: center; font-weight: 800;
-            border-top: 1px solid var(--holy-gold);
-        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; user-select: none; }
 
         /* --- YOUTUBE SECTION --- */
         .video-feed-section { margin-top: 20px; margin-bottom: 40px; }
-        .video-card {
-            background: var(--white); border-radius: 24px; overflow: hidden;
-            box-shadow: var(--shadow); margin-bottom: 20px; border: 1px solid var(--sky-light);
-        }
+        .video-card { background: var(--white); border-radius: 24px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--sky-light); }
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .video-info { padding: 20px; }
 
-        /* --- LIGHTBOX & ZOOM SYSTEM --- */
+        /* --- LIGHTBOX, ZOOM & WATERMARK SYSTEM --- */
         #lightbox {
-            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.98);
-            display: none; justify-content: center; align-items: center;
-            z-index: 9999; overflow: hidden; touch-action: none;
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95);
+            display: none; z-index: 9999; overflow: hidden; touch-action: none;
         }
-        #lightbox.active { display: flex; }
-        
+        #lightbox.active { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+
         .zoom-stage {
-            position: relative; width: 100vw; height: 100vh;
+            position: relative; width: 100%; height: 100%;
             display: flex; justify-content: center; align-items: center;
-            overflow: hidden; cursor: grab;
+            overflow: hidden; touch-action: none;
         }
-        .zoom-stage:active { cursor: grabbing; }
 
         #lightbox-img {
-            max-width: 90%; max-height: 85vh;
+            max-width: 95%; max-height: 85vh;
+            transform-origin: center center;
             transition: transform 0.1s ease-out;
             user-select: none; -webkit-user-drag: none;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            z-index: 10;
         }
 
-        .watermark {
+        /* Watermark Floating ON TOP of image */
+        .watermark-overlay {
             position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-30deg);
-            color: rgba(255, 255, 255, 0.15);
-            font-size: clamp(20px, 8vw, 40px);
+            transform: translate(-50%, -50%) rotate(-25deg);
+            color: rgba(255, 255, 255, 0.25);
+            font-size: clamp(20px, 6vw, 50px);
             font-weight: 900;
             white-space: nowrap;
             pointer-events: none;
-            z-index: 10001;
+            z-index: 20; /* Ensures it is on top of image */
             text-transform: uppercase;
-            letter-spacing: 5px;
+            letter-spacing: 8px;
+            font-family: sans-serif;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
         }
 
         .close-lightbox {
-            position: absolute; top: 30px; right: 30px;
-            color: white; font-size: 35px; cursor: pointer; z-index: 10005;
-            background: rgba(255,255,255,0.1); width: 50px; height: 50px;
-            display: grid; place-items: center; border-radius: 50%;
+            position: absolute; top: 40px; right: 30px;
+            color: white; font-size: 40px; cursor: pointer; z-index: 10005;
+            text-shadow: 0 0 10px rgba(0,0,0,1);
+        }
+
+        .zoom-hint {
+            position: absolute; bottom: 30px; color: rgba(255,255,255,0.7);
+            font-size: 11px; letter-spacing: 1px; font-weight: 600; z-index: 10005;
         }
 
         /* --- PROGRESS & EVENTS --- */
@@ -280,8 +236,6 @@
         <div style="text-align: right; font-size: 30px;" onclick="toggleMenu()">✕</div>
         <nav style="margin-top: 40px; display: flex; flex-direction: column; gap: 20px;">
             <a href="index.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">መነሻ ገጽ</a>
-            <a href="clergy.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">ካህናት</a>
-            <a href="ministry-hub.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">አገልግሎቶች</a>
             <a href="calendar.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">መቁጠሪያ</a>
             <a href="donations.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">መባ ማበርከቻ</a>
             <a href="contact.html" class="ethiopic" style="font-size: 24px; text-decoration: none; color: var(--sky-main);">አድራሻ</a>
@@ -302,7 +256,7 @@
     </section>
 
     <div class="container">
-        <div class="card" style="text-align: center; border-top: 4px solid var(--sky-main);">
+        <div class="card" style="text-align: center;">
             <span class="section-label">Notice / ማሳሰቢያ</span>
             <h2 id="dynamic-notice" class="ethiopic" style="color: var(--sky-main); transition: 0.5s; font-size: 22px;">እንኳን በደህና መጡ::</h2>
         </div>
@@ -314,30 +268,26 @@
                 <h3 class="ethiopic" style="color: var(--holy-gold);">የቤተክርስቲያን ትውስታዎች</h3>
             </div>
             <div class="gallery-grid">
-                <div class="gallery-item" onclick="openLightbox(this)"><img src="group1.jpg" alt="Gallery 1"></div>
-                <div class="gallery-item" onclick="openLightbox(this)"><img src="wedding.jpg" alt="Gallery 2"></div>
-                <div class="gallery-item" onclick="openLightbox(this)"><img src="kids2.jpg" alt="Gallery 3"></div>
-                <div class="gallery-item" onclick="openLightbox(this)"><img src="kids.jpg" alt="Gallery 4"></div>
-                <div class="gallery-item" onclick="openLightbox(this)"><img src="baptism.jpg" alt="Gallery 5"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="group1.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="wedding.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="kids2.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="kids.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(this)"><img src="baptism.jpg"></div>
             </div>
         </div>
 
         <div class="video-feed-section">
-            <span class="section-label">Spiritual Nourishment / ስብከቶች</span>
+            <span class="section-label">Spiritual Media / ስብከቶች</span>
             <div class="grid">
                 <div class="video-card">
                     <div class="video-container">
                         <iframe src="https://www.youtube.com/embed/CMSl9QCcIHg" frameborder="0" allowfullscreen></iframe>
                     </div>
-                    <div class="video-info">
-                        <h4 style="font-size: 15px; margin-bottom: 5px;">Weekly Divine Teaching</h4>
-                        <p style="font-size: 12px; color: var(--text-soft);">Live from Winnipeg - Spiritual growth and hymns.</p>
-                    </div>
                 </div>
-                <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-                    <h4 class="ethiopic" style="color: var(--sky-main); margin-bottom: 15px;">የዩቲዩብ ቻናላችን</h4>
-                    <p style="font-size: 13px; margin-bottom: 20px;">Subscribe to stay connected with our latest services and spiritual songs.</p>
-                    <a href="https://youtube.com/@YourChannel" target="_blank" style="background: var(--ethio-red); color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 11px;">SUBSCRIBE</a>
+                <div class="card" style="text-align:center;">
+                    <h4 class="ethiopic" style="color: var(--sky-main); margin-bottom: 10px;">የዩቲዩብ ቻናላችን</h4>
+                    <p style="font-size: 13px; margin-bottom: 20px;">Subscribe to our channel for live services.</p>
+                    <a href="https://youtube.com" target="_blank" style="background: var(--ethio-red); color: white; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 11px;">SUBSCRIBE</a>
                 </div>
             </div>
         </div>
@@ -345,16 +295,12 @@
         <div class="grid">
             <div class="card">
                 <span class="section-label">Upcoming Events</span>
-                <div id="eventList"><div style="padding: 20px; text-align: center;">Loading events...</div></div>
+                <div id="eventList">Loading events...</div>
             </div>
-
             <div class="card" style="background: linear-gradient(135deg, var(--sky-main), #005599); color: white;">
                 <span class="section-label" style="color: rgba(255,255,255,0.7);">Building Project</span>
-                <div style="display:flex; justify-content:space-between; font-weight:800;">
-                    <span>Raised</span><span>$780k / $1.2M</span>
-                </div>
+                <div style="display:flex; justify-content:space-between; font-weight:800;"><span>Raised</span><span>$780k / $1.2M</span></div>
                 <div class="progress-track" style="background: rgba(255,255,255,0.15);"><div class="progress-fill"></div></div>
-                <p style="font-size: 12px; opacity: 0.8;">Help us expand our spiritual home.</p>
             </div>
         </div>
     </div>
@@ -362,15 +308,15 @@
     <div id="lightbox">
         <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
         <div class="zoom-stage" id="zoomStage">
-            <div class="watermark">Debre Genet Winnipeg</div>
-            <img id="lightbox-img" src="" alt="Sacred Image">
+            <div class="watermark-overlay" id="wm">DEBRE GENET WINNIPEG</div>
+            <img id="lightbox-img" src="">
         </div>
+        <div class="zoom-hint">SCROLL OR PINCH TO ZOOM • DRAG TO PAN</div>
     </div>
 
     <footer style="text-align: center; padding: 60px 20px; background: var(--white);">
-        <div style="font-size: 35px; color: var(--holy-gold); margin-bottom: 10px;">✥</div>
         <p class="ethiopic" style="color: var(--sky-main);">ደብረ ገነት የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን</p>
-        <p style="font-size: 10px; margin-top: 40px; opacity: 0.4;">© 2026 Debre Genet EOTC Winnipeg.</p>
+        <p style="font-size: 10px; margin-top: 10px; opacity: 0.4;">© 2026 Debre Genet EOTC Winnipeg.</p>
     </footer>
 
     <nav class="mobile-nav">
@@ -383,11 +329,12 @@
     <script>
         function toggleMenu() { document.getElementById('menuOverlay').classList.toggle('active'); }
 
-        /* --- RESTORED ZOOM & PAN LOGIC --- */
+        /* --- ADVANCED ZOOM & PAN ENGINE --- */
         let scale = 1, translateX = 0, translateY = 0, isDragging = false, startX, startY;
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const zoomStage = document.getElementById('zoomStage');
+        const wm = document.getElementById('wm');
 
         function openLightbox(element) {
             lightboxImg.src = element.querySelector('img').src;
@@ -399,43 +346,46 @@
         function closeLightbox() { lightbox.classList.remove('active'); }
 
         function updateTransform() {
-            lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            const transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            lightboxImg.style.transform = transform;
+            wm.style.transform = `translate(-50%, -50%) translate(${translateX*0.5}px, ${translateY*0.5}px) rotate(-25deg) scale(${1 + (scale-1)*0.2})`;
         }
 
-        // Mouse Wheel Zoom
+        // Zoom with Scroll
         zoomStage.addEventListener('wheel', (e) => {
             e.preventDefault();
-            const delta = e.deltaY > 0 ? -0.3 : 0.3;
-            scale = Math.min(Math.max(1, scale + delta), 5);
+            const factor = e.deltaY > 0 ? 0.9 : 1.1;
+            scale = Math.min(Math.max(1, scale * factor), 6);
             if (scale === 1) { translateX = 0; translateY = 0; }
             updateTransform();
         }, { passive: false });
 
-        // Pan Logic
-        function handleStart(e) {
+        // Pan Handling
+        function startPan(e) {
             if (scale > 1) {
                 isDragging = true;
-                const touch = e.touches ? e.touches[0] : e;
-                startX = touch.clientX - translateX;
-                startY = touch.clientY - translateY;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                startX = clientX - translateX;
+                startY = clientY - translateY;
             }
         }
 
-        function handleMove(e) {
+        function movePan(e) {
             if (!isDragging) return;
             e.preventDefault();
-            const touch = e.touches ? e.touches[0] : e;
-            translateX = touch.clientX - startX;
-            translateY = touch.clientY - startY;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            translateX = clientX - startX;
+            translateY = clientY - startY;
             updateTransform();
         }
 
-        zoomStage.addEventListener('mousedown', handleStart);
-        window.addEventListener('mousemove', handleMove);
+        zoomStage.addEventListener('mousedown', startPan);
+        window.addEventListener('mousemove', movePan);
         window.addEventListener('mouseup', () => isDragging = false);
-
-        zoomStage.addEventListener('touchstart', handleStart, { passive: false });
-        zoomStage.addEventListener('touchmove', handleMove, { passive: false });
+        zoomStage.addEventListener('touchstart', startPan, { passive: false });
+        zoomStage.addEventListener('touchmove', movePan, { passive: false });
         zoomStage.addEventListener('touchend', () => isDragging = false);
 
         /* --- NOTICES --- */
@@ -453,7 +403,7 @@
             }
         }, 6000);
 
-        /* --- GOOGLE SHEETS EVENTS --- */
+        /* --- FETCH EVENTS --- */
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMZieFTAsbcpW9ROmJzlRuVJv34SEYx-5q-jg40his0eVg0D5Jef5x4yFJvfWizjGToIBB1Ycu2KLE/pub?output=csv";
         async function fetchEvents() {
             try {
@@ -466,7 +416,6 @@
                     const d = new Date(c[0].split('-')[0], c[0].split('-')[1]-1, c[0].split('-')[2]);
                     return { date: d, title: c[1], time: c[3] };
                 }).filter(e => e.date >= today).sort((a,b) => a.date - b.date).slice(0, 3);
-                
                 document.getElementById('eventList').innerHTML = events.map(e => `
                     <div class="event-item">
                         <div class="event-date">
@@ -478,8 +427,8 @@
                             <div style="font-size:11px; color:var(--holy-gold); font-weight:600;">Starts at ${e.time}</div>
                         </div>
                     </div>
-                `).join('') || "<p>No upcoming events.</p>";
-            } catch(e) { document.getElementById('eventList').innerHTML = "<p>Please visit our calendar page.</p>"; }
+                `).join('') || "No upcoming events.";
+            } catch(e) { document.getElementById('eventList').innerHTML = "View calendar for details."; }
         }
         fetchEvents();
     </script>
