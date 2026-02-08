@@ -130,7 +130,7 @@
             letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block;
         }
 
-        /* --- UPDATED SCROLLABLE GALLERY --- */
+        /* --- SCROLLABLE GALLERY --- */
         .gallery-scroll-container {
             position: relative;
             margin: 15px -10px;
@@ -183,7 +183,7 @@
             user-select: none;
         }
 
-        /* Lightbox with Copyright Watermark */
+        /* --- FULLSCREEN LIGHTBOX & PAN LOGIC --- */
         #lightbox {
             position: fixed; inset: 0;
             background: rgba(10, 25, 41, 0.98);
@@ -193,7 +193,7 @@
             align-items: center;
             z-index: 3000;
             overflow: hidden;
-            touch-action: none;
+            touch-action: none; /* Disables default browser touch actions for custom zoom */
         }
 
         #lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
@@ -208,11 +208,12 @@
             cursor: grab;
         }
 
-        /* Large Copyright Overlay for Lightbox */
+        .lightbox-content-wrapper:active { cursor: grabbing; }
+
         .watermark-overlay {
             position: absolute;
             z-index: 3050;
-            color: rgba(255, 255, 255, 0.25);
+            color: rgba(255, 255, 255, 0.2);
             font-size: clamp(14px, 4vw, 24px);
             font-weight: 800;
             letter-spacing: 2px;
@@ -220,7 +221,7 @@
             text-transform: uppercase;
             text-align: center;
             width: 100%;
-            transform: rotate(-15deg);
+            transition: transform 0.1s ease-out;
         }
 
         #lightbox img {
@@ -246,43 +247,22 @@
             position: absolute; bottom: 30px; left: 50%;
             transform: translateX(-50%);
             color: rgba(255,255,255,0.7);
-            font-size: 11px; font-weight: 600; letter-spacing: 1px;
+            font-size: 10px; font-weight: 600; letter-spacing: 1px;
             z-index: 3100; pointer-events: none;
             background: rgba(0,0,0,0.4); padding: 8px 15px; border-radius: 20px;
+            text-align: center; width: 80%; max-width: 300px;
         }
 
-        /* --- PROGRESS --- */
-        .progress-track {
-            background: var(--sky-light); height: 12px; border-radius: 10px;
-            margin: 15px 0; overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%; width: 65%; background: linear-gradient(90deg, var(--sky-main), var(--holy-gold));
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-        }
-
-        /* --- EVENTS --- */
-        .event-item {
-            display: flex; align-items: center; gap: 15px;
-            padding: 18px 0; border-bottom: 1px solid var(--sky-light);
-        }
+        /* --- REMAINING STYLES --- */
+        .progress-track { background: var(--sky-light); height: 12px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
+        .progress-fill { height: 100%; width: 65%; background: linear-gradient(90deg, var(--sky-main), var(--holy-gold)); }
+        .event-item { display: flex; align-items: center; gap: 15px; padding: 18px 0; border-bottom: 1px solid var(--sky-light); }
         .event-date { text-align: center; min-width: 55px; color: var(--sky-main); }
-
-        /* --- NAVIGATION INTERFACE --- */
-        .mobile-nav {
-            position: fixed; bottom: 0; width: 100%;
-            background: rgba(255,255,255,0.96); backdrop-filter: blur(15px);
-            display: flex; justify-content: space-around;
-            padding: 12px 0 25px; border-top: 1px solid var(--sky-light); z-index: 1000;
-        }
+        .mobile-nav { position: fixed; bottom: 0; width: 100%; background: rgba(255,255,255,0.96); backdrop-filter: blur(15px); display: flex; justify-content: space-around; padding: 12px 0 25px; border-top: 1px solid var(--sky-light); z-index: 1000; }
         .nav-item { text-align: center; text-decoration: none; color: var(--text-soft); font-size: 10px; font-weight: 600; }
         .nav-item.active { color: var(--sky-main); }
         .nav-item i { display: block; font-size: 22px; margin-bottom: 4px; }
-
-        .menu-overlay {
-            position: fixed; inset: 0; background: var(--sky-bg); z-index: 2000;
-            display: none; padding: 40px; flex-direction: column;
-        }
+        .menu-overlay { position: fixed; inset: 0; background: var(--sky-bg); z-index: 2000; display: none; padding: 40px; flex-direction: column; }
         .menu-overlay.active { display: flex; }
         .close-menu { align-self: flex-end; font-size: 32px; color: var(--sky-main); }
 
@@ -297,7 +277,9 @@
         }
     </style>
 </head>
-<body oncontextmenu="return false;"> <header>
+<body oncontextmenu="return false;">
+
+    <header>
         <a href="index.html" class="brand">
             <div class="logo-circle">✥</div>
             <div>
@@ -399,7 +381,7 @@
             <div class="watermark-overlay" id="fullWatermark">© Debre Genet Winnipeg</div>
             <img id="lightbox-img" src="" alt="Full view">
         </div>
-        <div class="zoom-hint">PINCH OR MOUSEWHEEL TO ZOOM • DRAG TO PAN</div>
+        <div class="zoom-hint">PINCH/SCROLL TO ZOOM<br>CLICK & DRAG TO SEE ALL AREAS</div>
     </div>
 
     <footer style="text-align: center; padding: 60px 20px; background: var(--white);">
@@ -421,7 +403,7 @@
             document.getElementById('menuOverlay').classList.toggle('active');
         }
 
-        // --- ENHANCED LIGHTBOX ZOOM & WATERMARK LOGIC ---
+        // --- UPDATED ZOOM & MULTI-DIRECTIONAL PAN LOGIC ---
         let scale = 1, translateX = 0, translateY = 0, isDragging = false, startX, startY;
         const lightboxImg = document.getElementById('lightbox-img');
         const zoomWrapper = document.getElementById('zoomWrapper');
@@ -445,56 +427,72 @@
         }
 
         function updateTransform() {
-            // Apply transform to both image and watermark so watermark follows the scale
-            lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            const transformStr = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            lightboxImg.style.transform = transformStr;
             watermark.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale}) rotate(-15deg)`;
         }
 
+        // Mouse Scroll Zoom
         zoomWrapper.addEventListener('wheel', (e) => {
             e.preventDefault();
-            const delta = e.deltaY > 0 ? -0.2 : 0.2;
-            scale = Math.min(Math.max(1, scale + delta), 4);
-            if (scale === 1) { translateX = 0; translateY = 0; }
-            updateTransform();
+            const delta = e.deltaY > 0 ? -0.25 : 0.25;
+            const newScale = Math.min(Math.max(1, scale + delta), 5);
+            
+            if (newScale !== scale) {
+                scale = newScale;
+                if (scale === 1) { translateX = 0; translateY = 0; }
+                updateTransform();
+            }
         });
 
-        zoomWrapper.addEventListener('mousedown', (e) => {
+        // Start Dragging (Mouse & Touch)
+        function startPan(e) {
             if (scale > 1) {
                 isDragging = true;
-                startX = e.clientX - translateX;
-                startY = e.clientY - translateY;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                startX = clientX - translateX;
+                startY = clientY - translateY;
             }
-        });
+        }
 
-        window.addEventListener('mousemove', (e) => {
+        function movePan(e) {
             if (!isDragging) return;
-            translateX = e.clientX - startX;
-            translateY = e.clientY - startY;
+            e.preventDefault();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            translateX = clientX - startX;
+            translateY = clientY - startY;
             updateTransform();
-        });
+        }
 
+        zoomWrapper.addEventListener('mousedown', startPan);
+        window.addEventListener('mousemove', movePan);
         window.addEventListener('mouseup', () => isDragging = false);
 
+        // Mobile Touch (Pinch & Pan)
         let initialDist = 0;
+        zoomWrapper.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) startPan(e);
+            if (e.touches.length === 2) initialDist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+        });
+
         zoomWrapper.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 1) movePan(e);
             if (e.touches.length === 2) {
-                let dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
-                if (initialDist === 0) initialDist = dist;
-                else {
-                    let delta = dist > initialDist ? 0.05 : -0.05;
-                    scale = Math.min(Math.max(1, scale + delta), 4);
-                    updateTransform();
-                }
+                e.preventDefault();
+                const dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+                const delta = dist > initialDist ? 0.08 : -0.08;
+                scale = Math.min(Math.max(1, scale + delta), 5);
+                initialDist = dist;
+                updateTransform();
             }
         });
-        zoomWrapper.addEventListener('touchend', () => initialDist = 0);
 
-        // Dynamic Notice Text
-        const notices = [
-            "እንኳን ለብርሃነ ጥምቀቱ በሰላም አደረሳችሁ::", 
-            "Building Project Goal: $1.2M.", 
-            "Sunday School: Every Sunday at 10:30 AM."
-        ];
+        zoomWrapper.addEventListener('touchend', () => { isDragging = false; initialDist = 0; });
+
+        // Original Dynamic Notice Logic
+        const notices = ["እንኳን ለብርሃነ ጥምቀቱ በሰላም አደረሳችሁ::", "Building Project Goal: $1.2M.", "Sunday School: Every Sunday at 10:30 AM."];
         let nIdx = 0;
         setInterval(() => {
             const el = document.getElementById('dynamic-notice');
@@ -508,22 +506,19 @@
             }
         }, 6000);
 
-        // Fetching Events logic
+        // Original Fetch Events Logic
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMZieFTAsbcpW9ROmJzlRuVJv34SEYx-5q-jg40his0eVg0D5Jef5x4yFJvfWizjGToIBB1Ycu2KLE/pub?output=csv";
         async function fetchEvents() {
             try {
                 const res = await fetch(SHEET_URL);
                 const data = await res.text();
                 const rows = data.split('\n').slice(1);
-                const today = new Date();
-                today.setHours(0,0,0,0);
-
+                const today = new Date(); today.setHours(0,0,0,0);
                 const events = rows.map(r => {
                     const c = r.split(',').map(x => x.trim().replace(/^"|"$/g, ''));
                     const d = new Date(c[0].split('-')[0], c[0].split('-')[1]-1, c[0].split('-')[2]);
                     return { date: d, title: c[1], time: c[3] };
                 }).filter(e => e.date >= today).sort((a,b) => a.date - b.date).slice(0, 3);
-
                 document.getElementById('eventList').innerHTML = events.length > 0 ? events.map(e => `
                     <div class="event-item">
                         <div class="event-date">
@@ -537,9 +532,7 @@
                         <div style="color:var(--sky-main); opacity:0.3;">▶</div>
                     </div>
                 `).join('') : "<p style='text-align:center; padding:20px; font-size:12px;'>No upcoming events scheduled.</p>";
-            } catch(e) { 
-                document.getElementById('eventList').innerHTML = "<p style='text-align:center; padding:20px;'>Check the calendar page for full details.</p>"; 
-            }
+            } catch(e) { document.getElementById('eventList').innerHTML = "<p style='text-align:center; padding:20px;'>Check the calendar page for full details.</p>"; }
         }
         fetchEvents();
     </script>
