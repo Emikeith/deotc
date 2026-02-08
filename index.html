@@ -7,16 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@300;700&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --sky-bg: #F0F7FF;
-            --sky-main: #0077CC;
-            --sky-light: #E1F0FF;
-            --holy-gold: #D4AF37;
-            --text-dark: #2C3E50;
-            --text-soft: #5D6D7E;
+            --sky-bg: #f9f7f2; /* Creamy White */
+            --sky-main: #800020; /* Deep Burgundy */
+            --sky-light: #f2e6e9; /* Soft Burgundy Tint */
+            --holy-gold: #D4AF37; /* Metallic Gold */
+            --text-dark: #2C1810; /* Dark Earth */
+            --text-soft: #635049; /* Muted Taupe */
             --white: #FFFFFF;
-            --shadow: 0 12px 40px rgba(0, 119, 204, 0.12);
+            --shadow: 0 12px 40px rgba(128, 0, 32, 0.12);
             --ethio-red: #EF3340;
-            --glass: rgba(255, 255, 255, 0.8);
+            --glass: rgba(255, 255, 255, 0.9);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -33,7 +33,7 @@
 
         /* --- NAVIGATION --- */
         header {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 0 5%;
             display: flex;
@@ -43,13 +43,14 @@
             top: 0; width: 100%;
             height: 80px;
             z-index: 1000;
-            border-bottom: 1px solid var(--sky-light);
+            border-bottom: 2px solid var(--holy-gold);
         }
 
         .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
         .logo-circle {
             width: 38px; height: 38px; background: var(--sky-main);
-            color: white; border-radius: 50%; display: grid; place-items: center; font-size: 18px;
+            color: var(--holy-gold); border-radius: 50%; display: grid; place-items: center; font-size: 18px;
+            border: 1px solid var(--holy-gold);
         }
 
         /* Desktop Nav with Dropdowns */
@@ -73,35 +74,35 @@
             font-size: 11px; font-weight: 600; text-transform: uppercase;
             transition: 0.2s;
         }
-        .sub-menu a:hover { background: var(--sky-bg); color: var(--sky-main); }
+        .sub-menu a:hover { background: var(--sky-light); color: var(--sky-main); }
         .menu-item:hover .sub-menu { display: flex; }
 
         /* --- VIDEO HERO SECTION --- */
         .hero-video-container {
             position: relative; height: 85vh; width: 100%; overflow: hidden;
-            display: flex; align-items: center; justify-content: center; background: #004477;
+            display: flex; align-items: center; justify-content: center; background: #2b000b;
         }
 
         .video-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .video-wrapper iframe {
             width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh;
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            pointer-events: none; filter: saturate(0.8) brightness(0.9);
+            pointer-events: none; filter: saturate(0.7) brightness(0.7);
         }
 
         .hero-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(to bottom, rgba(240, 247, 255, 0.2) 0%, rgba(0, 119, 204, 0.4) 50%, var(--sky-bg) 100%);
+            background: linear-gradient(to bottom, rgba(128, 0, 32, 0.2) 0%, rgba(43, 0, 11, 0.6) 50%, var(--sky-bg) 100%);
             z-index: 2;
         }
 
         .hero-content {
             position: relative; z-index: 3; text-align: center; color: var(--white);
-            padding: 20px; text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            padding: 20px; text-shadow: 0 2px 15px rgba(0,0,0,0.5);
         }
 
-        .hero h1 { font-size: clamp(45px, 10vw, 90px); margin-bottom: 5px; color: var(--white); }
-        .hero p { color: var(--sky-light); font-weight: 600; letter-spacing: 3px; font-size: 14px; }
+        .hero h1 { font-size: clamp(45px, 10vw, 90px); margin-bottom: 5px; color: var(--holy-gold); }
+        .hero p { color: var(--white); font-weight: 600; letter-spacing: 3px; font-size: 14px; opacity: 0.9; }
 
         .btn-live {
             display: inline-flex; align-items: center; gap: 8px;
@@ -122,7 +123,7 @@
         .card {
             background: var(--white); border-radius: 24px; padding: 30px;
             margin-bottom: 25px; box-shadow: var(--shadow);
-            border: 1px solid rgba(0, 119, 204, 0.05);
+            border: 1px solid rgba(128, 0, 32, 0.05);
         }
 
         .section-label {
@@ -140,19 +141,18 @@
         .gallery-item {
             flex: 0 0 180px; height: 220px; position: relative; border-radius: 18px;
             overflow: hidden; cursor: pointer; scroll-snap-align: start; transition: 0.3s;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); border: 2px solid transparent;
         }
-        .gallery-item:hover { transform: scale(1.02); }
+        .gallery-item:hover { transform: scale(1.02); border-color: var(--holy-gold); }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
         #lightbox {
-            position: fixed; inset: 0; background: rgba(10, 25, 41, 0.98);
+            position: fixed; inset: 0; background: rgba(20, 0, 5, 0.98);
             backdrop-filter: blur(15px); display: none; justify-content: center;
             align-items: center; z-index: 3000; overflow: hidden; touch-action: none;
         }
         #lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
-        .lightbox-content-wrapper { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
-        #lightbox img { max-width: 90%; max-height: 85vh; border-radius: 4px; transition: 0.1s ease-out; }
+        #lightbox img { max-width: 90%; max-height: 85vh; border: 2px solid var(--holy-gold); transition: 0.1s ease-out; }
 
         /* --- MOBILE OVERLAY --- */
         .menu-overlay { 
@@ -173,10 +173,11 @@
 
         .progress-track { background: var(--sky-light); height: 12px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
         .progress-fill { height: 100%; width: 65%; background: linear-gradient(90deg, var(--sky-main), var(--holy-gold)); }
+        
         .event-item { display: flex; align-items: center; gap: 15px; padding: 18px 0; border-bottom: 1px solid var(--sky-light); }
         .event-date { text-align: center; min-width: 55px; color: var(--sky-main); }
         
-        .mobile-nav { position: fixed; bottom: 0; width: 100%; background: rgba(255,255,255,0.96); backdrop-filter: blur(15px); display: flex; justify-content: space-around; padding: 12px 0 25px; border-top: 1px solid var(--sky-light); z-index: 1000; }
+        .mobile-nav { position: fixed; bottom: 0; width: 100%; background: rgba(255,255,255,0.96); backdrop-filter: blur(15px); display: flex; justify-content: space-around; padding: 12px 0 25px; border-top: 1px solid var(--holy-gold); z-index: 1000; }
         .nav-item { text-align: center; text-decoration: none; color: var(--text-soft); font-size: 10px; font-weight: 600; }
         .nav-item.active { color: var(--sky-main); }
         .nav-item i { display: block; font-size: 22px; margin-bottom: 4px; }
@@ -282,7 +283,7 @@
     </section>
 
     <div class="container">
-        <div class="card" style="text-align: center; border-top: 4px solid var(--sky-main);">
+        <div class="card" style="text-align: center; border-top: 4px solid var(--holy-gold);">
             <span class="section-label">Notice / ማሳሰቢያ</span>
             <h2 id="dynamic-notice" class="ethiopic" style="color: var(--sky-main); transition: 0.5s; font-size: 22px;">እንኳን በደህና መጡ::</h2>
         </div>
@@ -306,8 +307,8 @@
             </div>
         </div>
 
-        <div class="card" style="background: linear-gradient(135deg, var(--sky-main), #005599); color: white;">
-            <span class="section-label" style="color: rgba(255,255,255,0.7);">Cathedral Building Project</span>
+        <div class="card" style="background: linear-gradient(135deg, var(--sky-main), #5a0016); color: white;">
+            <span class="section-label" style="color: var(--holy-gold);">Cathedral Building Project</span>
             <div style="display:flex; justify-content:space-between; font-weight:800; font-size: 18px;">
                 <span>Raised</span>
                 <span style="color: var(--holy-gold);">$780k / $1.2M</span>
@@ -319,13 +320,13 @@
     </div>
 
     <div id="lightbox">
-        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <span class="close-lightbox" onclick="closeLightbox()" style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;">&times;</span>
         <div class="lightbox-content-wrapper" id="zoomWrapper">
             <img id="lightbox-img" src="">
         </div>
     </div>
 
-    <footer style="text-align: center; padding: 60px 20px; background: var(--white);">
+    <footer style="text-align: center; padding: 60px 20px; background: var(--white); border-top: 1px solid var(--sky-light);">
         <div style="font-size: 35px; color: var(--holy-gold); margin-bottom: 10px;">✥</div>
         <p class="ethiopic" style="color: var(--sky-main); font-size: 18px;">ደብረ ገነት የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን</p>
         <p style="font-size: 12px; color: var(--text-soft); margin-top: 10px;">353 Mountain Ave, Winnipeg, MB R2W 1J9</p>
@@ -352,13 +353,14 @@
                 const today = new Date(); today.setHours(0,0,0,0);
                 const events = rows.map(r => {
                     const c = r.split(',').map(x => x.trim().replace(/^"|"$/g, ''));
+                    if(c.length < 2) return null;
                     const d = new Date(c[0].split('-')[0], c[0].split('-')[1]-1, c[0].split('-')[2]);
                     return { date: d, title: c[1], time: c[3] };
-                }).filter(e => e.date >= today).sort((a,b) => a.date - b.date).slice(0, 3);
+                }).filter(e => e && e.date >= today).sort((a,b) => a.date - b.date).slice(0, 3);
                 document.getElementById('eventList').innerHTML = events.map(e => `
                     <div class="event-item">
                         <div class="event-date">
-                            <div style="font-size:10px; font-weight:800; opacity:0.5;">${e.date.toLocaleString('default', { month: 'short' }).toUpperCase()}</div>
+                            <div style="font-size:10px; font-weight:800; opacity:0.6;">${e.date.toLocaleString('default', { month: 'short' }).toUpperCase()}</div>
                             <div style="font-size:22px; font-weight:900;">${e.date.getDate()}</div>
                         </div>
                         <div style="flex:1">
