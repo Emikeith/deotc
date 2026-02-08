@@ -130,68 +130,100 @@
             letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; display: block;
         }
 
-        /* --- NEW MODERN GALLERY GRID --- */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 12px;
-            margin-top: 15px;
+        /* --- UPDATED SCROLLABLE GALLERY --- */
+        .gallery-scroll-container {
+            position: relative;
+            margin: 15px -10px;
         }
 
+        .gallery-grid {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 15px;
+            padding: 10px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+
+        .gallery-grid::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
         .gallery-item {
+            flex: 0 0 180px;
+            height: 220px;
             position: relative;
-            border-radius: 15px;
+            border-radius: 18px;
             overflow: hidden;
-            aspect-ratio: 1/1;
             cursor: pointer;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            scroll-snap-align: start;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
         .gallery-item:hover {
-            transform: scale(1.03) translateY(-5px);
-            z-index: 2;
+            transform: scale(1.02);
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: filter 0.3s ease;
         }
 
-        .gallery-item:hover img {
-            filter: brightness(1.1);
-        }
-
-        /* Fullscreen Lightbox */
+        /* Lightbox - UPDATED FOR ZOOM */
         #lightbox {
             position: fixed; inset: 0;
-            background: rgba(10, 25, 41, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 25, 41, 0.98);
+            backdrop-filter: blur(15px);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 3000;
-            padding: 20px;
+            overflow: hidden;
+            touch-action: none;
         }
 
         #lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
 
+        .lightbox-content-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: grab;
+        }
+
+        .lightbox-content-wrapper:active { cursor: grabbing; }
+
         #lightbox img {
-            max-width: 100%;
-            max-height: 80vh;
-            border-radius: 10px;
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 4px;
             box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            border: 3px solid var(--white);
+            transition: transform 0.1s ease-out;
+            transform-origin: center;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         .close-lightbox {
-            position: absolute; top: 30px; right: 30px;
-            color: white; font-size: 40px; cursor: pointer;
+            position: absolute; top: 25px; right: 25px;
+            color: white; font-size: 35px; cursor: pointer;
+            z-index: 3100; background: rgba(0,0,0,0.3);
+            width: 45px; height: 45px; display: grid; place-items: center;
+            border-radius: 50%;
         }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .zoom-hint {
+            position: absolute; bottom: 30px; left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 11px; font-weight: 600; letter-spacing: 1px;
+            z-index: 3100; pointer-events: none;
+            background: rgba(0,0,0,0.4); padding: 8px 15px; border-radius: 20px;
+        }
 
         /* --- PROGRESS --- */
         .progress-track {
@@ -228,12 +260,14 @@
         .menu-overlay.active { display: flex; }
         .close-menu { align-self: flex-end; font-size: 32px; color: var(--sky-main); }
 
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         @media (min-width: 1024px) {
             .desktop-nav { display: flex; }
             .mobile-only { display: none; }
             .grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 25px; }
             body { padding-bottom: 0; }
-            .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+            .gallery-item { flex: 0 0 250px; height: 300px; }
         }
     </style>
 </head>
@@ -294,16 +328,18 @@
         <div class="grid">
             <div class="card">
                 <span class="section-label">Sacred Gallery / የፎቶ መዝገብ</span>
-                <p style="font-size: 13px; color: var(--text-soft); margin-bottom: 10px;">Glimpses of our spiritual journey and community.</p>
+                <p style="font-size: 13px; color: var(--text-soft); margin-bottom: 10px;">Glimpses of our spiritual journey. Scroll left & right to view more.</p>
                 
-                <div class="gallery-grid">
-                    <div class="gallery-item" onclick="openLightbox(this)"><img src="group1.jpg" alt="Timket"></div>
-                    <div class="gallery-item" onclick="openLightbox(this)"><img src="wedding.jpg" alt="Sacrament"></div>
-                    <div class="gallery-item" onclick="openLightbox(this)"><img src="kids2.jpg" alt="Sunday School"></div>
-                    <div class="gallery-item" onclick="openLightbox(this)"><img src="kids.jpg" alt="Children"></div>
-                    <div class="gallery-item" onclick="openLightbox(this)"><img src="baptism.jpg" alt="Baptism"></div>
-                    <div class="gallery-item" onclick="openLightbox(this)"><img src="group.jpg" alt="Community"></div>
+                <div class="gallery-scroll-container">
+                    <div class="gallery-grid" id="galleryGrid">
+                        <div class="gallery-item" onclick="openLightbox(this)"><img src="group1.jpg" alt="Timket"></div>
+                        <div class="gallery-item" onclick="openLightbox(this)"><img src="wedding.jpg" alt="Sacrament"></div>
+                        <div class="gallery-item" onclick="openLightbox(this)"><img src="kids2.jpg" alt="Sunday School"></div>
+                        <div class="gallery-item" onclick="openLightbox(this)"><img src="kids.jpg" alt="Children"></div>
+                        <div class="gallery-item" onclick="openLightbox(this)"><img src="baptism.jpg" alt="Baptism"></div>
+                        <div class="gallery-item" onclick="openLightbox(this)"><img src="group.jpg" alt="Community"></div>
                     </div>
+                </div>
 
                 <div style="margin-top: 20px; display: flex; align-items: center; gap: 10px;">
                     <div style="flex: 1; height: 1px; background: var(--sky-light);"></div>
@@ -333,9 +369,12 @@
         </div>
     </div>
 
-    <div id="lightbox" onclick="closeLightbox()">
-        <span class="close-lightbox">&times;</span>
-        <img id="lightbox-img" src="">
+    <div id="lightbox">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-content-wrapper" id="zoomWrapper">
+            <img id="lightbox-img" src="" alt="Full view">
+        </div>
+        <div class="zoom-hint">PINCH OR MOUSEWHEEL TO ZOOM • DRAG TO PAN</div>
     </div>
 
     <footer style="text-align: center; padding: 60px 20px; background: var(--white);">
@@ -357,18 +396,76 @@
             document.getElementById('menuOverlay').classList.toggle('active');
         }
 
-        // Lightbox Logic
+        // --- ENHANCED LIGHTBOX ZOOM LOGIC ---
+        let scale = 1, translateX = 0, translateY = 0, isDragging = false, startX, startY;
+        const lightboxImg = document.getElementById('lightbox-img');
+        const zoomWrapper = document.getElementById('zoomWrapper');
+
         function openLightbox(element) {
             const imgSrc = element.querySelector('img').src;
-            document.getElementById('lightbox-img').src = imgSrc;
+            lightboxImg.src = imgSrc;
             document.getElementById('lightbox').classList.add('active');
+            resetZoom();
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
+            resetZoom();
         }
 
-        // Dynamic Notice Text
+        function resetZoom() {
+            scale = 1; translateX = 0; translateY = 0;
+            updateTransform();
+        }
+
+        function updateTransform() {
+            lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+        }
+
+        // Mouse Wheel Zoom
+        zoomWrapper.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -0.2 : 0.2;
+            scale = Math.min(Math.max(1, scale + delta), 4);
+            if (scale === 1) { translateX = 0; translateY = 0; }
+            updateTransform();
+        });
+
+        // Drag/Pan Logic
+        zoomWrapper.addEventListener('mousedown', (e) => {
+            if (scale > 1) {
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+            }
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', () => isDragging = false);
+
+        // Simple Touch Pinch-to-Zoom handling (Mobile)
+        let initialDist = 0;
+        zoomWrapper.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 2) {
+                let dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+                if (initialDist === 0) initialDist = dist;
+                else {
+                    let delta = dist > initialDist ? 0.05 : -0.05;
+                    scale = Math.min(Math.max(1, scale + delta), 4);
+                    updateTransform();
+                }
+            }
+        });
+        zoomWrapper.addEventListener('touchend', () => initialDist = 0);
+
+
+        // --- DYNAMIC CONTENT LOGIC (Original) ---
         const notices = [
             "እንኳን ለብርሃነ ጥምቀቱ በሰላም አደረሳችሁ::", 
             "Building Project Goal: $1.2M.", 
@@ -387,7 +484,6 @@
             }
         }, 6000);
 
-        // Fetching Events logic
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMZieFTAsbcpW9ROmJzlRuVJv34SEYx-5q-jg40his0eVg0D5Jef5x4yFJvfWizjGToIBB1Ycu2KLE/pub?output=csv";
         async function fetchEvents() {
             try {
